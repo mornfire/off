@@ -22,12 +22,12 @@
     <meta name="description" content="应用与工具Mornfrost Office 的非模组项目：应用、工具与网站。  MFoC Station信息站客户端 · Kotlin Multiplatform + Compose Multiplatform 独立于游戏运行的外部应用，可以查看状态、公告、模组列表与常用入口。  一套代码同时构建 Android 与 Windows 桌面应用   MFoC Station DesktopWindo">
 <meta property="og:type" content="website">
 <meta property="og:title" content="应用与工具">
-<meta property="og:url" content="https://off.mfoc-server.top/work/normal/index.html">
+<meta property="og:url" content="https://www.mornfrost.cn/work/normal/index.html">
 <meta property="og:site_name" content="Mornfrost Office">
 <meta property="og:description" content="应用与工具Mornfrost Office 的非模组项目：应用、工具与网站。  MFoC Station信息站客户端 · Kotlin Multiplatform + Compose Multiplatform 独立于游戏运行的外部应用，可以查看状态、公告、模组列表与常用入口。  一套代码同时构建 Android 与 Windows 桌面应用   MFoC Station DesktopWindo">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-09-19T07:37:43.330Z">
-<meta property="article:modified_time" content="2026-09-19T07:37:43.326Z">
+<meta property="article:published_time" content="2026-10-11T11:44:40.317Z">
+<meta property="article:modified_time" content="2026-10-11T11:44:40.311Z">
 <meta property="article:author" content="Mornfire">
 <meta property="article:tag" content="设计, 开发, 创意, 工作室">
 <meta name="twitter:card" content="summary_large_image">
@@ -66,7 +66,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"off.mfoc-server.top","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#7CB342","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"www.mornfrost.cn","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#7CB342","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -384,6 +384,25 @@
 <ul>
 <li>监听玩家切换维度的数据包，按维度把玩家转发到 <code>main</code> &#x2F; <code>other</code> 两个后端之一</li>
 <li>支持跨后端维度分流的代理拓扑</li>
+</ul>
+<hr>
+<h2 id="serverbackup"><a href="#serverbackup" class="headerlink" title="serverbackup"></a>serverbackup</h2><p>服务器定时备份工具 · Windows 原生 exe · v1.1.0</p>
+<p>给 Minecraft 服务器写的自动备份程序，纯 Windows 原生实现，不需要额外运行库。</p>
+<ul>
+<li>定时自动备份：先把存档复制到安全位置，再压缩归档</li>
+<li>内置 7-Zip 压缩引擎，零外部依赖</li>
+<li>两个程序：命令行守护进程负责定时调度，图形版「立即备份」用于手动触发</li>
+<li>可与定时关服工具联动，组成「关服 → 备份 → 开服」的自动链路</li>
+</ul>
+<hr>
+<h2 id="autoclose"><a href="#autoclose" class="headerlink" title="autoclose"></a>autoclose</h2><p>定时关进程工具 · Windows 原生 exe · v1.0.0</p>
+<p>服务器运维用的定时关服小工具。</p>
+<ul>
+<li>到点自动关闭指定进程</li>
+<li>两种关闭方式：礼貌关闭（发送 Ctrl+Break，让服务端先把存档写完）与强制结束</li>
+<li>关键进程保护，避免误关导致事故</li>
+<li>图形设置界面：进程列表与配置文件双向同步</li>
+<li>与 serverbackup 搭配使用：到点关服，备份完成后再重新开服</li>
 </ul>
 <hr>
 <h2 id="MFoC-文档站"><a href="#MFoC-文档站" class="headerlink" title="MFoC 文档站"></a>MFoC 文档站</h2><p>Hexo + Fluid 建站项目 · 主题配置 · 内容架构</p>
