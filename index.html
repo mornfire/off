@@ -1,482 +1,209 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-
-  <link rel="apple-touch-icon" sizes="76x76" href="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEZSKVqgfElYc7y4Y78Ec09EiSotJm22wAC2CcAAnYcEVRmVwABUQABcC2JPQQ.png">
-  <link rel="icon" href="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEZSKVqgfElYc7y4Y78Ec09EiSotJm22wAC2CcAAnYcEVRmVwABUQABcC2JPQQ.png">
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#16213e">
-  <meta name="author" content="Mornfire">
-  <meta name="keywords" content="设计, 开发, 创意, 工作室">
-  
-    <meta name="description" content="Mornfrost Office一间小工作室。 主力是 Minecraft 模组开发，前前后后写了十几个；也做应用和工具、建网站、接设计的活。团队还在找人，欢迎来聊。 了解更多">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mornfrost Office</title>
+<meta name="description" content="Mornfrost Office —— 设计 · 开发 · 创意。Minecraft 模组、应用工具与网站。">
+<link rel="canonical" href="https://www.mornfrost.cn/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Mornfrost Office">
-<meta property="og:url" content="https://www.mornfrost.cn/index.html">
 <meta property="og:site_name" content="Mornfrost Office">
-<meta property="og:description" content="Mornfrost Office一间小工作室。 主力是 Minecraft 模组开发，前前后后写了十几个；也做应用和工具、建网站、接设计的活。团队还在找人，欢迎来聊。 了解更多">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-09-19T07:37:23.149Z">
-<meta property="article:modified_time" content="2026-09-19T07:37:23.138Z">
-<meta property="article:author" content="Mornfire">
-<meta property="article:tag" content="设计, 开发, 创意, 工作室">
-<meta name="twitter:card" content="summary_large_image">
-  
-  
-  
-  <title>Mornfrost Office - Mornfrost Office</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
-
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"www.mornfrost.cn","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#7CB342","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
-
-
-  
-<meta name="generator" content="Hexo 8.1.2"></head>
-
-
-<body>
-  
-
-  <header>
-    
-
-<div class="header-inner" style="height: 60vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>Mornfrost Office</strong>
+<meta property="og:title" content="Mornfrost Office">
+<meta property="og:description" content="Mornfrost Office —— 设计 · 开发 · 创意。Minecraft 模组、应用工具与网站。">
+<meta property="og:url" content="https://www.mornfrost.cn/">
+<meta name="theme-color" content="#0a0c0b">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<script>document.documentElement.className += " js";</script>
+<link rel="stylesheet" href="/assets/style.css">
+<script defer src="/assets/app.js"></script>
+</head>
+<body class="page-home" id="top">
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="Mornfrost Office 首页">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span class="brand-name">MORNFROST<span class="brand-thin"> OFFICE</span></span>
     </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
+    <nav class="nav" id="nav" aria-label="主导航">
+      <a class="nav-link" href="/works/">作品</a>
+      <a class="nav-link" href="/about/">关于</a>
+      <a class="nav-link" href="/services/">服务</a>
+      <a class="nav-link" href="/team/">团队</a>
+      <a class="nav-link nav-cta" href="/contact/">联系</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span>
     </button>
+  </div>
+</header>
 
-    <!-- Collapsible content (desktop) -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-about"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/services/" target="_self">
-                <i class="iconfont icon-service"></i>
-                <span>服务</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/works/" target="_self">
-                <i class="iconfont icon-work"></i>
-                <span>作品</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/team/" target="_self">
-                <i class="iconfont icon-team"></i>
-                <span>团队</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/contact/" target="_self">
-                <i class="iconfont icon-contact"></i>
-                <span>联系</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
+<main id="main">
+  <section class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <p class="eyebrow hero-eyebrow" data-reveal>MORNFROST OFFICE — 独立工作室</p>
+      <h1 class="hero-title" data-reveal>模组、工具，<br>和网站。</h1>
+      <p class="hero-sub" data-reveal>主力是 Minecraft 模组开发，也做应用和工具、建网站、接设计。<br>不追风口，只做能用的东西。</p>
+      <div class="hero-actions" data-reveal>
+        <a class="btn btn-solid" href="/works/">查看作品<span aria-hidden="true">→</span></a>
+        <a class="btn" href="/contact/">联系我们</a>
+      </div>
+      <aside class="hero-side" data-reveal>
+        <div class="hero-side-row"><span class="mono">正在做</span><span>Ymondf · 月神 v0.3.0-beta</span></div>
+        <div class="hero-side-row"><span class="mono">最近发布</span><span>Mornfrost Achievements v5.1.0</span></div>
+        <div class="hero-side-row"><span class="mono">在找</span><span>模组开发 / 前后端 / 设计</span></div>
+      </aside>
+      <div class="hero-facts" data-reveal>
+        <div class="fact"><span class="fact-num">24</span><span class="fact-label">个模组项目</span></div>
+        <div class="fact"><span class="fact-num">9</span><span class="fact-label">个应用与工具</span></div>
+        <div class="fact"><span class="fact-num">1.21.1</span><span class="fact-label">NeoForge 主阵地</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>NeoForge</span><span>·</span><span>Fabric</span><span>·</span><span>Forge</span><span>·</span><span>模组开发</span><span>·</span><span>服务端工具</span><span>·</span><span>网站</span><span>·</span><span>设计</span><span>·</span>
+      <span>NeoForge</span><span>·</span><span>Fabric</span><span>·</span><span>Forge</span><span>·</span><span>模组开发</span><span>·</span><span>服务端工具</span><span>·</span><span>网站</span><span>·</span><span>设计</span><span>·</span>
     </div>
   </div>
-</nav>
 
-<!-- Mobile grid menu overlay -->
-<div id="mobile-grid-menu" class="d-lg-none">
-  <div class="mobile-grid-menu-inner">
+  <section class="section" id="selected">
     <div class="container">
-      <div class="row">
-        
-          
-          
-          
-          
-            <div class="col-4 mobile-grid-cell">
-              <a href="/" target="_self">
-                <div class="mobile-grid-item">
-                  <i class="iconfont icon-home-fill"></i>
-                  <span>首页</span>
-                </div>
-              </a>
-            </div>
-          
-        
-          
-          
-          
-          
-            <div class="col-4 mobile-grid-cell">
-              <a href="/about/" target="_self">
-                <div class="mobile-grid-item">
-                  <i class="iconfont icon-about"></i>
-                  <span>关于</span>
-                </div>
-              </a>
-            </div>
-          
-        
-          
-          
-          
-          
-            <div class="col-4 mobile-grid-cell">
-              <a href="/services/" target="_self">
-                <div class="mobile-grid-item">
-                  <i class="iconfont icon-service"></i>
-                  <span>服务</span>
-                </div>
-              </a>
-            </div>
-          
-        
-          
-          
-          
-          
-            <div class="col-4 mobile-grid-cell">
-              <a href="/works/" target="_self">
-                <div class="mobile-grid-item">
-                  <i class="iconfont icon-work"></i>
-                  <span>作品</span>
-                </div>
-              </a>
-            </div>
-          
-        
-          
-          
-          
-          
-            <div class="col-4 mobile-grid-cell">
-              <a href="/team/" target="_self">
-                <div class="mobile-grid-item">
-                  <i class="iconfont icon-team"></i>
-                  <span>团队</span>
-                </div>
-              </a>
-            </div>
-          
-        
-          
-          
-          
-          
-            <div class="col-4 mobile-grid-cell">
-              <a href="/contact/" target="_self">
-                <div class="mobile-grid-item">
-                  <i class="iconfont icon-contact"></i>
-                  <span>联系</span>
-                </div>
-              </a>
-            </div>
-          
-        
-        
-          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
-            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <div class="mobile-grid-item">
-                <i class="iconfont icon-search"></i>
-                <span>搜索</span>
-              </div>
-            </a>
-          </div>
-        
-        
-          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
-               data-label-light="开灯"
-               data-label-dark="关灯">
-            <a href="javascript:;" aria-label="Color Toggle">
-              <div class="mobile-grid-item">
-                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
-                <span id="mobile-color-toggle-label">关灯</span>
-              </div>
-            </a>
-          </div>
-        
-      </div>
-    </div>
+      <div class="section-head" data-reveal>
+  <span class="section-num">01</span>
+  <div>
+    <p class="eyebrow">精选</p>
+    <h2 class="section-title">最近在做的</h2>
+    
   </div>
 </div>
-
-  
-
-<div id="banner" class="banner" parallax=true
-     style="background: url('https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEZSKpqgfLvS_ZbMIWdhJLVzqcoL_3XbwAC4ScAAnYcEVSjweqAs2lvgT0E.png') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="Mornfrost Office"></span>
-          
-        </div>
-
-        
-      </div>
-
-      
-    </div>
-  </div>
-</div>
-
-
-
-</div>
-
-  </header>
-
-  <main>
-    
-      <div class="container nopadding-x-md">
-        <div id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<article class="page-content">
-  <h1 id="Mornfrost-Office"><a href="#Mornfrost-Office" class="headerlink" title="Mornfrost Office"></a>Mornfrost Office</h1><p>一间小工作室。</p>
-<p>主力是 Minecraft 模组开发，前前后后写了十几个；也做应用和工具、建网站、接设计的活。团队还在找人，欢迎来聊。</p>
-<p><a href="/about/">了解更多</a></p>
-
-
-  
-
-</article>
-
-
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      <div class="feat-grid">
+      <a class="feat-card" href="/work/mcmod/#achievements" data-reveal>
+        <span class="feat-index">01</span>
+        <h3>Mornfrost Achievements</h3>
+        <p class="feat-meta">多平台 · v5.1.0</p>
+        <p class="feat-desc">300+ 条整活成就，从正经挑战到网络梗全覆盖。</p>
+        <span class="feat-arrow" aria-hidden="true">↗</span>
       </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <a class="feat-card" href="/work/mcmod/#soulglyph" data-reveal>
+        <span class="feat-index">02</span>
+        <h3>SoulGlyph 灵铭</h3>
+        <p class="feat-meta">NeoForge 1.21.1 · v1.0.0</p>
+        <p class="feat-desc">42 条基础铭文融合出 903 种搭配的饰品系统。</p>
+        <span class="feat-arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="feat-card" href="/work/mcmod/#ymondf" data-reveal>
+        <span class="feat-index">03</span>
+        <h3>Ymondf · 月神</h3>
+        <p class="feat-meta">NeoForge 1.21.1 · v0.3.0-beta</p>
+        <p class="feat-desc">叙事冒险：档案袋、月相竞技场与四段大招过场。</p>
+        <span class="feat-arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="feat-card" href="/work/mcmod/#echoes" data-reveal>
+        <span class="feat-index">04</span>
+        <h3>Echoes of the Unbound</h3>
+        <p class="feat-meta">NeoForge 1.21.1 · v1.0.0</p>
+        <p class="feat-desc">五个破碎维度与一条以告别写成的主线。</p>
+        <span class="feat-arrow" aria-hidden="true">↗</span>
+      </a>
       </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
+      <div class="section-more" data-reveal>
+        <a class="link-more" href="/works/">全部作品 <span aria-hidden="true">→</span></a>
       </div>
     </div>
+  </section>
+
+  <section class="section section-split" id="capabilities">
+    <div class="container">
+      <div class="section-head" data-reveal>
+  <span class="section-num">02</span>
+  <div>
+    <p class="eyebrow">能力</p>
+    <h2 class="section-title">能做的事</h2>
+    
   </div>
 </div>
-
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-      © 2026 Mornfrost Office All rights reserved.
+      <div class="cap-grid">
+      <div class="cap" data-reveal>
+        <span class="cap-num">01</span>
+        <h3>模组开发</h3>
+        <p>NeoForge 1.21.1 为主，内容扩展、服务端管理、定制附属，按需求从零写。</p>
+      </div>
+      <div class="cap" data-reveal>
+        <span class="cap-num">02</span>
+        <h3>服务端工具</h3>
+        <p>备份、定时关服、反矿透这类运维小工具，Windows 原生、零依赖。</p>
+      </div>
+      <div class="cap" data-reveal>
+        <span class="cap-num">03</span>
+        <h3>网站</h3>
+        <p>静态站、文档站、信息站客户端，本站就是自己做的。</p>
+      </div>
+      <div class="cap" data-reveal>
+        <span class="cap-num">04</span>
+        <h3>设计</h3>
+        <p>Logo、海报、周边、界面 UI。</p>
+      </div>
+      </div>
     </div>
-  
-  
-  
-</div>
+  </section>
 
-  </footer>
+  <section class="section" id="about-teaser">
+    <div class="container about-teaser">
+      <div class="about-teaser-copy" data-reveal>
+        <p class="eyebrow">关于</p>
+        <h2 class="section-title">一个人发起的小工作室，<br>正在找人。</h2>
+        <p>主力方向是 Minecraft 模组开发：成就、武器、维度剧情、服务端管理工具，前前后后写了二十多个，基本都是 NeoForge 1.21.1。除此之外也做应用和工具，以及网站和设计。</p>
+        <a class="link-more" href="/about/">了解更多 <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="about-teaser-side" data-reveal>
+        <div class="stat-line"><span>模组项目</span><span>24</span></div>
+        <div class="stat-line"><span>平台</span><span>NeoForge / Fabric / Forge</span></div>
+        <div class="stat-line"><span>主要版本</span><span>1.21.1 · 1.20.1</span></div>
+        <div class="stat-line"><span>在找</span><span>模组开发 / 前后端 / 设计</span></div>
+      </div>
+    </div>
+  </section>
 
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
+  <section class="section cta-section">
+    <div class="container cta">
+      <div data-reveal>
+        <p class="eyebrow">合作</p>
+        <h2 class="section-title">有项目想聊聊？</h2>
+        <p class="cta-sub">模组定制、服务器技术支持、网站与设计，都可以直接发邮件。</p>
+      </div>
+      <a class="btn btn-solid btn-lg" href="mailto:admin@mfoc-server.top" data-reveal>admin@mfoc-server.top</a>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col footer-about">
+        <div class="footer-brand">MORNFROST OFFICE</div>
+        <p>设计 · 开发 · 创意。做 Minecraft 模组、应用工具和网站。</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-label">站点</div>
+        <a href="/works/">作品</a>
+        <a href="/about/">关于</a>
+        <a href="/services/">服务</a>
+        <a href="/team/">团队</a>
+        <a href="/contact/">联系</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-label">联系方式</div>
+        <a href="mailto:admin@mfoc-server.top">admin@mfoc-server.top</a>
+        <a href="https://github.com/mornfire" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> Mornfrost Office</span>
+      <span class="footer-note">手写 HTML / CSS，无框架</span>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
