@@ -4,33 +4,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Minecraft 模组 — Mornfrost Office</title>
-<meta name="description" content="Mornfrost Office 的 Minecraft 模组作品：内容扩展、服务端工具、移植与附属。">
-<link rel="canonical" href="https://www.mornfrost.cnwork/mcmod/">
+<meta name="description" content="Mornfrost Office 的 Minecraft 模组：内容、服务端工具、移植与附属。">
+<link rel="canonical" href="https://www.mornfrost.cn/work/mcmod/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Mornfrost Office">
 <meta property="og:title" content="Minecraft 模组 — Mornfrost Office">
-<meta property="og:description" content="Mornfrost Office 的 Minecraft 模组作品：内容扩展、服务端工具、移植与附属。">
-<meta property="og:url" content="https://www.mornfrost.cnwork/mcmod/">
-<meta name="theme-color" content="#0a0c0b">
+<meta property="og:description" content="Mornfrost Office 的 Minecraft 模组：内容、服务端工具、移植与附属。">
+<meta property="og:url" content="https://www.mornfrost.cn/work/mcmod/">
+<meta name="theme-color" content="#0f171b">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <script>document.documentElement.className += " js";</script>
 <link rel="stylesheet" href="/assets/style.css">
 <script defer src="/assets/app.js"></script>
 </head>
-<body id="top">
+<body>
 <a class="skip" href="#main">跳到正文</a>
 <header class="site-header" id="siteHeader">
-  <div class="container header-inner">
+  <div class="wrap header-inner">
     <a class="brand" href="/" aria-label="Mornfrost Office 首页">
-      <span class="brand-mark" aria-hidden="true">M</span>
-      <span class="brand-name">MORNFROST<span class="brand-thin"> OFFICE</span></span>
+      <span class="brand-name">Mornfrost</span>
+      <span class="brand-sub">Office</span>
     </a>
     <nav class="nav" id="nav" aria-label="主导航">
       <a class="nav-link" href="/works/">作品</a>
       <a class="nav-link" href="/about/">关于</a>
       <a class="nav-link" href="/services/">服务</a>
       <a class="nav-link" href="/team/">团队</a>
-      <a class="nav-link nav-cta" href="/contact/">联系</a>
+      <a class="nav-link" href="/contact/">联系</a>
     </nav>
     <button class="nav-toggle" id="navToggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="nav">
       <span></span><span></span>
@@ -40,349 +40,178 @@
 
 <main id="main">
 <section class="page-head">
-  <div class="container">
-    <p class="eyebrow" data-reveal>作品 / 模组</p>
+  <div class="wrap">
+    <p class="eyebrow page-kicker" data-reveal>作品 / 模组</p>
     <h1 class="page-title" data-reveal>Minecraft 模组</h1>
     <p class="page-lead" data-reveal>以 NeoForge 1.21.1 为主阵地，也有 Fabric 与 Forge 的版本和多平台移植。</p>
   </div>
 </section>
-  <section class="section section-tight">
-    <div class="container">
-      <div class="toolbar" data-reveal>
-        <div class="chips" role="group" aria-label="按类别筛选"><button class="chip is-active" type="button" data-filter="all">全部</button><button class="chip" type="button" data-filter="content">内容扩展</button><button class="chip" type="button" data-filter="server">服务端</button><button class="chip" type="button" data-filter="port">移植与附属</button><button class="chip" type="button" data-filter="lib">前置与修复</button></div>
+  <section class="section">
+    <div class="wrap">
+      <div class="filters" data-reveal>
+        <div class="chip-group" role="group" aria-label="按类别筛选"><button class="chip is-active" type="button" data-filter="all">全部</button><button class="chip" type="button" data-filter="content">内容</button><button class="chip" type="button" data-filter="server">服务端</button><button class="chip" type="button" data-filter="port">移植与附属</button><button class="chip" type="button" data-filter="lib">前置与修复</button></div>
         <label class="search">
           <span class="sr-only">搜索模组</span>
-          <input type="search" id="modSearch" placeholder="搜索模组…" autocomplete="off">
+          <input type="search" id="modSearch" placeholder="搜索…" autocomplete="off">
         </label>
       </div>
-      <p class="filter-count" id="filterCount" data-reveal>24 个项目</p>
-      <div class="mods-grid" id="modsGrid">
-        <article class="card mod-card" id="achievements" data-cat="content" data-search="mornfrost achievements 300+ 条风格各异的整活成就，从正经挑战到网络梗全覆盖。 多个成就分类与分支，涵盖探索、战斗、建造、模组交互 轻量级设计，无冗余依赖 neoforge 1.21.1 · fabric 1.21.1 / 1.21.11 · forge 1.20.1 内容扩展" data-reveal>
-          <div class="card-top">
-            <span class="card-index">01</span>
-            <span class="tag">内容扩展</span>
-          </div>
-          <h2 class="card-title">Mornfrost Achievements</h2>
-          <p class="card-meta">NeoForge 1.21.1 · Fabric 1.21.1 / 1.21.11 · Forge 1.20.1 <span class="card-ver">v5.1.0</span></p>
-          <p class="card-desc">300+ 条风格各异的整活成就，从正经挑战到网络梗全覆盖。</p>
-          <ul class="card-points">
-            <li>多个成就分类与分支，涵盖探索、战斗、建造、模组交互</li>
-            <li>轻量级设计，无冗余依赖</li>
-          </ul>
+      <p class="results" id="results" data-reveal>24 个项目</p>
+      <div class="items" id="modsGrid">
+        <article class="item" id="achievements" data-cat="content" data-search="mornfrost achievements 三百多条成就，正经的和不正经的都有。想给服务器找点事做的时候，它挺合适；一个人慢慢清也能玩上一阵。 neoforge 1.21.1 · fabric 1.21.1 / 1.21.11 · forge 1.20.1 · 5.1.0 内容" data-reveal>
+          <span class="item-num">01 · 内容</span>
+          <h2 class="item-title">Mornfrost Achievements</h2>
+          <p class="item-text">三百多条成就，正经的和不正经的都有。想给服务器找点事做的时候，它挺合适；一个人慢慢清也能玩上一阵。</p>
+          <div class="item-meta">NeoForge 1.21.1 · Fabric 1.21.1 / 1.21.11 · Forge 1.20.1 · 5.1.0</div>
         </article>
-        <article class="card mod-card" id="soulglyph" data-cat="content" data-search="soulglyph 灵铭 以 curios 饰品槽位驱动的铭文物品系统。 42 条基础铭文两两融合出 903 种融合铭文 品质五档，加成 10%–40%；专属槽位装备即生效 另提供养老版 v1.1.0-sp1.0 neoforge 1.21.1 · curios 前置 内容扩展" data-reveal>
-          <div class="card-top">
-            <span class="card-index">02</span>
-            <span class="tag">内容扩展</span>
-          </div>
-          <h2 class="card-title">SoulGlyph 灵铭</h2>
-          <p class="card-meta">NeoForge 1.21.1 · Curios 前置 <span class="card-ver">v1.0.0</span></p>
-          <p class="card-desc">以 Curios 饰品槽位驱动的铭文物品系统。</p>
-          <ul class="card-points">
-            <li>42 条基础铭文两两融合出 903 种融合铭文</li>
-            <li>品质五档，加成 10%–40%；专属槽位装备即生效</li>
-            <li>另提供养老版 v1.1.0-sp1.0</li>
-          </ul>
+        <article class="item" id="soulglyph" data-cat="content" data-search="soulglyph 灵铭 把铭文塞进饰品栏的点子。42 条基础铭文两两融合，能凑出九百多种组合，戴上就生效。后来还做了个节奏更慢的养老版。 neoforge 1.21.1 · 前置 curios · 1.0.0 内容" data-reveal>
+          <span class="item-num">02 · 内容</span>
+          <h2 class="item-title">SoulGlyph 灵铭</h2>
+          <p class="item-text">把铭文塞进饰品栏的点子。42 条基础铭文两两融合，能凑出九百多种组合，戴上就生效。后来还做了个节奏更慢的养老版。</p>
+          <div class="item-meta">NeoForge 1.21.1 · 前置 Curios · 1.0.0</div>
         </article>
-        <article class="card mod-card" id="soulbound" data-cat="content" data-search="soulbound blades 缚魂之刃 20 把独特的剑，按「谜语 → 试炼 → 进化」四阶段成长。 武器数值、lore、试炼文案全部 json 驱动，支持 /reload 配套 soulbound lore patch 修正 lore neoforge 1.21.1 内容扩展" data-reveal>
-          <div class="card-top">
-            <span class="card-index">03</span>
-            <span class="tag">内容扩展</span>
-          </div>
-          <h2 class="card-title">Soulbound Blades 缚魂之刃</h2>
-          <p class="card-meta">NeoForge 1.21.1 <span class="card-ver">v1.1.0</span></p>
-          <p class="card-desc">20 把独特的剑，按「谜语 → 试炼 → 进化」四阶段成长。</p>
-          <ul class="card-points">
-            <li>武器数值、Lore、试炼文案全部 JSON 驱动，支持 /reload</li>
-            <li>配套 Soulbound Lore Patch 修正 Lore</li>
-          </ul>
+        <article class="item" id="soulbound" data-cat="content" data-search="soulbound blades 缚魂之刃 二十把剑，每把都得先解谜、再试炼，最后才长成它该有的样子。数值和文案都写在 json 里，改起来不用重开游戏。 neoforge 1.21.1 · 1.1.0 内容" data-reveal>
+          <span class="item-num">03 · 内容</span>
+          <h2 class="item-title">Soulbound Blades 缚魂之刃</h2>
+          <p class="item-text">二十把剑，每把都得先解谜、再试炼，最后才长成它该有的样子。数值和文案都写在 JSON 里，改起来不用重开游戏。</p>
+          <div class="item-meta">NeoForge 1.21.1 · 1.1.0</div>
         </article>
-        <article class="card mod-card" id="arsenal" data-cat="content" data-search="arsenal 跨文化武器扩展：6 种新矿物、29 类武器、72 件护甲。 174 件中式 / 日式 / 西式武器，完整矿物—武器—护甲合成体系 武器数据经 datacomponent 持久存储，数值可 /reload 热调整 neoforge 1.21.1 内容扩展" data-reveal>
-          <div class="card-top">
-            <span class="card-index">04</span>
-            <span class="tag">内容扩展</span>
-          </div>
-          <h2 class="card-title">Arsenal</h2>
-          <p class="card-meta">NeoForge 1.21.1 <span class="card-ver">v1.0.0</span></p>
-          <p class="card-desc">跨文化武器扩展：6 种新矿物、29 类武器、72 件护甲。</p>
-          <ul class="card-points">
-            <li>174 件中式 / 日式 / 西式武器，完整矿物—武器—护甲合成体系</li>
-            <li>武器数据经 DataComponent 持久存储，数值可 /reload 热调整</li>
-          </ul>
+        <article class="item" id="arsenal" data-cat="content" data-search="arsenal 中式、日式、西式的兵器被放在同一张工作台上：六种矿物、二十九类武器、七十二件护甲，从挖矿到锻造一条线走完。 neoforge 1.21.1 · 1.0.0 内容" data-reveal>
+          <span class="item-num">04 · 内容</span>
+          <h2 class="item-title">Arsenal</h2>
+          <p class="item-text">中式、日式、西式的兵器被放在同一张工作台上：六种矿物、二十九类武器、七十二件护甲，从挖矿到锻造一条线走完。</p>
+          <div class="item-meta">NeoForge 1.21.1 · 1.0.0</div>
         </article>
-        <article class="card mod-card" id="echoes" data-cat="content" data-search="echoes of the unbound · 未缚回响 五个破碎的维度，四个同行者，一条以告别写成的主线。 每次死亡都有专属运镜演出：黑边、字幕、镜头轨迹 剧情与美术一体化编排 neoforge 1.21.1 内容扩展" data-reveal>
-          <div class="card-top">
-            <span class="card-index">05</span>
-            <span class="tag">内容扩展</span>
-          </div>
-          <h2 class="card-title">Echoes of the Unbound · 未缚回响</h2>
-          <p class="card-meta">NeoForge 1.21.1 <span class="card-ver">v1.0.0</span></p>
-          <p class="card-desc">五个破碎的维度，四个同行者，一条以告别写成的主线。</p>
-          <ul class="card-points">
-            <li>每次死亡都有专属运镜演出：黑边、字幕、镜头轨迹</li>
-            <li>剧情与美术一体化编排</li>
-          </ul>
+        <article class="item" id="echoes" data-cat="content" data-search="echoes of the unbound · 未缚回响 五个破碎的维度，四个同行的人。故事从告别开始，每次有人死去，镜头都会停一下。 neoforge 1.21.1 · 1.0.0 内容" data-reveal>
+          <span class="item-num">05 · 内容</span>
+          <h2 class="item-title">Echoes of the Unbound · 未缚回响</h2>
+          <p class="item-text">五个破碎的维度，四个同行的人。故事从告别开始，每次有人死去，镜头都会停一下。</p>
+          <div class="item-meta">NeoForge 1.21.1 · 1.0.0</div>
         </article>
-        <article class="card mod-card" id="ascension" data-cat="content" data-search="forge of ascension 装备强化：把同类型、同强化等级的装备融合成更强的一件。 等级越高成功率越低，失败时材料全部损毁 高风险高回报的装备成长循环 neoforge 1.21.1 内容扩展" data-reveal>
-          <div class="card-top">
-            <span class="card-index">06</span>
-            <span class="tag">内容扩展</span>
-          </div>
-          <h2 class="card-title">Forge of Ascension</h2>
-          <p class="card-meta">NeoForge 1.21.1 <span class="card-ver">v1.0.0</span></p>
-          <p class="card-desc">装备强化：把同类型、同强化等级的装备融合成更强的一件。</p>
-          <ul class="card-points">
-            <li>等级越高成功率越低，失败时材料全部损毁</li>
-            <li>高风险高回报的装备成长循环</li>
-          </ul>
+        <article class="item" id="ascension" data-cat="content" data-search="forge of ascension 两件同等级的装备丢进强化台，合成一件更强的。等级越高越容易碎，失败就什么都不剩——赌的就是这一下。 neoforge 1.21.1 · 1.0.0 内容" data-reveal>
+          <span class="item-num">06 · 内容</span>
+          <h2 class="item-title">Forge of Ascension</h2>
+          <p class="item-text">两件同等级的装备丢进强化台，合成一件更强的。等级越高越容易碎，失败就什么都不剩——赌的就是这一下。</p>
+          <div class="item-meta">NeoForge 1.21.1 · 1.0.0</div>
         </article>
-        <article class="card mod-card" id="chinesecanfly" data-cat="content" data-search="中国人能飞 游戏语言为中文时获得创造模式飞行，切走立即失效。 支持简体中文、繁体中文、香港繁中与文言文 客户端轮询 + 服务端授权，单人联机均有效 neoforge 1.21.1 内容扩展" data-reveal>
-          <div class="card-top">
-            <span class="card-index">07</span>
-            <span class="tag">内容扩展</span>
-          </div>
-          <h2 class="card-title">中国人能飞</h2>
-          <p class="card-meta">NeoForge 1.21.1 <span class="card-ver">v1.0.0</span></p>
-          <p class="card-desc">游戏语言为中文时获得创造模式飞行，切走立即失效。</p>
-          <ul class="card-points">
-            <li>支持简体中文、繁体中文、香港繁中与文言文</li>
-            <li>客户端轮询 + 服务端授权，单人联机均有效</li>
-          </ul>
+        <article class="item" id="chinesecanfly" data-cat="content" data-search="中国人能飞 游戏语言是中文就能飞，切回英文马上掉下来。一个纯粹为了好玩写的模组，没想到还挺多人喜欢。 neoforge 1.21.1 · 1.0.0 内容" data-reveal>
+          <span class="item-num">07 · 内容</span>
+          <h2 class="item-title">中国人能飞</h2>
+          <p class="item-text">游戏语言是中文就能飞，切回英文马上掉下来。一个纯粹为了好玩写的模组，没想到还挺多人喜欢。</p>
+          <div class="item-meta">NeoForge 1.21.1 · 1.0.0</div>
         </article>
-        <article class="card mod-card" id="ymondf" data-cat="content" data-search="ymondf · 月神 叙事冒险模组，「九加一」arg 的第一个质点。 档案袋逐页叙事，页码随玩家数据推进 月神 boss 与月相竞技场，四段专属大招过场 月面贴图取自 nasa lro 实测数据，其余贴图与音效程序化生成 neoforge 1.21.1 · 前置 sqdclib / geckolib 内容扩展" data-reveal>
-          <div class="card-top">
-            <span class="card-index">08</span>
-            <span class="tag">内容扩展</span>
-          </div>
-          <h2 class="card-title">Ymondf · 月神</h2>
-          <p class="card-meta">NeoForge 1.21.1 · 前置 SQDCLib / GeckoLib <span class="card-ver">v0.3.0-beta</span></p>
-          <p class="card-desc">叙事冒险模组，「九加一」ARG 的第一个质点。</p>
-          <ul class="card-points">
-            <li>档案袋逐页叙事，页码随玩家数据推进</li>
-            <li>月神 Boss 与月相竞技场，四段专属大招过场</li>
-            <li>月面贴图取自 NASA LRO 实测数据，其余贴图与音效程序化生成</li>
-          </ul>
+        <article class="item" id="ymondf" data-cat="content" data-search="ymondf · 月神 叙事冒险，「九加一」arg 的第一个质点。睡一觉会收到一个档案袋，按里面的页走；再往后是月神和它的月相竞技场。0.3 里加了两个阶段的机制 boss、四语配音，还有一枚能召唤月神残影的月相盘。 neoforge 1.21.1 · 前置 sqdclib / geckolib · 0.3.3 内容" data-reveal>
+          <span class="item-num">08 · 内容</span>
+          <h2 class="item-title">Ymondf · 月神</h2>
+          <p class="item-text">叙事冒险，「九加一」ARG 的第一个质点。睡一觉会收到一个档案袋，按里面的页走；再往后是月神和它的月相竞技场。0.3 里加了两个阶段的机制 Boss、四语配音，还有一枚能召唤月神残影的月相盘。</p>
+          <div class="item-meta">NeoForge 1.21.1 · 前置 SQDCLib / GeckoLib · 0.3.3</div>
         </article>
-        <article class="card mod-card" id="memorymaster" data-cat="server" data-search="memorymaster 服务端堆内存优化模组。 7 个优化模块独立开关、独立 mixin 注入前校验目标存在，异常自动降级为原版行为 /mmcmf panic 一键回退 neoforge 1.21.1 服务端 服务端" data-reveal>
-          <div class="card-top">
-            <span class="card-index">09</span>
-            <span class="tag">服务端</span>
-          </div>
-          <h2 class="card-title">MemoryMaster</h2>
-          <p class="card-meta">NeoForge 1.21.1 服务端 <span class="card-ver">v1.0.0</span></p>
-          <p class="card-desc">服务端堆内存优化模组。</p>
-          <ul class="card-points">
-            <li>7 个优化模块独立开关、独立 mixin</li>
-            <li>注入前校验目标存在，异常自动降级为原版行为</li>
-            <li>/mmcmf panic 一键回退</li>
-          </ul>
+        <article class="item" id="memorymaster" data-cat="server" data-search="memorymaster 给服务端省内存的。七个模块能单独关，注入失败会自动退回原版行为，慌了还有一条 /mmcmf panic 兜底。 neoforge 1.21.1 服务端 · 1.0.0 服务端" data-reveal>
+          <span class="item-num">09 · 服务端</span>
+          <h2 class="item-title">MemoryMaster</h2>
+          <p class="item-text">给服务端省内存的。七个模块能单独关，注入失败会自动退回原版行为，慌了还有一条 /mmcmf panic 兜底。</p>
+          <div class="item-meta">NeoForge 1.21.1 服务端 · 1.0.0</div>
         </article>
-        <article class="card mod-card" id="banitemblock" data-cat="server" data-search="banitemblock 按配置文件全量清除指定的方块与物品。 方块与物品使用两个互不影响的 toml 配置 适合服务器内容管控 neoforge 1.21.1 服务端 服务端" data-reveal>
-          <div class="card-top">
-            <span class="card-index">10</span>
-            <span class="tag">服务端</span>
-          </div>
-          <h2 class="card-title">BanItemBlock</h2>
-          <p class="card-meta">NeoForge 1.21.1 服务端 <span class="card-ver">v1.0.0</span></p>
-          <p class="card-desc">按配置文件全量清除指定的方块与物品。</p>
-          <ul class="card-points">
-            <li>方块与物品使用两个互不影响的 TOML 配置</li>
-            <li>适合服务器内容管控</li>
-          </ul>
+        <article class="item" id="banitemblock" data-cat="server" data-search="banitemblock 不想让某个方块或物品出现在服务器里，把名字写进配置就行。方块和物品分开列，互不影响。 neoforge 1.21.1 服务端 · 1.0.0 服务端" data-reveal>
+          <span class="item-num">10 · 服务端</span>
+          <h2 class="item-title">BanItemBlock</h2>
+          <p class="item-text">不想让某个方块或物品出现在服务器里，把名字写进配置就行。方块和物品分开列，互不影响。</p>
+          <div class="item-meta">NeoForge 1.21.1 服务端 · 1.0.0</div>
         </article>
-        <article class="card mod-card" id="enchantremover" data-cat="server" data-search="enchantment remover 彻底删除指定附魔。 附魔台不出现，战利品 / 钓鱼 / 村民交易不生成 已有附魔完全失去效果；config toml 按命名空间填 id neoforge 1.21.1 服务端" data-reveal>
-          <div class="card-top">
-            <span class="card-index">11</span>
-            <span class="tag">服务端</span>
-          </div>
-          <h2 class="card-title">Enchantment Remover</h2>
-          <p class="card-meta">NeoForge 1.21.1 <span class="card-ver">v1.0.0</span></p>
-          <p class="card-desc">彻底删除指定附魔。</p>
-          <ul class="card-points">
-            <li>附魔台不出现，战利品 / 钓鱼 / 村民交易不生成</li>
-            <li>已有附魔完全失去效果；config TOML 按命名空间填 ID</li>
-          </ul>
+        <article class="item" id="enchantremover" data-cat="server" data-search="enchantment remover 删掉不想要的附魔。附魔台里刷不出来，战利品和交易里也不会出现，装备上已经有的直接失效。 neoforge 1.21.1 · 1.0.0 服务端" data-reveal>
+          <span class="item-num">11 · 服务端</span>
+          <h2 class="item-title">Enchantment Remover</h2>
+          <p class="item-text">删掉不想要的附魔。附魔台里刷不出来，战利品和交易里也不会出现，装备上已经有的直接失效。</p>
+          <div class="item-meta">NeoForge 1.21.1 · 1.0.0</div>
         </article>
-        <article class="card mod-card" id="perdimrespawn" data-cat="server" data-search="per-dimension respawn 各维度独立出生点。 修复原版单一全局出生点被重生锚 / 末地出生点覆盖的问题 死亡后回到死亡维度自己的出生点 neoforge 1.21.1 服务端 服务端" data-reveal>
-          <div class="card-top">
-            <span class="card-index">12</span>
-            <span class="tag">服务端</span>
-          </div>
-          <h2 class="card-title">Per-Dimension Respawn</h2>
-          <p class="card-meta">NeoForge 1.21.1 服务端 <span class="card-ver">v1.0.0</span></p>
-          <p class="card-desc">各维度独立出生点。</p>
-          <ul class="card-points">
-            <li>修复原版单一全局出生点被重生锚 / 末地出生点覆盖的问题</li>
-            <li>死亡后回到死亡维度自己的出生点</li>
-          </ul>
+        <article class="item" id="perdimrespawn" data-cat="server" data-search="per-dimension respawn 原版只有一个出生点，在地狱放个重生锚就把主世界的床盖掉了。这个模组让每个维度各记各的，死在哪就回哪。 neoforge 1.21.1 服务端 · 1.0.0 服务端" data-reveal>
+          <span class="item-num">12 · 服务端</span>
+          <h2 class="item-title">Per-Dimension Respawn</h2>
+          <p class="item-text">原版只有一个出生点，在地狱放个重生锚就把主世界的床盖掉了。这个模组让每个维度各记各的，死在哪就回哪。</p>
+          <div class="item-meta">NeoForge 1.21.1 服务端 · 1.0.0</div>
         </article>
-        <article class="card mod-card" id="loginmod" data-cat="server" data-search="login mod 服务端登录 / 注册。 新玩家 /reg 注册一次，之后每次 /login 登录 未登录期间冻结、失明、无敌，禁止聊天与交互 neoforge 1.21.1 服务端 服务端" data-reveal>
-          <div class="card-top">
-            <span class="card-index">13</span>
-            <span class="tag">服务端</span>
-          </div>
-          <h2 class="card-title">Login Mod</h2>
-          <p class="card-meta">NeoForge 1.21.1 服务端 <span class="card-ver">v1.0.0</span></p>
-          <p class="card-desc">服务端登录 / 注册。</p>
-          <ul class="card-points">
-            <li>新玩家 /reg 注册一次，之后每次 /login 登录</li>
-            <li>未登录期间冻结、失明、无敌，禁止聊天与交互</li>
-          </ul>
+        <article class="item" id="loginmod" data-cat="server" data-search="login mod 服务端的登录注册。没登录之前人被冻住、看不见、点不了东西，安安静静把密码输完。 neoforge 1.21.1 服务端 · 1.0.0 服务端" data-reveal>
+          <span class="item-num">13 · 服务端</span>
+          <h2 class="item-title">Login Mod</h2>
+          <p class="item-text">服务端的登录注册。没登录之前人被冻住、看不见、点不了东西，安安静静把密码输完。</p>
+          <div class="item-meta">NeoForge 1.21.1 服务端 · 1.0.0</div>
         </article>
-        <article class="card mod-card" id="kipl" data-cat="server" data-search="kipl · kill inspector 击杀查询：/kipl 回答「哪个玩家最近被哪个玩家杀死了」。 游戏内事件与控制台日志双通道检测 输出时间、地点与判定渠道 neoforge 1.21.1 服务端 服务端" data-reveal>
-          <div class="card-top">
-            <span class="card-index">14</span>
-            <span class="tag">服务端</span>
-          </div>
-          <h2 class="card-title">KIPL · Kill Inspector</h2>
-          <p class="card-meta">NeoForge 1.21.1 服务端 <span class="card-ver">v1.0.0</span></p>
-          <p class="card-desc">击杀查询：/kipl 回答「哪个玩家最近被哪个玩家杀死了」。</p>
-          <ul class="card-points">
-            <li>游戏内事件与控制台日志双通道检测</li>
-            <li>输出时间、地点与判定渠道</li>
-          </ul>
+        <article class="item" id="kipl" data-cat="server" data-search="kipl · kill inspector 想知道谁杀了谁。输入 /kipl，它会告诉你最近一次击杀的时间、地点，以及是游戏事件还是控制台日志抓到的。 neoforge 1.21.1 服务端 · 1.0.0 服务端" data-reveal>
+          <span class="item-num">14 · 服务端</span>
+          <h2 class="item-title">KIPL · Kill Inspector</h2>
+          <p class="item-text">想知道谁杀了谁。输入 /kipl，它会告诉你最近一次击杀的时间、地点，以及是游戏事件还是控制台日志抓到的。</p>
+          <div class="item-meta">NeoForge 1.21.1 服务端 · 1.0.0</div>
         </article>
-        <article class="card mod-card" id="oreguard" data-cat="server" data-search="oreguard 反矿透 / 反作弊，纯服务端实现。 客户端无需安装，也不添加任何方块、物品或数据包 附带一层基于挖掘行为的矿透检测 neoforge 1.21.1 服务端 服务端" data-reveal>
-          <div class="card-top">
-            <span class="card-index">15</span>
-            <span class="tag">服务端</span>
-          </div>
-          <h2 class="card-title">OreGuard</h2>
-          <p class="card-meta">NeoForge 1.21.1 服务端 <span class="card-ver">v1.0.0</span></p>
-          <p class="card-desc">反矿透 / 反作弊，纯服务端实现。</p>
-          <ul class="card-points">
-            <li>客户端无需安装，也不添加任何方块、物品或数据包</li>
-            <li>附带一层基于挖掘行为的矿透检测</li>
-          </ul>
+        <article class="item" id="oreguard" data-cat="server" data-search="oreguard 反矿透，纯服务端，客户端什么都不用装。除了藏矿，还会看挖掘行为有没有不对劲。 neoforge 1.21.1 服务端 · 1.0.0 服务端" data-reveal>
+          <span class="item-num">15 · 服务端</span>
+          <h2 class="item-title">OreGuard</h2>
+          <p class="item-text">反矿透，纯服务端，客户端什么都不用装。除了藏矿，还会看挖掘行为有没有不对劲。</p>
+          <div class="item-meta">NeoForge 1.21.1 服务端 · 1.0.0</div>
         </article>
-        <article class="card mod-card" id="lmlly" data-cat="server" data-search="let me look look you 管理员实时查看指定玩家的末影箱、背包或饰品栏。 /lmlly &lt;玩家&gt; &lt;enderbox|backpack|curios&gt; 窗口只读：能看能悬停，拿不出也放不进 neoforge 1.21.1 服务端 服务端" data-reveal>
-          <div class="card-top">
-            <span class="card-index">16</span>
-            <span class="tag">服务端</span>
-          </div>
-          <h2 class="card-title">Let Me Look Look You</h2>
-          <p class="card-meta">NeoForge 1.21.1 服务端 <span class="card-ver">v1.0.0</span></p>
-          <p class="card-desc">管理员实时查看指定玩家的末影箱、背包或饰品栏。</p>
-          <ul class="card-points">
-            <li>/lmlly <玩家> <enderbox|backpack|curios></li>
-            <li>窗口只读：能看能悬停，拿不出也放不进</li>
-          </ul>
+        <article class="item" id="lmlly" data-cat="server" data-search="let me look look you 管理员工具：看一眼某个玩家的末影箱、背包或饰品栏。窗口是只读的，拿不出也放不进。 neoforge 1.21.1 服务端 · 1.0.0 服务端" data-reveal>
+          <span class="item-num">16 · 服务端</span>
+          <h2 class="item-title">Let Me Look Look You</h2>
+          <p class="item-text">管理员工具：看一眼某个玩家的末影箱、背包或饰品栏。窗口是只读的，拿不出也放不进。</p>
+          <div class="item-meta">NeoForge 1.21.1 服务端 · 1.0.0</div>
         </article>
-        <article class="card mod-card" id="culinary" data-cat="port" data-search="culinary construct（neoforge 移植） 经典烹饪模组的 neoforge 1.21.1 移植。 自由组合食材，制作三明治等自定义食物 保留原版玩法的同时适配新版 api 与数据组件 neoforge 1.21.1 · 原作 illusive soulworks 移植与附属" data-reveal>
-          <div class="card-top">
-            <span class="card-index">17</span>
-            <span class="tag">移植与附属</span>
-          </div>
-          <h2 class="card-title">Culinary Construct（NeoForge 移植）</h2>
-          <p class="card-meta">NeoForge 1.21.1 · 原作 Illusive Soulworks <span class="card-ver">v6.1.0+1.21.1</span></p>
-          <p class="card-desc">经典烹饪模组的 NeoForge 1.21.1 移植。</p>
-          <ul class="card-points">
-            <li>自由组合食材，制作三明治等自定义食物</li>
-            <li>保留原版玩法的同时适配新版 API 与数据组件</li>
-          </ul>
+        <article class="item" id="culinary" data-cat="port" data-search="culinary construct（移植） 经典烹饪模组的 neoforge 移植。食材自由组合，三明治想夹什么夹什么。原作出自 illusive soulworks。 neoforge 1.21.1 · 原作 illusive soulworks · 6.1.0 移植与附属" data-reveal>
+          <span class="item-num">17 · 移植与附属</span>
+          <h2 class="item-title">Culinary Construct（移植）</h2>
+          <p class="item-text">经典烹饪模组的 NeoForge 移植。食材自由组合，三明治想夹什么夹什么。原作出自 Illusive Soulworks。</p>
+          <div class="item-meta">NeoForge 1.21.1 · 原作 Illusive Soulworks · 6.1.0</div>
         </article>
-        <article class="card mod-card" id="deleteportal" data-cat="port" data-search="deleteportal 世界生成阶段清除帕拉迪岛传送门。 扫描后直接替换为空气，而非拦截放置 /deleteportal 查询已清除数量 neoforge 1.21.1 服务端 · danny&#x27;s aot 附属 移植与附属" data-reveal>
-          <div class="card-top">
-            <span class="card-index">18</span>
-            <span class="tag">移植与附属</span>
-          </div>
-          <h2 class="card-title">DeletePortal</h2>
-          <p class="card-meta">NeoForge 1.21.1 服务端 · Danny's AoT 附属 <span class="card-ver">v1.0.0</span></p>
-          <p class="card-desc">世界生成阶段清除帕拉迪岛传送门。</p>
-          <ul class="card-points">
-            <li>扫描后直接替换为空气，而非拦截放置</li>
-            <li>/deleteportal 查询已清除数量</li>
-          </ul>
+        <article class="item" id="deleteportal" data-cat="port" data-search="deleteportal danny&#x27;s aot 的附属：世界生成时把帕拉迪岛的传送门直接换成空气，顺手数一下清掉了多少。 neoforge 1.21.1 · danny&#x27;s aot 附属 · 1.0.0 移植与附属" data-reveal>
+          <span class="item-num">18 · 移植与附属</span>
+          <h2 class="item-title">DeletePortal</h2>
+          <p class="item-text">Danny's AoT 的附属：世界生成时把帕拉迪岛的传送门直接换成空气，顺手数一下清掉了多少。</p>
+          <div class="item-meta">NeoForge 1.21.1 · Danny's AoT 附属 · 1.0.0</div>
         </article>
-        <article class="card mod-card" id="giants" data-cat="port" data-search="giants on grass 让巨人（titans）只在草方块上生成。 移植到 neoforge 1.21.1，生成范围可配置 neoforge 1.21.1 · danny&#x27;s aot 附属 移植与附属" data-reveal>
-          <div class="card-top">
-            <span class="card-index">19</span>
-            <span class="tag">移植与附属</span>
-          </div>
-          <h2 class="card-title">Giants on Grass</h2>
-          <p class="card-meta">NeoForge 1.21.1 · Danny's AoT 附属 <span class="card-ver">v1.0</span></p>
-          <p class="card-desc">让巨人（Titans）只在草方块上生成。</p>
-          <ul class="card-points">
-            <li>移植到 NeoForge 1.21.1，生成范围可配置</li>
-          </ul>
+        <article class="item" id="giants" data-cat="port" data-search="giants on grass 另一个 aot 附属：让巨人只在草方块上生成。做这个是因为原来的生成位置实在太随意。 neoforge 1.21.1 · danny&#x27;s aot 附属 · 1.0 移植与附属" data-reveal>
+          <span class="item-num">19 · 移植与附属</span>
+          <h2 class="item-title">Giants on Grass</h2>
+          <p class="item-text">另一个 AoT 附属：让巨人只在草方块上生成。做这个是因为原来的生成位置实在太随意。</p>
+          <div class="item-meta">NeoForge 1.21.1 · Danny's AoT 附属 · 1.0</div>
         </article>
-        <article class="card mod-card" id="mahjong" data-cat="port" data-search="mahjongcraft 日式立直麻将联机模组：在 minecraft 里和朋友们开一桌。 完整的日式（立直）麻将规则，支持多人数对局 前置 libgui / cloth config / kotlinforforge neoforge 1.21.1 移植 · 原作 doublemoon1119 移植与附属" data-reveal>
-          <div class="card-top">
-            <span class="card-index">20</span>
-            <span class="tag">移植与附属</span>
-          </div>
-          <h2 class="card-title">MahjongCraft</h2>
-          <p class="card-meta">NeoForge 1.21.1 移植 · 原作 doublemoon1119 <span class="card-ver">v0.3.13+1.21.1</span></p>
-          <p class="card-desc">日式立直麻将联机模组：在 Minecraft 里和朋友们开一桌。</p>
-          <ul class="card-points">
-            <li>完整的日式（立直）麻将规则，支持多人数对局</li>
-            <li>前置 LibGui / Cloth Config / KotlinForForge</li>
-          </ul>
+        <article class="item" id="mahjong" data-cat="port" data-search="mahjongcraft 把日式立直麻将搬进 minecraft，和朋友们开一桌。移植自 doublemoon1119 的原作。 neoforge 1.21.1 移植 · 原作 doublemoon1119 · 0.3.13 移植与附属" data-reveal>
+          <span class="item-num">20 · 移植与附属</span>
+          <h2 class="item-title">MahjongCraft</h2>
+          <p class="item-text">把日式立直麻将搬进 Minecraft，和朋友们开一桌。移植自 doublemoon1119 的原作。</p>
+          <div class="item-meta">NeoForge 1.21.1 移植 · 原作 doublemoon1119 · 0.3.13</div>
         </article>
-        <article class="card mod-card" id="factionzones" data-cat="port" data-search="factionzones 按阵营划分商店分区。 每个阵营只看到自己的分类，另有一个全服公开商店 支持阵营独立货币 fabric · jake&#x27;s economy 附属 移植与附属" data-reveal>
-          <div class="card-top">
-            <span class="card-index">21</span>
-            <span class="tag">移植与附属</span>
-          </div>
-          <h2 class="card-title">FactionZones</h2>
-          <p class="card-meta">Fabric · Jake's Economy 附属 <span class="card-ver">v1.0.0</span></p>
-          <p class="card-desc">按阵营划分商店分区。</p>
-          <ul class="card-points">
-            <li>每个阵营只看到自己的分类，另有一个全服公开商店</li>
-            <li>支持阵营独立货币</li>
-          </ul>
+        <article class="item" id="factionzones" data-cat="port" data-search="factionzones 给 jake&#x27;s economy 加的阵营商店分区：每个阵营只看得到自己的货架，外加一个所有人共享的公开商店。 fabric · jake&#x27;s economy 附属 · 1.0.0 移植与附属" data-reveal>
+          <span class="item-num">21 · 移植与附属</span>
+          <h2 class="item-title">FactionZones</h2>
+          <p class="item-text">给 Jake's Economy 加的阵营商店分区：每个阵营只看得到自己的货架，外加一个所有人共享的公开商店。</p>
+          <div class="item-meta">Fabric · Jake's Economy 附属 · 1.0.0</div>
         </article>
-        <article class="card mod-card" id="voxy" data-cat="port" data-search="voxy（neoforge 移植） 远距离体素渲染模组 voxy 的非官方 neoforge 移植。 保留原版 voxy 的远景区块渲染能力 独立维护的移植分支，与上游官方版本无关 neoforge 1.21.1 · 非官方移植 移植与附属" data-reveal>
-          <div class="card-top">
-            <span class="card-index">22</span>
-            <span class="tag">移植与附属</span>
-          </div>
-          <h2 class="card-title">Voxy（NeoForge 移植）</h2>
-          <p class="card-meta">NeoForge 1.21.1 · 非官方移植 <span class="card-ver">v0.2.9-alpha</span></p>
-          <p class="card-desc">远距离体素渲染模组 Voxy 的非官方 NeoForge 移植。</p>
-          <ul class="card-points">
-            <li>保留原版 Voxy 的远景区块渲染能力</li>
-            <li>独立维护的移植分支，与上游官方版本无关</li>
-          </ul>
+        <article class="item" id="voxy" data-cat="port" data-search="voxy（neoforge 移植） 远距离体素渲染的 voxy，非官方 neoforge 移植。官方那边还在等，这边先用着。 neoforge 1.21.1 · 非官方移植 · 0.2.9-alpha 移植与附属" data-reveal>
+          <span class="item-num">22 · 移植与附属</span>
+          <h2 class="item-title">Voxy（NeoForge 移植）</h2>
+          <p class="item-text">远距离体素渲染的 Voxy，非官方 NeoForge 移植。官方那边还在等，这边先用着。</p>
+          <div class="item-meta">NeoForge 1.21.1 · 非官方移植 · 0.2.9-alpha</div>
         </article>
-        <article class="card mod-card" id="sqdclib" data-cat="lib" data-search="sqdclib 叙事向模组的公共前置库。 四个互相解耦的模块：状态存档、任务推进、对话分支、演出播控 无第三方内容模组依赖，全部基于 neoforge 官方 api geckolib 为可选软依赖，没装时相关事件安全空转 neoforge 1.21.1 · 前置库 前置与修复" data-reveal>
-          <div class="card-top">
-            <span class="card-index">23</span>
-            <span class="tag">前置与修复</span>
-          </div>
-          <h2 class="card-title">SQDCLib</h2>
-          <p class="card-meta">NeoForge 1.21.1 · 前置库 <span class="card-ver">v3.0.1</span></p>
-          <p class="card-desc">叙事向模组的公共前置库。</p>
-          <ul class="card-points">
-            <li>四个互相解耦的模块：状态存档、任务推进、对话分支、演出播控</li>
-            <li>无第三方内容模组依赖，全部基于 NeoForge 官方 API</li>
-            <li>GeckoLib 为可选软依赖，没装时相关事件安全空转</li>
-          </ul>
+        <article class="item" id="sqdclib" data-cat="lib" data-search="sqdclib 写叙事模组时反复要的那几件事：状态存档、任务推进、对话分支、演出播放。抽出来做成前置库，四个模块互不依赖，只用一两个也行。 neoforge 1.21.1 · 前置库 · 3.0.1 前置与修复" data-reveal>
+          <span class="item-num">23 · 前置与修复</span>
+          <h2 class="item-title">SQDCLib</h2>
+          <p class="item-text">写叙事模组时反复要的那几件事：状态存档、任务推进、对话分支、演出播放。抽出来做成前置库，四个模块互不依赖，只用一两个也行。</p>
+          <div class="item-meta">NeoForge 1.21.1 · 前置库 · 3.0.1</div>
         </article>
-        <article class="card mod-card" id="fixsodium" data-cat="lib" data-search="fix sodium shaderloader 解决 nvidium / voxy 在 neoforge 版 sodium 下无法加载着色器的问题。 修复思路源自提交给 sodium 上游的 pr 在官方合并之前，用独立模组形式解决同款问题 neoforge 1.21.1 · 修复补丁 前置与修复" data-reveal>
-          <div class="card-top">
-            <span class="card-index">24</span>
-            <span class="tag">前置与修复</span>
-          </div>
-          <h2 class="card-title">Fix sodium ShaderLoader</h2>
-          <p class="card-meta">NeoForge 1.21.1 · 修复补丁 <span class="card-ver">v1.0.0</span></p>
-          <p class="card-desc">解决 nvidium / voxy 在 NeoForge 版 Sodium 下无法加载着色器的问题。</p>
-          <ul class="card-points">
-            <li>修复思路源自提交给 Sodium 上游的 PR</li>
-            <li>在官方合并之前，用独立模组形式解决同款问题</li>
-          </ul>
+        <article class="item" id="fixsodium" data-cat="lib" data-search="fix sodium shaderloader sodium 在 neoforge 上让 nvidium 和 voxy 加载不了着色器，这个补丁先把问题解决掉。修法已经提了上游 pr。 neoforge 1.21.1 · 修复补丁 · 1.0.0 前置与修复" data-reveal>
+          <span class="item-num">24 · 前置与修复</span>
+          <h2 class="item-title">Fix sodium ShaderLoader</h2>
+          <p class="item-text">Sodium 在 NeoForge 上让 nvidium 和 voxy 加载不了着色器，这个补丁先把问题解决掉。修法已经提了上游 PR。</p>
+          <div class="item-meta">NeoForge 1.21.1 · 修复补丁 · 1.0.0</div>
         </article>
       </div>
-      <p class="mods-wip" data-reveal>Mornutili（服务器工具箱）与 TT2（时间调控协议）正在开发中。</p>
+      <p class="wip-note" data-reveal>Mornutili 和 TT2 还在写，等能用了再放出来。</p>
     </div>
   </section>
 </main>
 <footer class="site-footer">
-  <div class="container">
+  <div class="wrap">
     <div class="footer-grid">
       <div class="footer-col footer-about">
-        <div class="footer-brand">MORNFROST OFFICE</div>
-        <p>设计 · 开发 · 创意。做 Minecraft 模组、应用工具和网站。</p>
+        <div class="footer-brand">Mornfrost Office</div>
+        <p>做 Minecraft 模组、应用工具和网站。作品都在站里，想聊就发邮件。</p>
       </div>
       <div class="footer-col">
         <div class="footer-label">站点</div>
@@ -393,14 +222,14 @@
         <a href="/contact/">联系</a>
       </div>
       <div class="footer-col">
-        <div class="footer-label">联系方式</div>
+        <div class="footer-label">联系</div>
         <a href="mailto:admin@mfoc-server.top">admin@mfoc-server.top</a>
         <a href="https://github.com/mornfire" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>© <span id="year">2026</span> Mornfrost Office</span>
-      <span class="footer-note">手写 HTML / CSS，无框架</span>
+      <span>手写 HTML / CSS · 无框架</span>
     </div>
   </div>
 </footer>

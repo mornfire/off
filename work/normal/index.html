@@ -5,32 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>应用与工具 — Mornfrost Office</title>
 <meta name="description" content="Mornfrost Office 的应用与工具：信息站客户端、启动器、插件与运维工具。">
-<link rel="canonical" href="https://www.mornfrost.cnwork/normal/">
+<link rel="canonical" href="https://www.mornfrost.cn/work/normal/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Mornfrost Office">
 <meta property="og:title" content="应用与工具 — Mornfrost Office">
 <meta property="og:description" content="Mornfrost Office 的应用与工具：信息站客户端、启动器、插件与运维工具。">
-<meta property="og:url" content="https://www.mornfrost.cnwork/normal/">
-<meta name="theme-color" content="#0a0c0b">
+<meta property="og:url" content="https://www.mornfrost.cn/work/normal/">
+<meta name="theme-color" content="#0f171b">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <script>document.documentElement.className += " js";</script>
 <link rel="stylesheet" href="/assets/style.css">
 <script defer src="/assets/app.js"></script>
 </head>
-<body id="top">
+<body>
 <a class="skip" href="#main">跳到正文</a>
 <header class="site-header" id="siteHeader">
-  <div class="container header-inner">
+  <div class="wrap header-inner">
     <a class="brand" href="/" aria-label="Mornfrost Office 首页">
-      <span class="brand-mark" aria-hidden="true">M</span>
-      <span class="brand-name">MORNFROST<span class="brand-thin"> OFFICE</span></span>
+      <span class="brand-name">Mornfrost</span>
+      <span class="brand-sub">Office</span>
     </a>
     <nav class="nav" id="nav" aria-label="主导航">
       <a class="nav-link" href="/works/">作品</a>
       <a class="nav-link" href="/about/">关于</a>
       <a class="nav-link" href="/services/">服务</a>
       <a class="nav-link" href="/team/">团队</a>
-      <a class="nav-link nav-cta" href="/contact/">联系</a>
+      <a class="nav-link" href="/contact/">联系</a>
     </nav>
     <button class="nav-toggle" id="navToggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="nav">
       <span></span><span></span>
@@ -40,128 +40,79 @@
 
 <main id="main">
 <section class="page-head">
-  <div class="container">
-    <p class="eyebrow" data-reveal>作品 / 应用与工具</p>
+  <div class="wrap">
+    <p class="eyebrow page-kicker" data-reveal>作品 / 应用与工具</p>
     <h1 class="page-title" data-reveal>应用与工具</h1>
     <p class="page-lead" data-reveal>非模组项目：信息站、启动器、代理插件与服务器运维工具。</p>
   </div>
 </section>
-  <section class="section section-tight">
-    <div class="container">
-      <div class="mods-grid tools-grid">
-        <article class="card tool-card" id="mfoc-station" data-reveal>
-          <div class="card-top">
-            <span class="card-index">01</span>
-          </div>
-          <h2 class="card-title">MFoC Station</h2>
-          <p class="card-meta">信息站客户端 · Kotlin Multiplatform + Compose</p>
-          <p class="card-desc">独立于游戏运行的外部应用：查看状态、公告、模组列表与常用入口。</p>
-          <ul class="card-points">
-            <li>一套代码同时构建 Android 与 Windows 桌面</li>
-          </ul>
+  <section class="section">
+    <div class="wrap">
+      <div class="items">
+        <article class="item" id="mfoc-station" data-reveal>
+          <span class="item-num">01</span>
+          <h2 class="item-title">MFoC Station</h2>
+          <p class="item-text">服务器信息站，装在看板或手机上都能用。状态、公告、模组列表和常用入口放在一处，不用开着游戏查。</p>
+          <div class="item-meta">信息站客户端 · Android + Windows</div>
         </article>
-        <article class="card tool-card" id="mfoc-station-desktop" data-reveal>
-          <div class="card-top">
-            <span class="card-index">02</span>
-          </div>
-          <h2 class="card-title">MFoC Station Desktop</h2>
-          <p class="card-meta">Windows 桌面版 · Compose Multiplatform + Ktor</p>
-          <p class="card-desc">可调整窗口的桌面端信息站。</p>
-          <ul class="card-points">
-            <li>附带 Inno Setup 安装程序，开箱即用</li>
-          </ul>
+        <article class="item" id="mfoc-station-desktop" data-reveal>
+          <span class="item-num">02</span>
+          <h2 class="item-title">MFoC Station Desktop</h2>
+          <p class="item-text">同一套东西的桌面版。窗口可以随意拉，附了安装程序。</p>
+          <div class="item-meta">Windows 桌面版 · Compose + Ktor</div>
         </article>
-        <article class="card tool-card" id="mfoc-station-harmony" data-reveal>
-          <div class="card-top">
-            <span class="card-index">03</span>
-          </div>
-          <h2 class="card-title">MFoC Station Harmony</h2>
-          <p class="card-meta">HarmonyOS NEXT · ArkTS + ArkUI</p>
-          <p class="card-desc">从零实现的鸿蒙原生版本，与 Kotlin 版功能对齐。</p>
-          <ul class="card-points">
-            <li>针对 HarmonyOS 设备的兼容性适配方案</li>
-          </ul>
+        <article class="item" id="mfoc-station-harmony" data-reveal>
+          <span class="item-num">03</span>
+          <h2 class="item-title">MFoC Station Harmony</h2>
+          <p class="item-text">鸿蒙原生版，用 ArkTS 重写，功能与 Kotlin 版对齐。</p>
+          <div class="item-meta">HarmonyOS NEXT · ArkTS + ArkUI</div>
         </article>
-        <article class="card tool-card" id="flexlauncher" data-reveal>
-          <div class="card-top">
-            <span class="card-index">04</span>
-          </div>
-          <h2 class="card-title">FlexLauncher</h2>
-          <p class="card-meta">通用 Minecraft 启动器 · .NET 8 WPF</p>
-          <p class="card-desc">由 config.json 完全驱动的启动器，本身不绑定任何服务器或整合包。</p>
-          <ul class="card-points">
-            <li>服主改 exe 旁的 config.json 即可得到定制启动器</li>
-            <li>无需重新编译，分发即用</li>
-          </ul>
+        <article class="item" id="flexlauncher" data-reveal>
+          <span class="item-num">04</span>
+          <h2 class="item-title">FlexLauncher</h2>
+          <p class="item-text">一个不绑定任何服务器的启动器：改改 exe 旁边的 config.json，就是你的定制启动器，不用重新编译。</p>
+          <div class="item-meta">通用启动器 · .NET 8 WPF</div>
         </article>
-        <article class="card tool-card" id="dimension-transfer" data-reveal>
-          <div class="card-top">
-            <span class="card-index">05</span>
-          </div>
-          <h2 class="card-title">dimension-transfer</h2>
-          <p class="card-meta">Velocity 代理插件</p>
-          <p class="card-desc">按维度把玩家转发到 main / other 两个后端之一。</p>
-          <ul class="card-points">
-            <li>监听玩家切换维度的数据包，支持跨后端维度分流</li>
-          </ul>
+        <article class="item" id="dimension-transfer" data-reveal>
+          <span class="item-num">05</span>
+          <h2 class="item-title">dimension-transfer</h2>
+          <p class="item-text">玩家跨维度时按维度把人转到不同的后端，两个世界的负载分开。</p>
+          <div class="item-meta">Velocity 插件</div>
         </article>
-        <article class="card tool-card" id="serverbackup" data-reveal>
-          <div class="card-top">
-            <span class="card-index">06</span>
-          </div>
-          <h2 class="card-title">serverbackup</h2>
-          <p class="card-meta">Windows 原生 exe · v1.1.0</p>
-          <p class="card-desc">给服务器用的定时备份工具，纯 Windows 原生实现。</p>
-          <ul class="card-points">
-            <li>先复制存档再压缩归档，内置 7-Zip，零外部依赖</li>
-            <li>命令行守护进程 + 图形「立即备份」两个程序</li>
-            <li>可与关服工具联动，组成关服 → 备份 → 开服</li>
-          </ul>
+        <article class="item" id="serverbackup" data-reveal>
+          <span class="item-num">06</span>
+          <h2 class="item-title">serverbackup</h2>
+          <p class="item-text">定时备份服务器存档。先把文件复制到安全位置，再压缩归档；命令行守护进程管定时，图形版用来手动点一下。</p>
+          <div class="item-meta">Windows exe · 1.1.0</div>
         </article>
-        <article class="card tool-card" id="autoclose" data-reveal>
-          <div class="card-top">
-            <span class="card-index">07</span>
-          </div>
-          <h2 class="card-title">autoclose</h2>
-          <p class="card-meta">Windows 原生 exe · v1.0.0</p>
-          <p class="card-desc">服务器运维用的定时关服 / 关进程工具。</p>
-          <ul class="card-points">
-            <li>礼貌关闭（Ctrl+Break 让服务端先存盘）与强制结束两档</li>
-            <li>关键进程保护；图形设置界面与配置文件双向同步</li>
-          </ul>
+        <article class="item" id="autoclose" data-reveal>
+          <span class="item-num">07</span>
+          <h2 class="item-title">autoclose</h2>
+          <p class="item-text">配合备份用的关服工具。到点先礼后兵：给服务端发个存盘信号，等几秒，再不行才强杀。</p>
+          <div class="item-meta">Windows exe · 1.0.0</div>
         </article>
-        <article class="card tool-card" id="mfoc-docs" data-reveal>
-          <div class="card-top">
-            <span class="card-index">08</span>
-          </div>
-          <h2 class="card-title">MFoC 文档站</h2>
-          <p class="card-meta">建站项目 · Hexo + Fluid</p>
-          <p class="card-desc">服务器官方文档站：模组介绍、技术文档与管理团队。</p>
-          <ul class="card-points">
-            <li>内容架构设计与主题配置</li>
-          </ul>
+        <article class="item" id="mfoc-docs" data-reveal>
+          <span class="item-num">08</span>
+          <h2 class="item-title">MFoC 文档站</h2>
+          <p class="item-text">服务器的文档站，模组介绍、技术文档和管理团队都在里面。</p>
+          <div class="item-meta">站点 · Hexo + Fluid</div>
         </article>
-        <article class="card tool-card" id="mfoc-server" data-reveal>
-          <div class="card-top">
-            <span class="card-index">09</span>
-          </div>
-          <h2 class="card-title">MFoC 服务器</h2>
-          <p class="card-meta">Minecraft 模组服务器 · 270+ 模组 · 已停运</p>
-          <p class="card-desc">早期的模组服务器项目，从架构搭建、模组包配置到社区运营都由工作室完成。</p>
-          <ul class="card-points">
-            <li>现已停运，作为历史项目存档</li>
-          </ul>
+        <article class="item" id="mfoc-server" data-reveal>
+          <span class="item-num">09</span>
+          <h2 class="item-title">MFoC 服务器</h2>
+          <p class="item-text">早期的模组服务器项目，270 多个模组，从架构到社区运营都是自己做的。现在已经停了，留个存档。</p>
+          <div class="item-meta">模组服务器 · 270+ 模组 · 已停运</div>
         </article>
       </div>
     </div>
   </section>
 </main>
 <footer class="site-footer">
-  <div class="container">
+  <div class="wrap">
     <div class="footer-grid">
       <div class="footer-col footer-about">
-        <div class="footer-brand">MORNFROST OFFICE</div>
-        <p>设计 · 开发 · 创意。做 Minecraft 模组、应用工具和网站。</p>
+        <div class="footer-brand">Mornfrost Office</div>
+        <p>做 Minecraft 模组、应用工具和网站。作品都在站里，想聊就发邮件。</p>
       </div>
       <div class="footer-col">
         <div class="footer-label">站点</div>
@@ -172,14 +123,14 @@
         <a href="/contact/">联系</a>
       </div>
       <div class="footer-col">
-        <div class="footer-label">联系方式</div>
+        <div class="footer-label">联系</div>
         <a href="mailto:admin@mfoc-server.top">admin@mfoc-server.top</a>
         <a href="https://github.com/mornfire" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>© <span id="year">2026</span> Mornfrost Office</span>
-      <span class="footer-note">手写 HTML / CSS，无框架</span>
+      <span>手写 HTML / CSS · 无框架</span>
     </div>
   </div>
 </footer>

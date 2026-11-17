@@ -56,10 +56,10 @@
   /* mod filters + search */
   var grid = doc.getElementById("modsGrid");
   if (grid) {
-    var cards = Array.prototype.slice.call(grid.querySelectorAll(".mod-card"));
+    var cards = Array.prototype.slice.call(grid.querySelectorAll(".item"));
     var chips = Array.prototype.slice.call(doc.querySelectorAll(".chip"));
     var search = doc.getElementById("modSearch");
-    var count = doc.getElementById("filterCount");
+    var count = doc.getElementById("results");
     var state = { cat: "all", q: "" };
 
     var apply = function () {
