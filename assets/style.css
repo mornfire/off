@@ -168,6 +168,7 @@ a.item{display:block}
 .page-kicker{margin-bottom:20px}
 .page-title{font-family:var(--serif);font-weight:400;font-size:clamp(38px,5.6vw,66px);line-height:1.18;letter-spacing:.01em;max-width:860px}
 .page-lead{color:var(--muted);font-size:15.5px;line-height:1.95;margin-top:22px;max-width:560px}
+.page-lead.mono{font-family:var(--mono);font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--text);margin-top:18px}
 .page-head + .section{padding-top:46px}
 
 /* ---------- works index ---------- */
@@ -264,6 +265,18 @@ a.item{display:block}
 .article-narrow .page-title{font-size:clamp(28px,3.6vw,44px);margin-top:18px}
 .sign{margin-top:44px;font-family:var(--mono);font-size:13px;line-height:2;color:var(--text)}
 .sign span{color:var(--dim)}
+
+/* ---------- formal document (about) ---------- */
+.doc{max-width:780px}
+.doc-lead{color:var(--text);font-size:15.5px;line-height:2.05;margin-bottom:6px}
+.doc-section{margin-top:38px;padding-top:26px;border-top:1px solid var(--line)}
+.doc-section h2{font-family:var(--serif);font-weight:400;font-size:19.5px;letter-spacing:.05em;margin-bottom:16px}
+.doc-section p{color:var(--muted);font-size:14.5px;line-height:2.1;text-indent:2em;margin-bottom:9px}
+.doc-section p.noindent{text-indent:0}
+.doc-section a{color:var(--ice);border-bottom:1px solid rgba(169,207,221,.35)}
+.doc-section a:hover{border-bottom-color:var(--ice)}
+.doc-sign{margin-top:46px;padding-top:20px;border-top:1px solid var(--line);font-family:var(--mono);font-size:12.5px;line-height:2;color:var(--text)}
+.doc-sign span{color:var(--dim)}
 
 /* ---------- 404 ---------- */
 .error{min-height:64vh;display:flex;align-items:center;justify-content:center;text-align:center;padding-top:120px}
