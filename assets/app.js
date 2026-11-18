@@ -98,3 +98,53 @@
   var year = doc.getElementById("year");
   if (year) year.textContent = String(new Date().getFullYear());
 })();
+
+/* v2: 光标环境光 + 卡片倾斜（尊重 reduced-motion） */
+(function () {
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (reduce) return;
+
+  document.addEventListener("pointermove", function (e) {
+    document.documentElement.style.setProperty("--mx", e.clientX + "px");
+    document.documentElement.style.setProperty("--my", e.clientY + "px");
+  }, { passive: true });
+
+  if (!fine) return;
+  var cards = document.querySelectorAll(".item, .works-block, .member, .hiring, .btn");
+  Array.prototype.forEach.call(cards, function (el) {
+    el.addEventListener("pointermove", function (e) {
+      var r = el.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width;
+      var y = (e.clientY - r.top) / r.height;
+      el.style.setProperty("--rx", ((0.5 - y) * 3.2).toFixed(2) + "deg");
+      el.style.setProperty("--ry", ((x - 0.5) * 3.2).toFixed(2) + "deg");
+      el.style.setProperty("--px", (x * 100).toFixed(1) + "%");
+      el.style.setProperty("--py", (y * 100).toFixed(1) + "%");
+    });
+    el.addEventListener("pointerleave", function () {
+      el.style.setProperty("--rx", "0deg");
+      el.style.setProperty("--ry", "0deg");
+      el.style.setProperty("--px", "50%");
+      el.style.setProperty("--py", "0%");
+    });
+  });
+})();
+
+/* v3: 背景随滚动视差 */
+(function () {
+  "use strict";
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var root = document.documentElement;
+  var raf = 0;
+  var onScroll = function () {
+    if (raf) return;
+    raf = window.requestAnimationFrame(function () {
+      root.style.setProperty("--sy", String(window.scrollY));
+      raf = 0;
+    });
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+})();
