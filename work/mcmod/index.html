@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>if(location.protocol==="http:"&&!/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)){location.replace("https://"+location.host+location.pathname+location.search+location.hash);}</script>
 <title>Minecraft 模组 — Mornfrost Office</title>
 <meta name="description" content="Mornfrost Office 的 Minecraft 模组：内容、服务端工具、移植与附属。">
 <link rel="canonical" href="https://www.mornfrost.cn/work/mcmod/">
@@ -49,152 +50,154 @@
   <section class="section">
     <div class="wrap">
       <div class="filters" data-reveal>
-        <div class="chip-group" role="group" aria-label="按类别筛选"><button class="chip is-active" type="button" data-filter="all">全部</button><button class="chip" type="button" data-filter="content">内容</button><button class="chip" type="button" data-filter="server">服务端</button><button class="chip" type="button" data-filter="port">移植与附属</button><button class="chip" type="button" data-filter="lib">前置与修复</button></div>
+        <div class="chip-group" role="group" aria-label="按类别筛选"><button class="chip is-active" type="button" data-filter="all">全部</button><button class="chip" type="button" data-filter="content">内容</button><button class="chip" type="button" data-filter="server">服务端</button><button class="chip" type="button" data-filter="port">附属</button><button class="chip" type="button" data-filter="lib">前置与修复</button></div>
         <label class="search">
           <span class="sr-only">搜索模组</span>
           <input type="search" id="modSearch" placeholder="搜索…" autocomplete="off">
         </label>
       </div>
-      <p class="results" id="results" data-reveal>23 个项目</p>
+      <p class="results" id="results" data-reveal>20 个项目</p>
       <div class="items" id="modsGrid">
-        <article class="item" id="achievements" data-cat="content" data-search="mornfrost achievements 三百多条成就，正经的和不正经的都有。想给服务器找点事做的时候，它挺合适；一个人慢慢清也能玩上一阵。 neoforge 1.21.1 · fabric 1.21.1 / 1.21.11 · forge 1.20.1 · 5.1.0 内容" data-reveal>
+        <a class="item" id="achievements" data-cat="content" data-search="mornfrost achievements 三百多条成就，正经的和不正经的都有。想给服务器找点事做的时候，它挺合适；一个人慢慢清也能玩上一阵。 neoforge 1.21.1 · fabric 1.21.1 / 1.21.11 · forge 1.20.1 · 5.1.0 内容" data-reveal href="/work/mcmod/achievements/">
           <span class="item-num">01 · 内容</span>
           <h2 class="item-title">Mornfrost Achievements</h2>
           <p class="item-text">三百多条成就，正经的和不正经的都有。想给服务器找点事做的时候，它挺合适；一个人慢慢清也能玩上一阵。</p>
           <div class="item-meta">NeoForge 1.21.1 · Fabric 1.21.1 / 1.21.11 · Forge 1.20.1 · 5.1.0</div>
-        </article>
-        <article class="item" id="soulglyph" data-cat="content" data-search="soulglyph 灵铭 把铭文塞进饰品栏的点子。42 条基础铭文两两融合，能凑出九百多种组合，戴上就生效。后来还做了个节奏更慢的养老版。 neoforge 1.21.1 · 前置 curios · 1.0.0 内容" data-reveal>
+          <span class="read-more">阅读全文 →</span>
+        </a>
+        <a class="item" id="soulglyph" data-cat="content" data-search="soulglyph 灵铭 把铭文塞进饰品栏的点子。42 条基础铭文两两融合，能凑出九百多种组合，戴上就生效。后来还做了个节奏更慢的养老版。 neoforge 1.21.1 · 前置 curios · 1.0.0 内容" data-reveal href="/work/mcmod/soulglyph/">
           <span class="item-num">02 · 内容</span>
           <h2 class="item-title">SoulGlyph 灵铭</h2>
           <p class="item-text">把铭文塞进饰品栏的点子。42 条基础铭文两两融合，能凑出九百多种组合，戴上就生效。后来还做了个节奏更慢的养老版。</p>
           <div class="item-meta">NeoForge 1.21.1 · 前置 Curios · 1.0.0</div>
-        </article>
-        <article class="item" id="soulbound" data-cat="content" data-search="soulbound blades 缚魂之刃 二十把剑，每把都得先解谜、再试炼，最后才长成它该有的样子。数值和文案都写在 json 里，改起来不用重开游戏。 neoforge 1.21.1 · 1.1.0 内容" data-reveal>
+          <span class="read-more">阅读全文 →</span>
+        </a>
+        <a class="item" id="soulbound" data-cat="content" data-search="soulbound blades 缚魂之刃 二十把剑，每把都得先解谜、再试炼，最后才长成它该有的样子。数值和文案都写在 json 里，改起来不用重开游戏。 neoforge 1.21.1 · 1.1.0 内容" data-reveal href="/work/mcmod/soulbound/">
           <span class="item-num">03 · 内容</span>
           <h2 class="item-title">Soulbound Blades 缚魂之刃</h2>
           <p class="item-text">二十把剑，每把都得先解谜、再试炼，最后才长成它该有的样子。数值和文案都写在 JSON 里，改起来不用重开游戏。</p>
           <div class="item-meta">NeoForge 1.21.1 · 1.1.0</div>
-        </article>
-        <article class="item" id="arsenal" data-cat="content" data-search="arsenal 中式、日式、西式的兵器被放在同一张工作台上：六种矿物、二十九类武器、七十二件护甲，从挖矿到锻造一条线走完。 neoforge 1.21.1 · 1.0.0 内容" data-reveal>
+          <span class="read-more">阅读全文 →</span>
+        </a>
+        <a class="item" id="arsenal" data-cat="content" data-search="arsenal 中式、日式、西式的兵器被放在同一张工作台上：六种矿物、二十九类武器、七十二件护甲，从挖矿到锻造一条线走完。 neoforge 1.21.1 · 1.0.0 内容" data-reveal href="/work/mcmod/arsenal/">
           <span class="item-num">04 · 内容</span>
           <h2 class="item-title">Arsenal</h2>
           <p class="item-text">中式、日式、西式的兵器被放在同一张工作台上：六种矿物、二十九类武器、七十二件护甲，从挖矿到锻造一条线走完。</p>
           <div class="item-meta">NeoForge 1.21.1 · 1.0.0</div>
-        </article>
-        <article class="item" id="echoes" data-cat="content" data-search="echoes of the unbound · 未缚回响 五个破碎的维度，四个同行的人。故事从告别开始，每次有人死去，镜头都会停一下。 neoforge 1.21.1 · 1.0.0 内容" data-reveal>
+          <span class="read-more">阅读全文 →</span>
+        </a>
+        <a class="item" id="echoes" data-cat="content" data-search="echoes of the unbound · 未缚回响 五个破碎的维度，四个同行的人。故事从告别开始，每次有人死去，镜头都会停一下。 neoforge 1.21.1 · 1.0.0 内容" data-reveal href="/work/mcmod/echoes/">
           <span class="item-num">05 · 内容</span>
           <h2 class="item-title">Echoes of the Unbound · 未缚回响</h2>
           <p class="item-text">五个破碎的维度，四个同行的人。故事从告别开始，每次有人死去，镜头都会停一下。</p>
           <div class="item-meta">NeoForge 1.21.1 · 1.0.0</div>
-        </article>
-        <article class="item" id="ascension" data-cat="content" data-search="forge of ascension 两件同等级的装备丢进强化台，合成一件更强的。等级越高越容易碎，失败就什么都不剩——赌的就是这一下。 neoforge 1.21.1 · 1.0.0 内容" data-reveal>
+          <span class="read-more">阅读全文 →</span>
+        </a>
+        <a class="item" id="ascension" data-cat="content" data-search="forge of ascension 两件同等级的装备丢进强化台，合成一件更强的。等级越高越容易碎，失败就什么都不剩——赌的就是这一下。 neoforge 1.21.1 · 1.0.0 内容" data-reveal href="/work/mcmod/ascension/">
           <span class="item-num">06 · 内容</span>
           <h2 class="item-title">Forge of Ascension</h2>
           <p class="item-text">两件同等级的装备丢进强化台，合成一件更强的。等级越高越容易碎，失败就什么都不剩——赌的就是这一下。</p>
           <div class="item-meta">NeoForge 1.21.1 · 1.0.0</div>
-        </article>
-        <article class="item" id="chinesecanfly" data-cat="content" data-search="中国人能飞 游戏语言是中文就能飞，切回英文马上掉下来。一个纯粹为了好玩写的模组，没想到还挺多人喜欢。 neoforge 1.21.1 · 1.0.0 内容" data-reveal>
+          <span class="read-more">阅读全文 →</span>
+        </a>
+        <a class="item" id="chinesecanfly" data-cat="content" data-search="中国人能飞 游戏语言是中文就能飞，切回英文马上掉下来。一个纯粹为了好玩写的模组，没想到还挺多人喜欢。 neoforge 1.21.1 · 1.0.0 内容" data-reveal href="/work/mcmod/chinesecanfly/">
           <span class="item-num">07 · 内容</span>
           <h2 class="item-title">中国人能飞</h2>
           <p class="item-text">游戏语言是中文就能飞，切回英文马上掉下来。一个纯粹为了好玩写的模组，没想到还挺多人喜欢。</p>
           <div class="item-meta">NeoForge 1.21.1 · 1.0.0</div>
-        </article>
-        <article class="item" id="ymondf" data-cat="content" data-search="ymondf · 月神 叙事冒险，「九加一」arg 的第一个质点。睡一觉会收到一个档案袋，按里面的页走；再往后是月神和它的月相竞技场。0.3 里加了两个阶段的机制 boss、四语配音，还有一枚能召唤月神残影的月相盘。 neoforge 1.21.1 · 前置 sqdclib / geckolib · 0.3.3 内容" data-reveal>
+          <span class="read-more">阅读全文 →</span>
+        </a>
+        <a class="item" id="ymondf" data-cat="content" data-search="ymondf · 月神 叙事冒险，「九加一」arg 的第一个质点。睡一觉会收到一个档案袋，按里面的页走；再往后是月神和它的月相竞技场。0.3 里加了两个阶段的机制 boss、四语配音，还有一枚能召唤月神残影的月相盘。 neoforge 1.21.1 · 前置 sqdclib / geckolib · 0.3.3 内容" data-reveal href="/work/mcmod/ymondf/">
           <span class="item-num">08 · 内容</span>
           <h2 class="item-title">Ymondf · 月神</h2>
           <p class="item-text">叙事冒险，「九加一」ARG 的第一个质点。睡一觉会收到一个档案袋，按里面的页走；再往后是月神和它的月相竞技场。0.3 里加了两个阶段的机制 Boss、四语配音，还有一枚能召唤月神残影的月相盘。</p>
           <div class="item-meta">NeoForge 1.21.1 · 前置 SQDCLib / GeckoLib · 0.3.3</div>
-        </article>
-        <article class="item" id="memorymaster" data-cat="server" data-search="memorymaster 给服务端省内存的。七个模块能单独关，注入失败会自动退回原版行为，慌了还有一条 /mmcmf panic 兜底。 neoforge 1.21.1 服务端 · 1.0.0 服务端" data-reveal>
+          <span class="read-more">阅读全文 →</span>
+        </a>
+        <a class="item" id="memorymaster" data-cat="server" data-search="memorymaster 给服务端省内存的。七个模块能单独关，注入失败会自动退回原版行为，慌了还有一条 /mmcmf panic 兜底。 neoforge 1.21.1 服务端 · 1.0.0 服务端" data-reveal href="/work/mcmod/memorymaster/">
           <span class="item-num">09 · 服务端</span>
           <h2 class="item-title">MemoryMaster</h2>
           <p class="item-text">给服务端省内存的。七个模块能单独关，注入失败会自动退回原版行为，慌了还有一条 /mmcmf panic 兜底。</p>
           <div class="item-meta">NeoForge 1.21.1 服务端 · 1.0.0</div>
-        </article>
-        <article class="item" id="banitemblock" data-cat="server" data-search="banitemblock 不想让某个方块或物品出现在服务器里，把名字写进配置就行。方块和物品分开列，互不影响。 neoforge 1.21.1 服务端 · 1.0.0 服务端" data-reveal>
+          <span class="read-more">阅读全文 →</span>
+        </a>
+        <a class="item" id="banitemblock" data-cat="server" data-search="banitemblock 不想让某个方块或物品出现在服务器里，把名字写进配置就行。方块和物品分开列，互不影响。 neoforge 1.21.1 服务端 · 1.0.0 服务端" data-reveal href="/work/mcmod/banitemblock/">
           <span class="item-num">10 · 服务端</span>
           <h2 class="item-title">BanItemBlock</h2>
           <p class="item-text">不想让某个方块或物品出现在服务器里，把名字写进配置就行。方块和物品分开列，互不影响。</p>
           <div class="item-meta">NeoForge 1.21.1 服务端 · 1.0.0</div>
-        </article>
-        <article class="item" id="enchantremover" data-cat="server" data-search="enchantment remover 删掉不想要的附魔。附魔台里刷不出来，战利品和交易里也不会出现，装备上已经有的直接失效。 neoforge 1.21.1 · 1.0.0 服务端" data-reveal>
+          <span class="read-more">阅读全文 →</span>
+        </a>
+        <a class="item" id="enchantremover" data-cat="server" data-search="enchantment remover 删掉不想要的附魔。附魔台里刷不出来，战利品和交易里也不会出现，装备上已经有的直接失效。 neoforge 1.21.1 · 1.0.0 服务端" data-reveal href="/work/mcmod/enchantremover/">
           <span class="item-num">11 · 服务端</span>
           <h2 class="item-title">Enchantment Remover</h2>
           <p class="item-text">删掉不想要的附魔。附魔台里刷不出来，战利品和交易里也不会出现，装备上已经有的直接失效。</p>
           <div class="item-meta">NeoForge 1.21.1 · 1.0.0</div>
-        </article>
-        <article class="item" id="perdimrespawn" data-cat="server" data-search="per-dimension respawn 原版只有一个出生点，在地狱放个重生锚就把主世界的床盖掉了。这个模组让每个维度各记各的，死在哪就回哪。 neoforge 1.21.1 服务端 · 1.0.0 服务端" data-reveal>
+          <span class="read-more">阅读全文 →</span>
+        </a>
+        <a class="item" id="perdimrespawn" data-cat="server" data-search="per-dimension respawn 原版只有一个出生点，在地狱放个重生锚就把主世界的床盖掉了。这个模组让每个维度各记各的，死在哪就回哪。 neoforge 1.21.1 服务端 · 1.0.0 服务端" data-reveal href="/work/mcmod/perdimrespawn/">
           <span class="item-num">12 · 服务端</span>
           <h2 class="item-title">Per-Dimension Respawn</h2>
           <p class="item-text">原版只有一个出生点，在地狱放个重生锚就把主世界的床盖掉了。这个模组让每个维度各记各的，死在哪就回哪。</p>
           <div class="item-meta">NeoForge 1.21.1 服务端 · 1.0.0</div>
-        </article>
-        <article class="item" id="loginmod" data-cat="server" data-search="login mod 服务端的登录注册。没登录之前人被冻住、看不见、点不了东西，安安静静把密码输完。 neoforge 1.21.1 服务端 · 1.0.0 服务端" data-reveal>
+          <span class="read-more">阅读全文 →</span>
+        </a>
+        <a class="item" id="loginmod" data-cat="server" data-search="login mod 服务端的登录注册。没登录之前人被冻住、看不见、点不了东西，安安静静把密码输完。 neoforge 1.21.1 服务端 · 1.0.0 服务端" data-reveal href="/work/mcmod/loginmod/">
           <span class="item-num">13 · 服务端</span>
           <h2 class="item-title">Login Mod</h2>
           <p class="item-text">服务端的登录注册。没登录之前人被冻住、看不见、点不了东西，安安静静把密码输完。</p>
           <div class="item-meta">NeoForge 1.21.1 服务端 · 1.0.0</div>
-        </article>
-        <article class="item" id="kipl" data-cat="server" data-search="kipl · kill inspector 想知道谁杀了谁。输入 /kipl，它会告诉你最近一次击杀的时间、地点，以及是游戏事件还是控制台日志抓到的。 neoforge 1.21.1 服务端 · 1.0.0 服务端" data-reveal>
+          <span class="read-more">阅读全文 →</span>
+        </a>
+        <a class="item" id="kipl" data-cat="server" data-search="kipl · kill inspector 想知道谁杀了谁。输入 /kipl，它会告诉你最近一次击杀的时间、地点，以及是游戏事件还是控制台日志抓到的。 neoforge 1.21.1 服务端 · 1.0.0 服务端" data-reveal href="/work/mcmod/kipl/">
           <span class="item-num">14 · 服务端</span>
           <h2 class="item-title">KIPL · Kill Inspector</h2>
           <p class="item-text">想知道谁杀了谁。输入 /kipl，它会告诉你最近一次击杀的时间、地点，以及是游戏事件还是控制台日志抓到的。</p>
           <div class="item-meta">NeoForge 1.21.1 服务端 · 1.0.0</div>
-        </article>
-        <article class="item" id="oreguard" data-cat="server" data-search="oreguard 反矿透，纯服务端，客户端什么都不用装。除了藏矿，还会看挖掘行为有没有不对劲。 neoforge 1.21.1 服务端 · 1.0.0 服务端" data-reveal>
+          <span class="read-more">阅读全文 →</span>
+        </a>
+        <a class="item" id="oreguard" data-cat="server" data-search="oreguard 反矿透，纯服务端，客户端什么都不用装。除了藏矿，还会看挖掘行为有没有不对劲。 neoforge 1.21.1 服务端 · 1.0.0 服务端" data-reveal href="/work/mcmod/oreguard/">
           <span class="item-num">15 · 服务端</span>
           <h2 class="item-title">OreGuard</h2>
           <p class="item-text">反矿透，纯服务端，客户端什么都不用装。除了藏矿，还会看挖掘行为有没有不对劲。</p>
           <div class="item-meta">NeoForge 1.21.1 服务端 · 1.0.0</div>
-        </article>
-        <article class="item" id="lmlly" data-cat="server" data-search="let me look look you 管理员工具：看一眼某个玩家的末影箱、背包或饰品栏。窗口是只读的，拿不出也放不进。 neoforge 1.21.1 服务端 · 1.0.0 服务端" data-reveal>
+          <span class="read-more">阅读全文 →</span>
+        </a>
+        <a class="item" id="lmlly" data-cat="server" data-search="let me look look you 管理员工具：看一眼某个玩家的末影箱、背包或饰品栏。窗口是只读的，拿不出也放不进。 neoforge 1.21.1 服务端 · 1.0.0 服务端" data-reveal href="/work/mcmod/lmlly/">
           <span class="item-num">16 · 服务端</span>
           <h2 class="item-title">Let Me Look Look You</h2>
           <p class="item-text">管理员工具：看一眼某个玩家的末影箱、背包或饰品栏。窗口是只读的，拿不出也放不进。</p>
           <div class="item-meta">NeoForge 1.21.1 服务端 · 1.0.0</div>
-        </article>
-        <article class="item" id="culinary" data-cat="port" data-search="culinary construct（移植） 经典烹饪模组的 neoforge 移植。食材自由组合，三明治想夹什么夹什么。原作出自 illusive soulworks。 neoforge 1.21.1 · 原作 illusive soulworks · 6.1.0 移植与附属" data-reveal>
-          <span class="item-num">17 · 移植与附属</span>
-          <h2 class="item-title">Culinary Construct（移植）</h2>
-          <p class="item-text">经典烹饪模组的 NeoForge 移植。食材自由组合，三明治想夹什么夹什么。原作出自 Illusive Soulworks。</p>
-          <div class="item-meta">NeoForge 1.21.1 · 原作 Illusive Soulworks · 6.1.0</div>
-        </article>
-        <article class="item" id="deleteportal" data-cat="port" data-search="deleteportal danny&#x27;s aot 的附属：世界生成时把帕拉迪岛的传送门直接换成空气，顺手数一下清掉了多少。 neoforge 1.21.1 · danny&#x27;s aot 附属 · 1.0.0 移植与附属" data-reveal>
-          <span class="item-num">18 · 移植与附属</span>
+          <span class="read-more">阅读全文 →</span>
+        </a>
+        <a class="item" id="deleteportal" data-cat="port" data-search="deleteportal danny&#x27;s aot 的附属：世界生成时把帕拉迪岛的传送门直接换成空气，顺手数一下清掉了多少。 neoforge 1.21.1 · danny&#x27;s aot 附属 · 1.0.0 附属" data-reveal href="/work/mcmod/deleteportal/">
+          <span class="item-num">17 · 附属</span>
           <h2 class="item-title">DeletePortal</h2>
           <p class="item-text">Danny's AoT 的附属：世界生成时把帕拉迪岛的传送门直接换成空气，顺手数一下清掉了多少。</p>
           <div class="item-meta">NeoForge 1.21.1 · Danny's AoT 附属 · 1.0.0</div>
-        </article>
-        <article class="item" id="mahjong" data-cat="port" data-search="mahjongcraft 把日式立直麻将搬进 minecraft，和朋友们开一桌。移植自 doublemoon1119 的原作。 neoforge 1.21.1 移植 · 原作 doublemoon1119 · 0.3.13 移植与附属" data-reveal>
-          <span class="item-num">19 · 移植与附属</span>
-          <h2 class="item-title">MahjongCraft</h2>
-          <p class="item-text">把日式立直麻将搬进 Minecraft，和朋友们开一桌。移植自 doublemoon1119 的原作。</p>
-          <div class="item-meta">NeoForge 1.21.1 移植 · 原作 doublemoon1119 · 0.3.13</div>
-        </article>
-        <article class="item" id="factionzones" data-cat="port" data-search="factionzones 给 jake&#x27;s economy 加的阵营商店分区：每个阵营只看得到自己的货架，外加一个所有人共享的公开商店。 fabric · jake&#x27;s economy 附属 · 1.0.0 移植与附属" data-reveal>
-          <span class="item-num">20 · 移植与附属</span>
+          <span class="read-more">阅读全文 →</span>
+        </a>
+        <a class="item" id="factionzones" data-cat="port" data-search="factionzones 给 jake&#x27;s economy 加的阵营商店分区：每个阵营只看得到自己的货架，外加一个所有人共享的公开商店。 fabric · jake&#x27;s economy 附属 · 1.0.0 附属" data-reveal href="/work/mcmod/factionzones/">
+          <span class="item-num">18 · 附属</span>
           <h2 class="item-title">FactionZones</h2>
           <p class="item-text">给 Jake's Economy 加的阵营商店分区：每个阵营只看得到自己的货架，外加一个所有人共享的公开商店。</p>
           <div class="item-meta">Fabric · Jake's Economy 附属 · 1.0.0</div>
-        </article>
-        <article class="item" id="voxy" data-cat="port" data-search="voxy（neoforge 移植） 远距离体素渲染的 voxy，非官方 neoforge 移植。官方那边还在等，这边先用着。 neoforge 1.21.1 · 非官方移植 · 0.2.9-alpha 移植与附属" data-reveal>
-          <span class="item-num">21 · 移植与附属</span>
-          <h2 class="item-title">Voxy（NeoForge 移植）</h2>
-          <p class="item-text">远距离体素渲染的 Voxy，非官方 NeoForge 移植。官方那边还在等，这边先用着。</p>
-          <div class="item-meta">NeoForge 1.21.1 · 非官方移植 · 0.2.9-alpha</div>
-        </article>
-        <article class="item" id="sqdclib" data-cat="lib" data-search="sqdclib 写叙事模组时反复要的那几件事：状态存档、任务推进、对话分支、演出播放。抽出来做成前置库，四个模块互不依赖，只用一两个也行。 neoforge 1.21.1 · 前置库 · 3.0.1 前置与修复" data-reveal>
-          <span class="item-num">22 · 前置与修复</span>
+          <span class="read-more">阅读全文 →</span>
+        </a>
+        <a class="item" id="sqdclib" data-cat="lib" data-search="sqdclib 写叙事模组时反复要的那几件事：状态存档、任务推进、对话分支、演出播放。抽出来做成前置库，四个模块互不依赖，只用一两个也行。 neoforge 1.21.1 · 前置库 · 3.0.1 前置与修复" data-reveal href="/work/mcmod/sqdclib/">
+          <span class="item-num">19 · 前置与修复</span>
           <h2 class="item-title">SQDCLib</h2>
           <p class="item-text">写叙事模组时反复要的那几件事：状态存档、任务推进、对话分支、演出播放。抽出来做成前置库，四个模块互不依赖，只用一两个也行。</p>
           <div class="item-meta">NeoForge 1.21.1 · 前置库 · 3.0.1</div>
-        </article>
-        <article class="item" id="fixsodium" data-cat="lib" data-search="fix sodium shaderloader sodium 在 neoforge 上让 nvidium 和 voxy 加载不了着色器，这个补丁先把问题解决掉。修法已经提了上游 pr。 neoforge 1.21.1 · 修复补丁 · 1.0.0 前置与修复" data-reveal>
-          <span class="item-num">23 · 前置与修复</span>
+          <span class="read-more">阅读全文 →</span>
+        </a>
+        <a class="item" id="fixsodium" data-cat="lib" data-search="fix sodium shaderloader sodium 在 neoforge 上让 nvidium 和 voxy 加载不了着色器，这个补丁先把问题解决掉。修法已经提了上游 pr。 neoforge 1.21.1 · 修复补丁 · 1.0.0 前置与修复" data-reveal href="/work/mcmod/fixsodium/">
+          <span class="item-num">20 · 前置与修复</span>
           <h2 class="item-title">Fix sodium ShaderLoader</h2>
           <p class="item-text">Sodium 在 NeoForge 上让 nvidium 和 voxy 加载不了着色器，这个补丁先把问题解决掉。修法已经提了上游 PR。</p>
           <div class="item-meta">NeoForge 1.21.1 · 修复补丁 · 1.0.0</div>
-        </article>
+          <span class="read-more">阅读全文 →</span>
+        </a>
       </div>
       <p class="wip-note" data-reveal>Mornutili 和 TT2 还在写，等能用了再放出来。</p>
     </div>
@@ -222,10 +225,11 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© <span id="year">2026</span> Mornfrost Office</span>
-      <span>手写 HTML / CSS · 无框架</span>
+      <span>© <span id="year">2026</span> Mornfrost Office. All rights reserved.</span>
+      <span class="footer-stats">访问 <span id="busuanzi_value_site_pv">--</span> 次 · 访客 <span id="busuanzi_value_site_uv">--</span> 人</span>
     </div>
   </div>
 </footer>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </body>
 </html>

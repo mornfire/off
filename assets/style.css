@@ -1070,3 +1070,26 @@ body::before{
 
 /* 去掉静态环境光斑 */
 html::after{display:none}
+
+
+/* ==========================================================================
+   v11 — 文章排版 / 阅读全文 / 页脚统计
+   ========================================================================== */
+.article-body h2{font-family:var(--serif);font-weight:400;font-size:21.5px;letter-spacing:.03em;color:var(--text);margin:36px 0 14px}
+.article-body h3{font-family:var(--serif);font-weight:400;font-size:18px;color:var(--text);margin:26px 0 10px}
+.article-body p{color:var(--muted);font-size:14.8px;line-height:2.05;margin-bottom:15px}
+.article-body ul,.article-body ol{margin:0 0 16px;padding-left:22px}
+.article-body li{color:var(--muted);font-size:14.2px;line-height:1.95;margin-bottom:6px;list-style:disc}
+.article-body ol li{list-style:decimal}
+.article-body strong{color:var(--text)}
+.article-body blockquote{margin:20px 0;padding:12px 18px;border-left:2px solid #7fe9e0;background:rgba(255,255,255,.04);border-radius:0 8px 8px 0}
+.article-body blockquote p{margin:0;color:var(--text);font-family:var(--serif);font-size:16px;line-height:1.9}
+.article-body code{font-family:var(--mono);font-size:12.5px;background:rgba(255,255,255,.09);padding:1px 5px;border-radius:4px;color:#d7f4f0}
+.article-body pre{background:rgba(0,0,0,.32);border:1px solid rgba(255,255,255,.10);border-radius:10px;padding:14px 16px;overflow:auto;margin:0 0 18px}
+.article-body pre code{background:none;padding:0;font-size:12.5px;line-height:1.85}
+.article-body a{color:#a8f0ea;border-bottom:1px solid rgba(168,240,234,.35)}
+
+.read-more{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:#a8f0ea;opacity:.9}
+.item:hover .read-more{opacity:1}
+.back-link{margin-top:32px}
+.footer-stats{font-family:var(--mono)}

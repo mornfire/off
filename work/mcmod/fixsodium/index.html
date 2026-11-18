@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>if(location.protocol==="http:"&&!/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)){location.replace("https://"+location.host+location.pathname+location.search+location.hash);}</script>
+<title>Fix sodium ShaderLoader — Mornfrost Office</title>
+<meta name="description" content="Sodium 在 NeoForge 上让 nvidium 和 voxy 加载不了着色器，这个补丁先把问题解决掉。修法已经提了上游 PR。">
+<link rel="canonical" href="https://www.mornfrost.cn/work/mcmod/fixsodium/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mornfrost Office">
+<meta property="og:title" content="Fix sodium ShaderLoader — Mornfrost Office">
+<meta property="og:description" content="Sodium 在 NeoForge 上让 nvidium 和 voxy 加载不了着色器，这个补丁先把问题解决掉。修法已经提了上游 PR。">
+<meta property="og:url" content="https://www.mornfrost.cn/work/mcmod/fixsodium/">
+<meta name="theme-color" content="#0f171b">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<script>document.documentElement.className += " js";</script>
+<link rel="stylesheet" href="/assets/style.css">
+<script defer src="/assets/app.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header" id="siteHeader">
+  <div class="wrap header-inner">
+    <a class="brand" href="/" aria-label="Mornfrost Office 首页">
+      <span class="brand-name">Mornfrost</span>
+      <span class="brand-sub">Office</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="主导航">
+      <a class="nav-link" href="/works/">作品</a>
+      <a class="nav-link" href="/about/">关于</a>
+      <a class="nav-link" href="/services/">服务</a>
+      <a class="nav-link" href="/team/">团队</a>
+      <a class="nav-link" href="/contact/">联系</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-head">
+    <div class="wrap">
+      <p class="eyebrow page-kicker" data-reveal>作品 / 模组</p>
+      <h1 class="page-title" data-reveal>Fix sodium ShaderLoader</h1>
+      <p class="page-lead mono" data-reveal>NeoForge 1.21.1 · 修复补丁 · 1.0.0</p>
+      <p class="page-lead" data-reveal>Sodium 在 NeoForge 上让 nvidium 和 voxy 加载不了着色器，这个补丁先把问题解决掉。修法已经提了上游 PR。</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <article class="doc article-body" data-reveal>
+<blockquote>
+<p>解决 nvidium / voxy 在 NeoForge 版 Sodium 下无法加载着色器的问题。</p>
+</blockquote>
+<h2>为什么做它</h2>
+<p>Sodium 在 NeoForge 上的移植版本有一处着色器加载路径没有对齐：nvidium 和 voxy 依赖的那部分接口在初始化时找不到预期的上下文，结果就是光影加载失败——不是崩溃，而是静默地退回默认渲染。</p>
+<p>这个问题在官方仓库里已经有人提过，修复 PR 也提交了，但在合并之前，服务器和整合包需要一个能用的临时方案。</p>
+<h2>它是怎么运作的</h2>
+<p>思路很小：不去改 Sodium 本体，而是用一个独立模组在初始化阶段把缺失的上下文补上，让 nvidium / voxy 的着色器加载流程能正常走完。</p>
+<p>具体做法：</p>
+<ul>
+<li>在 Sodium 的加载阶段注入一段修正逻辑</li>
+<li>只针对受影响的加载路径，不改变其他渲染行为</li>
+<li>修复思路与提交给上游的 PR 一致，等官方合并后这个模组就可以退役</li>
+</ul>
+<p>代码量很小，几乎不增加运行时开销。</p>
+<h2>怎么用</h2>
+<p>装进 <code>mods</code> 即可，无前置（但你需要已经装了 Sodium、nvidium 或 voxy 才会用到它）。加载顺序建议放在 Sodium 之后。</p>
+<p>如果官方版本已经修复，请删掉这个模组——重复注入没有意义，还可能和新版本冲突。</p>
+<h2>取舍与边界</h2>
+<p><strong>不做通用修复</strong>。只针对这一处着色器加载问题，不处理其他 Sodium 兼容性问题。</p>
+<p><strong>不捆绑 Sodium</strong>。模组本身不含 Sodium 代码，只做加载路径修补。</p>
+<p><strong>临时方案</strong>。上游合并后即弃用，不追求长期维护。</p>
+<h2>版本与依赖</h2>
+<p>当前 1.0.0。NeoForge 1.21.1 / Java 21，无强制前置，MIT 协议。适用于 Sodium 在 NeoForge 的对应版本；Sodium 大版本更新后需要确认注入点是否仍然存在。</p>
+<h2>适用场景与排查</h2>
+<p>出现下面这些症状时可以考虑装它：</p>
+<ul>
+<li>装了 Sodium（NeoForge 版）与 nvidium/voxy，光影设置无效</li>
+<li>日志里没有崩溃，但渲染退回默认、帧率异常</li>
+<li>换回原版渲染器就正常</li>
+</ul>
+<p>装之前先确认三件事：Sodium 的版本、nvidium/voxy 的版本、以及是否已经有官方修复。三者任一不匹配，都可能让这个补丁失效。</p>
+<h2>升级与退役</h2>
+<p>这个模组的生命周期跟着上游走。Sodium 官方合并修复后，继续装它没有意义，甚至可能因为注入点不存在而报错。判断方式很简单：删掉它，如果光影能正常加载，就不再需要。</p>
+<p>它的存在本身也说明一件事：在模组生态里，"等上游"往往意味着几周的空白期，一个几十行的补丁就能让服务器正常运转——这类小工具值得单独维护。</p>
+<h2>一个小补丁的价值</h2>
+<p>这类补丁通常只有几十行代码，却能让一整套渲染方案正常工作。它的维护成本也很低：注入点只有一个，上游合并后直接归档。</p>
+<p>如果你在维护整合包，建议把这类"上游未合并的修复"单独列一个清单，定期检查是否已经被官方覆盖。否则整合包里会越堆越多过时的补丁，反而增加排查难度。</p>
+<h2>为什么单独发一个模组</h2>
+<p>把这几十行放进整合包的自定义模组里当然也行，但那样只有这个整合包受益。单独发布的好处是别人也能用，坏处是要跟着上游版本走。</p>
+<p>我的处理方式是：只在确认问题复现、且上游尚未合并时发布；一旦官方修复，就在说明里标注"建议卸载"。</p>
+<h2>反馈方式</h2>
+<p>如果装了之后光影仍然不加载，请附上 Sodium 版本、nvidium/voxy 版本、以及启动日志里与渲染相关的段落。只有"我装了没用"这类信息，没法判断是注入失败还是上游已经改过。</p>
+<p>补充一句：这类加载器问题往往只在特定组合下复现（Sodium 版本 + 光影包 + 显卡驱动），所以报告时把三者都带上，能省掉很多来回确认。</p>
+      </article>
+      <p class="back-link" data-reveal><a class="text-link" href="/work/mcmod/">← 返回模组列表</a></p>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col footer-about">
+        <div class="footer-brand">Mornfrost Office</div>
+        <p>做 Minecraft 模组、应用工具和网站。作品都在站里，想聊就发邮件。</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-label">站点</div>
+        <a href="/works/">作品</a>
+        <a href="/about/">关于</a>
+        <a href="/services/">服务</a>
+        <a href="/team/">团队</a>
+        <a href="/contact/">联系</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-label">联系</div>
+        <a href="mailto:admin@mfoc-server.top">admin@mfoc-server.top</a>
+        <a href="https://github.com/mornfire" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> Mornfrost Office. All rights reserved.</span>
+      <span class="footer-stats">访问 <span id="busuanzi_value_site_pv">--</span> 次 · 访客 <span id="busuanzi_value_site_uv">--</span> 人</span>
+    </div>
+  </div>
+</footer>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>if(location.protocol==="http:"&&!/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)){location.replace("https://"+location.host+location.pathname+location.search+location.hash);}</script>
+<title>SoulGlyph 灵铭 — Mornfrost Office</title>
+<meta name="description" content="把铭文塞进饰品栏的点子。42 条基础铭文两两融合，能凑出九百多种组合，戴上就生效。后来还做了个节奏更慢的养老版。">
+<link rel="canonical" href="https://www.mornfrost.cn/work/mcmod/soulglyph/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mornfrost Office">
+<meta property="og:title" content="SoulGlyph 灵铭 — Mornfrost Office">
+<meta property="og:description" content="把铭文塞进饰品栏的点子。42 条基础铭文两两融合，能凑出九百多种组合，戴上就生效。后来还做了个节奏更慢的养老版。">
+<meta property="og:url" content="https://www.mornfrost.cn/work/mcmod/soulglyph/">
+<meta name="theme-color" content="#0f171b">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<script>document.documentElement.className += " js";</script>
+<link rel="stylesheet" href="/assets/style.css">
+<script defer src="/assets/app.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header" id="siteHeader">
+  <div class="wrap header-inner">
+    <a class="brand" href="/" aria-label="Mornfrost Office 首页">
+      <span class="brand-name">Mornfrost</span>
+      <span class="brand-sub">Office</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="主导航">
+      <a class="nav-link" href="/works/">作品</a>
+      <a class="nav-link" href="/about/">关于</a>
+      <a class="nav-link" href="/services/">服务</a>
+      <a class="nav-link" href="/team/">团队</a>
+      <a class="nav-link" href="/contact/">联系</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-head">
+    <div class="wrap">
+      <p class="eyebrow page-kicker" data-reveal>作品 / 模组</p>
+      <h1 class="page-title" data-reveal>SoulGlyph 灵铭</h1>
+      <p class="page-lead mono" data-reveal>NeoForge 1.21.1 · 前置 Curios · 1.0.0</p>
+      <p class="page-lead" data-reveal>把铭文塞进饰品栏的点子。42 条基础铭文两两融合，能凑出九百多种组合，戴上就生效。后来还做了个节奏更慢的养老版。</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <article class="doc article-body" data-reveal>
+<blockquote>
+<p>把铭文塞进饰品栏的点子。</p>
+</blockquote>
+<h2>为什么做它</h2>
+<p>饰品类模组通常只做"数值挂件"：加攻击、加生命、加速度，装上就完事。玩久了会产生一种奇怪的疲劳——你只是在往身上贴属性，而不是在组装一套自己的东西。</p>
+<p>SoulGlyph 的出发点是把"组装"这件事做出来：给玩家一堆基础铭文，让他自己决定怎么融合、先升哪一条、舍掉哪一条。融合出来的东西不是简单的数值叠加，而是带专属效果的新物件。</p>
+<h2>它是怎么运作的</h2>
+<p>系统建立在 Curios 的饰品槽位上，铭文装备即生效，不需要额外界面操作。核心是两层结构：</p>
+<ul>
+<li><strong>基础铭文</strong>：42 条，各自提供一类效果</li>
+<li><strong>融合铭文</strong>：任意两条基础铭文两两融合，共 903 种组合</li>
+</ul>
+<p>903 这个数字来自组合数：42 × 43 ÷ 2。也就是说每一条基础铭文都和其他所有铭文（包括自己）有明确的融合结果，没有"这个组合不存在"的空洞。</p>
+<p>品质分五档，从普通到神话，加成幅度依次为 10%、15%、20%、30%、40%。品质不是随机 roll 出来的，而是由融合路径和材料决定——想拿到高品质，就得先把低品质的路线走通。</p>
+<p>专属槽位初始 8 格，融合铭文附带各自的特殊效果：有的改变触发条件，有的在特定状态下追加一段效果，有的把两条基础效果绑成连携。槽位数量有限，所以"带哪八条"本身就是配装问题。</p>
+<h2>怎么用</h2>
+<p>需要 Curios 作为前置。把模组和 Curios 一起放进 <code>mods</code>，进游戏后会多出 glyph 槽位，把铭文拖进去即可生效。融合在合成台上完成，界面会提示当前组合的结果类型。</p>
+<p>服务器使用时注意：Curios 本身有服务端和客户端两侧，两边都要装；铭文数据通过数据组件存储，跨维度、死亡掉落规则按服务器配置走。</p>
+<h2>取舍与边界</h2>
+<p>第一个取舍是<strong>不做随机性</strong>。融合结果固定，玩家可以查表规划，这降低了"开箱"的刺激感，但让整套系统可以被认真研究——对长期玩的服务器更重要。</p>
+<p>第二个取舍是<strong>槽位有限</strong>。如果槽位无限，最优解就是"全带上"，配装的意义就没了。8 格是一个刻意的约束。</p>
+<p>另外还做了一个"养老版"（v1.1.0-sp1.0）：数值曲线更平缓、融合成本更低，适合不想肝的玩家和小型服务器。两个版本用同一个 modId，<strong>不能同时装</strong>。</p>
+<h2>版本与依赖</h2>
+<p>当前 1.0.0（养老版 1.1.0-sp1.0）。NeoForge 1.21.1 / Java 21，前置 Curios，MIT 协议。数据通过组件持久化，存档升级时旧铭文会自动补齐新字段。</p>
+<h2>数值与配装</h2>
+<p>八格槽位带来的第一个问题就是取舍。基础铭文的效果大多偏功能向：增加掉落、减少消耗、提升某一类伤害、给出短时增益。融合铭文则是在两条基础效果之上再叠一层特殊触发。于是配装会自然分化成几种流派：</p>
+<ul>
+<li><strong>堆输出</strong>：两三组融合铭文叠同一类伤害，槽位压到极限</li>
+<li><strong>堆生存</strong>：减伤、回复、免死类效果优先</li>
+<li><strong>功能向</strong>：掉落、采集、移动速度，适合长期跑图</li>
+<li><strong>混合</strong>：一半输出一半功能，适合单人全流程</li>
+</ul>
+<p>品质决定了同一条铭文的上限。普通品质的加成是 10%，神话是 40%，中间三档线性分布。想要神话，必须先有对应的融合路径和材料，不是纯靠运气。这让"毕业"变成一个可规划的目标，而不是开箱。</p>
+<h2>与其他饰品模组的配合</h2>
+<p>Curios 的槽位是可以被其他模组扩展的。如果服务器同时装了增加槽位的模组，SoulGlyph 的可装备数量也会跟着变多——这不是刻意兼容，而是共用同一套槽位注册。好处是配装空间更大，坏处是平衡会被打破，建议服主确认一下槽位总数再决定是否开放。</p>
+<p>养老版（v1.1.0-sp1.0）的思路不同：数值曲线更平、融合成本更低、特殊效果触发更宽松。它和正式版共用 modId，不能同时安装；切换版本时铭文数据会保留，但部分融合结果会按新版本的公式重算。</p>
+      </article>
+      <p class="back-link" data-reveal><a class="text-link" href="/work/mcmod/">← 返回模组列表</a></p>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col footer-about">
+        <div class="footer-brand">Mornfrost Office</div>
+        <p>做 Minecraft 模组、应用工具和网站。作品都在站里，想聊就发邮件。</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-label">站点</div>
+        <a href="/works/">作品</a>
+        <a href="/about/">关于</a>
+        <a href="/services/">服务</a>
+        <a href="/team/">团队</a>
+        <a href="/contact/">联系</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-label">联系</div>
+        <a href="mailto:admin@mfoc-server.top">admin@mfoc-server.top</a>
+        <a href="https://github.com/mornfire" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> Mornfrost Office. All rights reserved.</span>
+      <span class="footer-stats">访问 <span id="busuanzi_value_site_pv">--</span> 次 · 访客 <span id="busuanzi_value_site_uv">--</span> 人</span>
+    </div>
+  </div>
+</footer>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>
