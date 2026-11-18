@@ -52,22 +52,23 @@
 <main id="main">
   <section class="page-head">
     <div class="wrap">
-      <p class="eyebrow page-kicker" data-reveal>作品 / 模组</p>
+      <nav class="crumbs" aria-label="面包屑"><a href="/">首页</a><span>/</span><a href="/works/">作品</a><span>/</span><a href="/work/mcmod/">Minecraft 模组</a><span>/</span><em>KIPL · Kill Inspector</em></nav>
       <h1 class="page-title" data-reveal>KIPL · Kill Inspector</h1>
       <p class="page-lead mono" data-reveal>NeoForge 1.21.1 服务端 · 1.0.0</p>
       <p class="page-lead" data-reveal>想知道谁杀了谁。输入 /kipl，它会告诉你最近一次击杀的时间、地点，以及是游戏事件还是控制台日志抓到的。</p>
     </div>
   </section>
   <section class="section">
-    <div class="wrap">
-      <article class="doc article-body" data-reveal>
+    <div class="wrap article-with-toc">
+      <div class="article-col">
+        <article class="doc article-body" data-reveal>
 <blockquote>
 <p>想知道谁杀了谁。输入 /kipl 就知道了。</p>
 </blockquote>
-<h2>为什么做它</h2>
+<h2 id="_1">为什么做它</h2>
 <p>服务器上出现"我明明没死，东西怎么没了"的争论时，最缺的是证据。原版的死亡信息只出现在聊天栏，刷屏之后就找不到了；控制台日志有记录，但要翻很久。</p>
 <p>KIPL 把这件事做成一条指令：<code>/kipl</code>，直接告诉你最近一次玩家击杀的时间、地点和判定渠道。</p>
-<h2>它是怎么运作的</h2>
+<h2 id="_2">它是怎么运作的</h2>
 <p>模组同时开两条检测通道：</p>
 <ul>
 <li><strong>游戏内事件</strong>：监听 <code>LivingDeathEvent</code>，拿到击杀者、被击杀者、维度与坐标</li>
@@ -75,16 +76,16 @@
 </ul>
 <p>两条通道互相印证：如果事件通道因为其他模组取消/改写事件而漏掉，日志通道还能兜底；如果日志被其他插件改写，事件通道仍然有效。</p>
 <p>输出包含：时间（含"几分钟前"的相对时间）、地点（维度 + 坐标）、渠道（事件 / 控制台 / 两者一致）。</p>
-<h2>怎么用</h2>
+<h2 id="_3">怎么用</h2>
 <p>装服务端即可。玩家（或管理员）输入 <code>/kipl</code>，返回最近一次玩家击杀记录。如果最近没有击杀，会提示"没有记录"。</p>
 <p>可以配合权限插件限制指令使用者的权限等级——模组本身不做权限判断，交给服务端。</p>
-<h2>取舍与边界</h2>
+<h2 id="_4">取舍与边界</h2>
 <p><strong>只记录玩家击杀玩家</strong>。怪物击杀、环境死亡不在范围内，那些用原版日志就够了。</p>
 <p><strong>不存历史</strong>。只保留"最近一次"，不做数据库。需要长期记录请用日志系统。</p>
 <p><strong>不做回放</strong>。没有死亡回放、没有物品追溯，只回答"谁杀了谁"。</p>
-<h2>版本与依赖</h2>
+<h2 id="_5">版本与依赖</h2>
 <p>当前 1.0.0。NeoForge 1.21.1 服务端 / Java 21，无前置，MIT 协议。日志解析依赖原版死亡消息格式，如果服务器装了修改死亡消息的模组，日志通道可能失效，事件通道仍然可用。</p>
-<h2>排查流程</h2>
+<h2 id="_6">排查流程</h2>
 <p>实际使用中，KIPL 最常见的场景是"物品丢失"纠纷。推荐的排查顺序：</p>
 <ol>
 <li>先 <code>/kipl</code> 看最近一次击杀，确认死亡是否由玩家造成</li>
@@ -93,17 +94,20 @@
 <li>需要更详细的信息时，对照日志时间戳</li>
 </ol>
 <p><code>/kipl</code> 只回答"谁杀了谁"，不回答"为什么"。所以它更适合作为第一步，快速排除或确认"玩家击杀"这个可能性。</p>
-<h2>为什么用双通道</h2>
+<h2 id="_7">为什么用双通道</h2>
 <p>只监听事件的问题是：其他模组可能取消或改写 <code>LivingDeathEvent</code>，导致记录丢失。只看日志的问题是：日志会被插件改写格式，解析容易失败。两条通道同时开，任意一条有效就能给出答案；两条一致时可信度最高。</p>
 <p>如果两条通道给出的结果不一致（时间或击杀者不同），通常意味着事件被中途修改过，这时候日志的原始记录更接近事实。</p>
-<h2>记录能保存多久</h2>
+<h2 id="_8">记录能保存多久</h2>
 <p>只有最近一次击杀。服务器重启后记录会清空，不会落盘。这是刻意的：它是个排查工具，不是审计系统；如果要长期留痕，请用日志收集或专门的审计插件。</p>
 <p>如果需要在重启后仍然可查，可以在服务端日志里搜索死亡消息，KIPL 的日志通道解析的就是这个格式。</p>
-<h2>为什么不做成 GUI</h2>
+<h2 id="gui">为什么不做成 GUI</h2>
 <p>指令输出最直接：管理员在聊天栏里就能看到结果，不需要打开界面，也不需要客户端装东西。做成 GUI 反而会引入客户端同步、权限判断、界面语言等问题。</p>
 <p>如果你希望有更丰富的展示，可以把指令输出接到服务端日志或者机器人里，KIPL 的输出格式是稳定的文本。</p>
-      </article>
-      <p class="back-link" data-reveal><a class="text-link" href="/work/mcmod/">← 返回模组列表</a></p>
+        </article>
+        <p class="back-link" data-reveal><a class="text-link" href="/work/mcmod/">← 返回模组列表</a></p>
+        <div class="related" data-reveal><div class="related-title">同类的其他模组</div><div class="items"><a class="item" href="/work/mcmod/memorymaster/"><span class="item-num">相关</span><h3 class="item-title">MemoryMaster</h3><p class="item-text">NeoForge 1.21.1 服务端 · 1.0.0</p></a><a class="item" href="/work/mcmod/banitemblock/"><span class="item-num">相关</span><h3 class="item-title">BanItemBlock</h3><p class="item-text">NeoForge 1.21.1 服务端 · 1.0.0</p></a><a class="item" href="/work/mcmod/enchantremover/"><span class="item-num">相关</span><h3 class="item-title">Enchantment Remover</h3><p class="item-text">NeoForge 1.21.1 · 1.0.0</p></a><a class="item" href="/work/mcmod/perdimrespawn/"><span class="item-num">相关</span><h3 class="item-title">Per-Dimension Respawn</h3><p class="item-text">NeoForge 1.21.1 服务端 · 1.0.0</p></a></div></div>
+      </div>
+      <aside class="toc-col"><nav class="toc" aria-label="目录"><div class="toc-title">目录</div><a class="toc-item lvl2" href="#_1">为什么做它</a><a class="toc-item lvl2" href="#_2">它是怎么运作的</a><a class="toc-item lvl2" href="#_3">怎么用</a><a class="toc-item lvl2" href="#_4">取舍与边界</a><a class="toc-item lvl2" href="#_5">版本与依赖</a><a class="toc-item lvl2" href="#_6">排查流程</a><a class="toc-item lvl2" href="#_7">为什么用双通道</a><a class="toc-item lvl2" href="#_8">记录能保存多久</a><a class="toc-item lvl2" href="#gui">为什么不做成 GUI</a></nav></aside>
     </div>
   </section>
 </main>

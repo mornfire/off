@@ -52,22 +52,23 @@
 <main id="main">
   <section class="page-head">
     <div class="wrap">
-      <p class="eyebrow page-kicker" data-reveal>作品 / 模组</p>
+      <nav class="crumbs" aria-label="面包屑"><a href="/">首页</a><span>/</span><a href="/works/">作品</a><span>/</span><a href="/work/mcmod/">Minecraft 模组</a><span>/</span><em>Soulbound Blades 缚魂之刃</em></nav>
       <h1 class="page-title" data-reveal>Soulbound Blades 缚魂之刃</h1>
       <p class="page-lead mono" data-reveal>NeoForge 1.21.1 · 1.1.0</p>
       <p class="page-lead" data-reveal>二十把剑，每把都得先解谜、再试炼，最后才长成它该有的样子。数值和文案都写在 JSON 里，改起来不用重开游戏。</p>
     </div>
   </section>
   <section class="section">
-    <div class="wrap">
-      <article class="doc article-body" data-reveal>
+    <div class="wrap article-with-toc">
+      <div class="article-col">
+        <article class="doc article-body" data-reveal>
 <blockquote>
 <p>二十把剑，每把都得先解谜、再试炼，最后才长成它该有的样子。</p>
 </blockquote>
-<h2>为什么做它</h2>
+<h2 id="_1">为什么做它</h2>
 <p>大部分武器模组的节奏是：挖矿、合成、换上、继续挖矿。剑只是数值的容器，玩家的记忆里不会留下"我当初怎么拿到这把剑"。</p>
 <p>缚魂之刃想反着来：先给玩家一个谜面，再给一个必须完成的试炼，最后才让武器进化。拿到剑的那一刻不是结束，而是开始。二十把剑对应二十条路线，每条路线都有独立的叙事碎片。</p>
-<h2>它是怎么运作的</h2>
+<h2 id="_2">它是怎么运作的</h2>
 <p>整套系统分四个阶段：</p>
 <ol>
 <li><strong>获得</strong>：通过谜语或线索找到剑的初始形态</li>
@@ -76,29 +77,32 @@
 <li><strong>成型</strong>：最终形态解锁专属效果</li>
 </ol>
 <p>关键在于<strong>数据驱动</strong>：武器数值、Lore 文本、试炼条件、进化链全部写在 JSON 里，游戏内 <code>/reload</code> 即可热更新。这意味着服务器可以自己改数值和文案，不用重新构建模组；也意味着调试时改一行 JSON 就能立刻验证，不必反复打包。</p>
-<h2>怎么用</h2>
+<h2 id="_3">怎么用</h2>
 <p>装进 <code>mods</code> 即可，无前置依赖。开局不会直接给剑，需要按线索在世界里找。服务器建议：</p>
 <ul>
 <li>把试炼条件调成符合自己玩法节奏的难度（JSON 里改）</li>
 <li>如果开了死亡掉落，注意剑的"缚魂"属性是否需要配置保留</li>
 <li>用 <code>/reload</code> 改完配置后让玩家重新登录一次，确保客户端拿到新的 Lore</li>
 </ul>
-<h2>取舍与边界</h2>
+<h2 id="_4">取舍与边界</h2>
 <p><strong>不做随机掉落</strong>。剑不会从怪物身上掉出来，必须走完流程。这让获取曲线可控，也避免了"欧皇一把出、非酋刷一天"的问题。</p>
 <p><strong>不做数值怪</strong>。二十把剑的强度上限刻意压在合理区间内，最终形态强，但不会强到让其他武器失去意义。</p>
 <p><strong>文本量很大</strong>。每条试炼都有独立的谜语和 Lore，这部分没法靠程序生成，只能一句句写，所以更新节奏会比纯数值模组慢。</p>
 <p>另外配了一个 Lore 补丁（Soulbound Lore Patch），用来修正早期版本里描述与实际效果不一致的地方，两件一起装体验最完整。</p>
-<h2>版本与依赖</h2>
+<h2 id="_5">版本与依赖</h2>
 <p>当前 1.1.0（Lore 补丁 1.1.0）。NeoForge 1.21.1 / Java 21，无前置，MIT 协议。JSON 热更新依赖原版 reload 监听，不修改存档结构，卸载后物品会保留但失去试炼进度。</p>
-<h2>试炼是怎么设计的</h2>
+<h2 id="_6">试炼是怎么设计的</h2>
 <p>每把剑的试炼都遵循同一个结构：先给一个<strong>可以观察到的现象</strong>，再给一个<strong>需要付出的行动</strong>，最后给一个<strong>不可逆的结果</strong>。比如某把剑要求你在雷雨天站在高处被雷劈中——现象是天气，行动是站位，结果是剑进化。</p>
 <p>难度是分层的。前几把剑的试炼几分钟能完成，中段需要跑图或准备材料，后段会要求你在危险环境里完成特定行为。没有"限时失败"，做不完可以下次再来，进度不会丢。这一点是刻意的：试炼的意义是让玩家记住过程，不是制造焦虑。</p>
-<h2>数据驱动带来的维护方式</h2>
+<h2 id="_7">数据驱动带来的维护方式</h2>
 <p>因为数值、Lore、试炼条件都写在 JSON 里，服务器的调整流程很短：改文件 → <code>/reload</code> → 让玩家重进一次。不需要重新构建，也不需要重启服务器。</p>
 <p>但这也带来一个责任：JSON 里的 ID 写错不会报错，只会静默不生效。建议改完之后先用一把测试剑跑一遍完整流程，确认试炼能触发、进化能结算、Lore 能显示。</p>
 <p>配套的 Lore 补丁主要修的是文案与效果不一致的地方。它不改变玩法，只改描述——如果你只想要原版体验，可以只装本体。</p>
-      </article>
-      <p class="back-link" data-reveal><a class="text-link" href="/work/mcmod/">← 返回模组列表</a></p>
+        </article>
+        <p class="back-link" data-reveal><a class="text-link" href="/work/mcmod/">← 返回模组列表</a></p>
+        <div class="related" data-reveal><div class="related-title">同类的其他模组</div><div class="items"><a class="item" href="/work/mcmod/achievements/"><span class="item-num">相关</span><h3 class="item-title">Mornfrost Achievements</h3><p class="item-text">NeoForge 1.21.1 · Fabric 1.21.1 / 1.21.11 · Forge 1.20.1 · 5.1.0</p></a><a class="item" href="/work/mcmod/soulglyph/"><span class="item-num">相关</span><h3 class="item-title">SoulGlyph 灵铭</h3><p class="item-text">NeoForge 1.21.1 · 前置 Curios · 1.0.0</p></a><a class="item" href="/work/mcmod/arsenal/"><span class="item-num">相关</span><h3 class="item-title">Arsenal</h3><p class="item-text">NeoForge 1.21.1 · 1.0.0</p></a><a class="item" href="/work/mcmod/echoes/"><span class="item-num">相关</span><h3 class="item-title">Echoes of the Unbound · 未缚回响</h3><p class="item-text">NeoForge 1.21.1 · 1.0.0</p></a></div></div>
+      </div>
+      <aside class="toc-col"><nav class="toc" aria-label="目录"><div class="toc-title">目录</div><a class="toc-item lvl2" href="#_1">为什么做它</a><a class="toc-item lvl2" href="#_2">它是怎么运作的</a><a class="toc-item lvl2" href="#_3">怎么用</a><a class="toc-item lvl2" href="#_4">取舍与边界</a><a class="toc-item lvl2" href="#_5">版本与依赖</a><a class="toc-item lvl2" href="#_6">试炼是怎么设计的</a><a class="toc-item lvl2" href="#_7">数据驱动带来的维护方式</a></nav></aside>
     </div>
   </section>
 </main>

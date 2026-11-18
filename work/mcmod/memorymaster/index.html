@@ -52,22 +52,23 @@
 <main id="main">
   <section class="page-head">
     <div class="wrap">
-      <p class="eyebrow page-kicker" data-reveal>作品 / 模组</p>
+      <nav class="crumbs" aria-label="面包屑"><a href="/">首页</a><span>/</span><a href="/works/">作品</a><span>/</span><a href="/work/mcmod/">Minecraft 模组</a><span>/</span><em>MemoryMaster</em></nav>
       <h1 class="page-title" data-reveal>MemoryMaster</h1>
       <p class="page-lead mono" data-reveal>NeoForge 1.21.1 服务端 · 1.0.0</p>
       <p class="page-lead" data-reveal>给服务端省内存的。七个模块能单独关，注入失败会自动退回原版行为，慌了还有一条 /mmcmf panic 兜底。</p>
     </div>
   </section>
   <section class="section">
-    <div class="wrap">
-      <article class="doc article-body" data-reveal>
+    <div class="wrap article-with-toc">
+      <div class="article-col">
+        <article class="doc article-body" data-reveal>
 <blockquote>
 <p>给服务端省内存的。</p>
 </blockquote>
-<h2>为什么做它</h2>
+<h2 id="_1">为什么做它</h2>
 <p>服务器跑久了，堆内存会慢慢涨上去：区块缓存、实体索引、掉落物、AI 目标的中间对象，很多都是"用完就忘"的结构。原版并不是没有回收，而是回收得偏保守——它优先保证正确性，不会为了省内存去做激进裁剪。</p>
 <p>MemoryMaster 的思路是：在不改变游戏行为的前提下，替服务端做那些"可以更早释放"的清理。</p>
-<h2>它是怎么运作的</h2>
+<h2 id="_2">它是怎么运作的</h2>
 <p>模组由 7 个独立模块组成，默认全开，可以逐个关闭：</p>
 <ul>
 <li>每个模块有<strong>独立的 mixin 文件</strong>，互不牵连</li>
@@ -78,7 +79,7 @@
 </ul>
 <p>这种"处处留退路"的写法看起来很啰嗦，但服务端模组的第一原则是不添乱：宁可少优化一点，也不能因为一次注入失败把整个服务器拖下水。</p>
 <p>配置在 <code>config/mmcmf-*.toml</code>，每个模块一个开关。想快速回退可以用 <code>/mmcmf panic</code>，它会关闭全部模块并提示重启。</p>
-<h2>怎么用</h2>
+<h2 id="_3">怎么用</h2>
 <p>只装服务端即可，客户端不需要。建议流程：</p>
 <ol>
 <li>先全开跑一段时间，观察 MSPT 和堆占用曲线</li>
@@ -86,13 +87,13 @@
 <li>再逐个打开模块，定位是哪一个引起的</li>
 </ol>
 <p>不要和同类"内存优化"模组叠装，尤其是都改区块/实体生命周期的——两个模组各自正确，叠加起来不一定正确。</p>
-<h2>取舍与边界</h2>
+<h2 id="_4">取舍与边界</h2>
 <p><strong>不做激进裁剪</strong>。没有"自动卸载远处区块"这类操作，那会影响玩家体验（回头看不见自己建的房子）。</p>
 <p><strong>不做统计面板</strong>。它只优化，不提供花哨的仪表盘；要看数据用 Spark 之类的工具。</p>
 <p><strong>默认全开但要能全关</strong>。这是一个态度问题：优化应该是可撤销的，而不是一次性的赌博。</p>
-<h2>版本与依赖</h2>
+<h2 id="_5">版本与依赖</h2>
 <p>当前 1.0.0。NeoForge 1.21.1 服务端 / Java 21，无前置，MIT 协议。因为全部使用 <code>require = 0</code> 与降级逻辑，理论上可以和其他服务端模组共存；如果目标类被其他模组改过，注入会跳过而不是报错。</p>
-<h2>观察与调参</h2>
+<h2 id="_6">观察与调参</h2>
 <p>优化类模组最大的风险是"看起来有效，实际只是把问题推后"。建议的观察方式是：</p>
 <ul>
 <li>用 Spark 或类似工具看 MSPT 的分布，而不是只看平均值</li>
@@ -101,13 +102,16 @@
 </ul>
 <p>调参顺序建议从"最安全"的模块开始：先开只影响缓存的，再开涉及实体生命周期的，最后开涉及区块数据的。每开一个跑一段时间，出问题就关掉回退，定位清楚再继续。</p>
 <p><code>/mmcmf panic</code> 是最后一道保险：一键关闭全部模块并提示重启。它的意义不是"优化失败"，而是让服主在半夜出问题时有一个确定能恢复的操作。</p>
-<h2>兼容性说明</h2>
+<h2 id="_7">兼容性说明</h2>
 <p>因为注入使用 <code>require = 0</code> 且注入前校验目标存在，理论上不会因为目标缺失而崩服。但如果另一个模组也改同一处逻辑，双方的注入顺序会决定最终行为——这种冲突无法自动检测，只能靠实际运行观察。建议不要和其他"内存优化/区块优化"模组叠装。</p>
-<h2>什么时候不该用它</h2>
+<h2 id="_8">什么时候不该用它</h2>
 <p>如果服务器的瓶颈是磁盘 IO、网络带宽或者某个具体模组的死循环，内存优化帮不上忙，反而会掩盖问题。先用 Spark 定位，再决定要不要装。</p>
 <p>另外，开发环境与本地测试不建议开：它会改变对象生命周期，某些依赖"晚回收"行为的调试逻辑可能表现异常。</p>
-      </article>
-      <p class="back-link" data-reveal><a class="text-link" href="/work/mcmod/">← 返回模组列表</a></p>
+        </article>
+        <p class="back-link" data-reveal><a class="text-link" href="/work/mcmod/">← 返回模组列表</a></p>
+        <div class="related" data-reveal><div class="related-title">同类的其他模组</div><div class="items"><a class="item" href="/work/mcmod/banitemblock/"><span class="item-num">相关</span><h3 class="item-title">BanItemBlock</h3><p class="item-text">NeoForge 1.21.1 服务端 · 1.0.0</p></a><a class="item" href="/work/mcmod/enchantremover/"><span class="item-num">相关</span><h3 class="item-title">Enchantment Remover</h3><p class="item-text">NeoForge 1.21.1 · 1.0.0</p></a><a class="item" href="/work/mcmod/perdimrespawn/"><span class="item-num">相关</span><h3 class="item-title">Per-Dimension Respawn</h3><p class="item-text">NeoForge 1.21.1 服务端 · 1.0.0</p></a><a class="item" href="/work/mcmod/loginmod/"><span class="item-num">相关</span><h3 class="item-title">Login Mod</h3><p class="item-text">NeoForge 1.21.1 服务端 · 1.0.0</p></a></div></div>
+      </div>
+      <aside class="toc-col"><nav class="toc" aria-label="目录"><div class="toc-title">目录</div><a class="toc-item lvl2" href="#_1">为什么做它</a><a class="toc-item lvl2" href="#_2">它是怎么运作的</a><a class="toc-item lvl2" href="#_3">怎么用</a><a class="toc-item lvl2" href="#_4">取舍与边界</a><a class="toc-item lvl2" href="#_5">版本与依赖</a><a class="toc-item lvl2" href="#_6">观察与调参</a><a class="toc-item lvl2" href="#_7">兼容性说明</a><a class="toc-item lvl2" href="#_8">什么时候不该用它</a></nav></aside>
     </div>
   </section>
 </main>

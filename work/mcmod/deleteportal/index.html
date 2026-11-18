@@ -52,22 +52,23 @@
 <main id="main">
   <section class="page-head">
     <div class="wrap">
-      <p class="eyebrow page-kicker" data-reveal>作品 / 模组</p>
+      <nav class="crumbs" aria-label="面包屑"><a href="/">首页</a><span>/</span><a href="/works/">作品</a><span>/</span><a href="/work/mcmod/">Minecraft 模组</a><span>/</span><em>DeletePortal</em></nav>
       <h1 class="page-title" data-reveal>DeletePortal</h1>
       <p class="page-lead mono" data-reveal>NeoForge 1.21.1 · Danny's AoT 附属 · 1.0.0</p>
       <p class="page-lead" data-reveal>Danny's AoT 的附属：世界生成时把帕拉迪岛的传送门直接换成空气，顺手数一下清掉了多少。</p>
     </div>
   </section>
   <section class="section">
-    <div class="wrap">
-      <article class="doc article-body" data-reveal>
+    <div class="wrap article-with-toc">
+      <div class="article-col">
+        <article class="doc article-body" data-reveal>
 <blockquote>
 <p>世界生成时把帕拉迪岛的传送门直接换成空气。</p>
 </blockquote>
-<h2>为什么做它</h2>
+<h2 id="_1">为什么做它</h2>
 <p>Danny's AoT 的帕拉迪岛传送门是结构生成的产物。有些服务器不想要这个传送门——它会打乱维度节奏，或者和其他模组的传送逻辑冲突。</p>
 <p>常见的做法是"拦截放置"，但这里的门不是玩家摆的，是世界生成时直接写进去的，拦截放置根本拦不到。所以只能反过来：生成之后扫描清除。</p>
-<h2>它是怎么运作的</h2>
+<h2 id="_2">它是怎么运作的</h2>
 <p>模组在区块加载/生成阶段扫描目标方块（<code>dannys-aot:paradis_portal</code>），命中就替换成空气。</p>
 <p>选择"扫描清除"而不是"事件拦截"的原因很直接：</p>
 <ul>
@@ -76,35 +77,38 @@
 <li>已生成的旧区块也能被清理（玩家重新进入时触发）</li>
 </ul>
 <p><code>/deleteportal</code> 指令可以查询已经清除了多少块。</p>
-<h2>怎么用</h2>
+<h2 id="_3">怎么用</h2>
 <p>装服务端即可（客户端可选）。建议：</p>
 <ul>
 <li>先在测试存档跑一遍，确认没有清理掉不该清的东西</li>
 <li>如果服务器已经有很多旧区块，玩家第一次进入时会触发清理，注意 TPS 波动</li>
 <li>和 Danny's AoT 的版本要匹配，方块 ID 变了就扫不到</li>
 </ul>
-<h2>取舍与边界</h2>
+<h2 id="_4">取舍与边界</h2>
 <p><strong>只清这一种方块</strong>。不做通用"删除任意方块"功能，避免误伤。</p>
 <p><strong>不做恢复</strong>。清掉的传送门不会自己回来，要恢复得重新生成区块或手动放。</p>
 <p><strong>依赖上游 ID</strong>。如果 Danny's AoT 改了注册名，这个模组会失效，需要更新。</p>
-<h2>版本与依赖</h2>
+<h2 id="_5">版本与依赖</h2>
 <p>当前 1.0.0。NeoForge 1.21.1 服务端 / Java 21，前置 Danny's AoT，MIT 协议。扫描按区块进行，清理日志会写进服务端控制台。</p>
-<h2>迁移与兼容</h2>
+<h2 id="_6">迁移与兼容</h2>
 <p>已有的旧存档不需要额外操作：玩家进入已生成区域时，区块加载会触发扫描，传送门在那一刻被清除。如果服务器地图很大，建议分批次让玩家探索，避免一次性加载大量区块造成 TPS 抖动。</p>
 <p>版本匹配很重要。Danny's AoT 更新后如果改了方块注册名，扫描就找不到目标，表现为"指令显示清理 0 个"。排查时先确认上游版本，再看日志里是否有扫描记录。</p>
-<h2>日志与验证</h2>
+<h2 id="_7">日志与验证</h2>
 <p>每次清理都会写服务端日志，包含区块坐标与清理数量。上线后建议抽查几个已知有传送门的位置，确认已被替换为空气。</p>
 <p><code>/deleteportal</code> 返回的是累计清理数量，不是当前剩余数量。如果数字长时间不增长，要么是没有新区域被加载，要么是扫描失效了——两种情况的排查方向完全不同。</p>
-<h2>为什么不做"恢复传送门"</h2>
+<h2 id="_8">为什么不做"恢复传送门"</h2>
 <p>恢复需要知道原始结构、方块朝向、以及生成时的随机种子。世界生成的结构信息在生成后就不再保留，无法精确还原。所以这个模组只做单向清除，不提供恢复。</p>
 <p>如果测试时误清了，最省事的办法是从备份回滚存档，而不是试图在原存档里补回来。</p>
-<h2>和其他清理工具的区别</h2>
+<h2 id="_9">和其他清理工具的区别</h2>
 <p>世界编辑类工具（如 WorldEdit）可以手动删除方块，但需要管理员指定坐标，且只对已加载区域生效。这个模组的价值在于"自动、按方块类型、覆盖全部已生成区域"，适合"这个方块不该存在"这种全局性需求。</p>
 <p>如果只是某个位置的门碍事，用世界编辑工具更快，没必要装模组。</p>
-<h2>和其他 AoT 附属的关系</h2>
+<h2 id="aot">和其他 AoT 附属的关系</h2>
 <p>这个模组只处理传送门一种方块。如果你还需要清理别的 AoT 内容（比如某些结构或实体），那属于另一个工具的范围，不要试图用一个配置项解决所有问题，否则很容易误伤。</p>
-      </article>
-      <p class="back-link" data-reveal><a class="text-link" href="/work/mcmod/">← 返回模组列表</a></p>
+        </article>
+        <p class="back-link" data-reveal><a class="text-link" href="/work/mcmod/">← 返回模组列表</a></p>
+        <div class="related" data-reveal><div class="related-title">同类的其他模组</div><div class="items"><a class="item" href="/work/mcmod/factionzones/"><span class="item-num">相关</span><h3 class="item-title">FactionZones</h3><p class="item-text">Fabric · Jake's Economy 附属 · 1.0.0</p></a></div></div>
+      </div>
+      <aside class="toc-col"><nav class="toc" aria-label="目录"><div class="toc-title">目录</div><a class="toc-item lvl2" href="#_1">为什么做它</a><a class="toc-item lvl2" href="#_2">它是怎么运作的</a><a class="toc-item lvl2" href="#_3">怎么用</a><a class="toc-item lvl2" href="#_4">取舍与边界</a><a class="toc-item lvl2" href="#_5">版本与依赖</a><a class="toc-item lvl2" href="#_6">迁移与兼容</a><a class="toc-item lvl2" href="#_7">日志与验证</a><a class="toc-item lvl2" href="#_8">为什么不做"恢复传送门"</a><a class="toc-item lvl2" href="#_9">和其他清理工具的区别</a><a class="toc-item lvl2" href="#aot">和其他 AoT 附属的关系</a></nav></aside>
     </div>
   </section>
 </main>

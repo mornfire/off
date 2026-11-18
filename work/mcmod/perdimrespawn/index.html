@@ -52,22 +52,23 @@
 <main id="main">
   <section class="page-head">
     <div class="wrap">
-      <p class="eyebrow page-kicker" data-reveal>作品 / 模组</p>
+      <nav class="crumbs" aria-label="面包屑"><a href="/">首页</a><span>/</span><a href="/works/">作品</a><span>/</span><a href="/work/mcmod/">Minecraft 模组</a><span>/</span><em>Per-Dimension Respawn</em></nav>
       <h1 class="page-title" data-reveal>Per-Dimension Respawn</h1>
       <p class="page-lead mono" data-reveal>NeoForge 1.21.1 服务端 · 1.0.0</p>
       <p class="page-lead" data-reveal>原版只有一个出生点，在地狱放个重生锚就把主世界的床盖掉了。这个模组让每个维度各记各的，死在哪就回哪。</p>
     </div>
   </section>
   <section class="section">
-    <div class="wrap">
-      <article class="doc article-body" data-reveal>
+    <div class="wrap article-with-toc">
+      <div class="article-col">
+        <article class="doc article-body" data-reveal>
 <blockquote>
 <p>原版只有一个出生点，这个模组让每个维度各记各的。</p>
 </blockquote>
-<h2>为什么做它</h2>
+<h2 id="_1">为什么做它</h2>
 <p>原版的出生点系统只有一个全局槽位：<code>respawnPosition</code> 加 <code>respawnDimension</code>。你在主世界床边睡一觉，出生点记在主世界；去地狱放个重生锚并激活，出生点就被覆盖成地狱；再回主世界睡觉，又覆盖回来。</p>
 <p>单人玩还能忍，服务器上就很致命：玩家在下界建基地、设了重生锚，回主世界睡一觉，再死在下界就回不到自己的锚了。</p>
-<h2>它是怎么运作的</h2>
+<h2 id="_2">它是怎么运作的</h2>
 <p>模组把"出生点"从单槽位改成按维度分别存储的映射：</p>
 <ul>
 <li>每个维度独立记录该维度下的重生点坐标与朝向</li>
@@ -80,7 +81,7 @@
 <li>床在主世界以外维度会爆炸，这个行为不变</li>
 <li>玩家跨维度传送（传送门、指令）不会污染出生点数据</li>
 </ul>
-<h2>怎么用</h2>
+<h2 id="_3">怎么用</h2>
 <p>只装服务端即可。玩家在任意维度设置出生点（床、重生锚、指令），模组会自动按维度归档。</p>
 <p>服务器建议：</p>
 <ul>
@@ -88,26 +89,29 @@
 <li>如果用了多世界插件，需要确认插件世界的维度 key 能被识别</li>
 <li>数据存在玩家 NBT 里，跨服同步（如果用了跨服插件）需要额外处理</li>
 </ul>
-<h2>取舍与边界</h2>
+<h2 id="_4">取舍与边界</h2>
 <p><strong>不改变原版规则</strong>。床在地狱还是会爆，重生锚在主世界还是无效——模组只解决"记录"问题，不解决"合法性"问题。</p>
 <p><strong>不做传送</strong>。死亡后只是在对应维度的出生点重生，不会把你跨维度拉回去。</p>
 <p><strong>数据在玩家身上</strong>。不写全局配置文件，所以卸载模组后原版会退回到单槽位逻辑，已记录的其他维度出生点会丢失。</p>
-<h2>版本与依赖</h2>
+<h2 id="_5">版本与依赖</h2>
 <p>当前 1.0.0。NeoForge 1.21.1 服务端 / Java 21，无前置，MIT 协议。与大多数出生点相关模组冲突（都改同一处逻辑），装之前先确认没有重复功能。</p>
-<h2>多世界与代理环境</h2>
+<h2 id="_6">多世界与代理环境</h2>
 <p>模组按维度 key 记录出生点，所以多世界插件创建的世界也能正常使用——前提是这些世界的维度 key 是稳定的，不会每次重启都变。部分插件会动态生成世界名，那种情况下记录会失效，表现为"死亡后回到世界出生点"。</p>
 <p>如果服务器用了 BungeeCord/Velocity 之类的代理，玩家在不同子服之间切换，出生点数据是跟着玩家存档走的。子服之间不共享存档时（常见于大厅+生存分离的架构），出生点只在当前子服有效，这是预期行为。</p>
-<h2>数据与迁移</h2>
+<h2 id="_7">数据与迁移</h2>
 <p>出生点数据存在玩家 NBT 的自定义字段里，不写全局配置。升级模组版本时会保留旧字段，读取时优先用新结构，找不到再回退。</p>
 <p>卸载模组后，原版会退回到单槽位逻辑，其他维度的记录仍然留在 NBT 里但不会再被读取。重新装回来可以继续使用——前提是期间没有其他模组改写同一字段。</p>
-<h2>为什么不做"全局出生点"指令</h2>
+<h2 id="_8">为什么不做"全局出生点"指令</h2>
 <p>有人会问能不能加一个 <code>/setspawn</code> 之类的通用指令。没有加的原因是原版已经有 <code>/spawnpoint</code>，再包一层只会让两套逻辑打架。这个模组只解决"记录维度"这一件事，其余交互保持原版。</p>
 <p>如果你需要"跨维度传送回出生点"，那属于传送类需求，交给传送模组更合适。</p>
-<h2>和"床被破坏"的关系</h2>
+<h2 id="_9">和"床被破坏"的关系</h2>
 <p>床被破坏后，原版会让出生点失效（回到世界出生点）。这个模组沿用同样的规则：某个维度的床没了，该维度的记录就失效。所以它不能解决"床被熊孩子拆了"的问题，只是让不同维度互不覆盖。</p>
 <p>如果需要"床没了也能回"，那是另一个模组该做的事。</p>
-      </article>
-      <p class="back-link" data-reveal><a class="text-link" href="/work/mcmod/">← 返回模组列表</a></p>
+        </article>
+        <p class="back-link" data-reveal><a class="text-link" href="/work/mcmod/">← 返回模组列表</a></p>
+        <div class="related" data-reveal><div class="related-title">同类的其他模组</div><div class="items"><a class="item" href="/work/mcmod/memorymaster/"><span class="item-num">相关</span><h3 class="item-title">MemoryMaster</h3><p class="item-text">NeoForge 1.21.1 服务端 · 1.0.0</p></a><a class="item" href="/work/mcmod/banitemblock/"><span class="item-num">相关</span><h3 class="item-title">BanItemBlock</h3><p class="item-text">NeoForge 1.21.1 服务端 · 1.0.0</p></a><a class="item" href="/work/mcmod/enchantremover/"><span class="item-num">相关</span><h3 class="item-title">Enchantment Remover</h3><p class="item-text">NeoForge 1.21.1 · 1.0.0</p></a><a class="item" href="/work/mcmod/loginmod/"><span class="item-num">相关</span><h3 class="item-title">Login Mod</h3><p class="item-text">NeoForge 1.21.1 服务端 · 1.0.0</p></a></div></div>
+      </div>
+      <aside class="toc-col"><nav class="toc" aria-label="目录"><div class="toc-title">目录</div><a class="toc-item lvl2" href="#_1">为什么做它</a><a class="toc-item lvl2" href="#_2">它是怎么运作的</a><a class="toc-item lvl2" href="#_3">怎么用</a><a class="toc-item lvl2" href="#_4">取舍与边界</a><a class="toc-item lvl2" href="#_5">版本与依赖</a><a class="toc-item lvl2" href="#_6">多世界与代理环境</a><a class="toc-item lvl2" href="#_7">数据与迁移</a><a class="toc-item lvl2" href="#_8">为什么不做"全局出生点"指令</a><a class="toc-item lvl2" href="#_9">和"床被破坏"的关系</a></nav></aside>
     </div>
   </section>
 </main>

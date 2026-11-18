@@ -52,21 +52,22 @@
 <main id="main">
   <section class="page-head">
     <div class="wrap">
-      <p class="eyebrow page-kicker" data-reveal>作品 / 模组</p>
+      <nav class="crumbs" aria-label="面包屑"><a href="/">首页</a><span>/</span><a href="/works/">作品</a><span>/</span><a href="/work/mcmod/">Minecraft 模组</a><span>/</span><em>中国人能飞</em></nav>
       <h1 class="page-title" data-reveal>中国人能飞</h1>
       <p class="page-lead mono" data-reveal>NeoForge 1.21.1 · 1.0.0</p>
       <p class="page-lead" data-reveal>游戏语言是中文就能飞，切回英文马上掉下来。一个纯粹为了好玩写的模组，没想到还挺多人喜欢。</p>
     </div>
   </section>
   <section class="section">
-    <div class="wrap">
-      <article class="doc article-body" data-reveal>
+    <div class="wrap article-with-toc">
+      <div class="article-col">
+        <article class="doc article-body" data-reveal>
 <blockquote>
 <p>游戏语言是中文就能飞，切回英文马上掉下来。</p>
 </blockquote>
-<h2>为什么做它</h2>
+<h2 id="_1">为什么做它</h2>
 <p>这是个纯粹为了好玩写的模组。起因是一句玩笑：既然中文玩家这么多，为什么不能"语言特权"一下？于是就有了这条规则——只要游戏语言是中文，玩家就能像创造模式一样飞行。</p>
-<h2>它是怎么运作的</h2>
+<h2 id="_2">它是怎么运作的</h2>
 <p>判断依据是客户端当前选择的语言，覆盖四种：</p>
 <ul>
 <li>简体中文（<code>zh_cn</code>）</li>
@@ -77,16 +78,16 @@
 <p>实现上分两侧：</p>
 <p><strong>客户端</strong>每 tick 轮询当前语言。语言属于上表且玩家不是创造/旁观时，向服务端发送 <code>request_flight</code>；语言切走的同一 tick 内本地立即停飞，并发送 <code>revoke_flight</code>。</p>
 <p><strong>服务端</strong>收到请求后设置 <code>abilities.mayfly = true</code> 并同步给客户端，符合原版的反作弊校验。服务端每 tick 会给已授权玩家补发飞行，所以死亡重生、切换模式之后会自动恢复。创造/旁观模式的玩家完全不介入，不会被误收回飞行。</p>
-<h2>怎么用</h2>
+<h2 id="_3">怎么用</h2>
 <p>单人游戏（内置服务端）直接生效：进世界后打开语言设置选简体中文，双击空格起飞；切成 English 立刻掉下来，再切回中文又能飞。</p>
 <p>多人服务器需要<strong>客户端与服务端都安装</strong>。纯客户端装是没用的——原版飞行校验在服务端，客户端绕不过去。</p>
-<h2>取舍与边界</h2>
+<h2 id="_4">取舍与边界</h2>
 <p><strong>不做白名单</strong>。没有"某些玩家不能飞"的配置，因为那会让这个玩笑变成权限系统。</p>
 <p><strong>不做隐藏</strong>。飞行状态是原版的 <code>mayfly</code>，其他模组和反作弊看到的就是"这个玩家有飞行权限"，不搞特殊标记。</p>
 <p><strong>语言切换是唯一开关</strong>。没有指令、没有快捷键，也不打算加——加了就不纯粹了。</p>
-<h2>版本与依赖</h2>
+<h2 id="_5">版本与依赖</h2>
 <p>当前 1.0.0。NeoForge 1.21.1 / Java 21，无前置，MIT 协议。语言检测走原版 <code>LanguageManager</code>，不修改语言文件，所以和其他本地化模组兼容。</p>
-<h2>多人环境下的表现</h2>
+<h2 id="_6">多人环境下的表现</h2>
 <p>服务端授权是这个模组的关键设计。客户端只负责"请求"，真正的飞行权限由服务端写入 <code>abilities.mayfly</code> 并同步，所以：</p>
 <ul>
 <li>原版反作弊不会误判（它看到的是合法的飞行权限）</li>
@@ -94,7 +95,7 @@
 <li>创造/旁观模式的玩家不会被介入，也不会被误收回</li>
 </ul>
 <p>如果服务器装了别的权限模组，可能会覆盖 <code>mayfly</code> 字段。表现为"语言是中文但飞不起来"，排查时先看权限模组是否在登录时重置了 abilities。</p>
-<h2>语言包的边界</h2>
+<h2 id="_7">语言包的边界</h2>
 <p>判断依据是客户端当前选择的语言，不是系统语言，也不看游戏内文本。所以：</p>
 <ul>
 <li>装了中文语言包但选择英文 → 不能飞</li>
@@ -102,14 +103,17 @@
 <li>服务器强制语言（部分服务端模组会做）→ 以客户端实际选择为准</li>
 </ul>
 <p>如果某个语言代码不在列表里（比如某些社区自制语言），按"不在列表内"处理，不授予飞行。想扩展的话需要改代码，不是配置项。</p>
-<h2>为什么不做成指令</h2>
+<h2 id="_8">为什么不做成指令</h2>
 <p>模组上线后被问得最多的两个问题是"能不能加个开关键"和"能不能做成权限"。答案都是不加，原因不是懒，而是这个模组的全部趣味就在于"语言即开关"这一条规则。一旦可以手动开关，它就从"玩笑"变成了"另一个飞行权限插件"，而飞行权限插件已经有很多了。</p>
 <p>如果你确实需要给部分玩家关闭，最省事的办法是配合其他权限模组在登录时重置 abilities，而不是改这个模组。</p>
-<h2>为什么只做四种语言</h2>
+<h2 id="_9">为什么只做四种语言</h2>
 <p>列表里只有简体、繁体（台湾）、繁体（香港）和文言文，看起来很少，但这四种覆盖了中文玩家的绝大多数客户端设置。其他中文变体（比如某些整合包自定义的语言键）不在列表内，是因为无法确定它们的语义边界——一个叫"中文"的自定义键可能是简体，也可能是混合。</p>
 <p>宁可漏掉少数，也不要把不属于中文的语言误判进来，否则会出现"用英文也能飞"的荒诞情况。</p>
-      </article>
-      <p class="back-link" data-reveal><a class="text-link" href="/work/mcmod/">← 返回模组列表</a></p>
+        </article>
+        <p class="back-link" data-reveal><a class="text-link" href="/work/mcmod/">← 返回模组列表</a></p>
+        <div class="related" data-reveal><div class="related-title">同类的其他模组</div><div class="items"><a class="item" href="/work/mcmod/achievements/"><span class="item-num">相关</span><h3 class="item-title">Mornfrost Achievements</h3><p class="item-text">NeoForge 1.21.1 · Fabric 1.21.1 / 1.21.11 · Forge 1.20.1 · 5.1.0</p></a><a class="item" href="/work/mcmod/soulglyph/"><span class="item-num">相关</span><h3 class="item-title">SoulGlyph 灵铭</h3><p class="item-text">NeoForge 1.21.1 · 前置 Curios · 1.0.0</p></a><a class="item" href="/work/mcmod/soulbound/"><span class="item-num">相关</span><h3 class="item-title">Soulbound Blades 缚魂之刃</h3><p class="item-text">NeoForge 1.21.1 · 1.1.0</p></a><a class="item" href="/work/mcmod/arsenal/"><span class="item-num">相关</span><h3 class="item-title">Arsenal</h3><p class="item-text">NeoForge 1.21.1 · 1.0.0</p></a></div></div>
+      </div>
+      <aside class="toc-col"><nav class="toc" aria-label="目录"><div class="toc-title">目录</div><a class="toc-item lvl2" href="#_1">为什么做它</a><a class="toc-item lvl2" href="#_2">它是怎么运作的</a><a class="toc-item lvl2" href="#_3">怎么用</a><a class="toc-item lvl2" href="#_4">取舍与边界</a><a class="toc-item lvl2" href="#_5">版本与依赖</a><a class="toc-item lvl2" href="#_6">多人环境下的表现</a><a class="toc-item lvl2" href="#_7">语言包的边界</a><a class="toc-item lvl2" href="#_8">为什么不做成指令</a><a class="toc-item lvl2" href="#_9">为什么只做四种语言</a></nav></aside>
     </div>
   </section>
 </main>

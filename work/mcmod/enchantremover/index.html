@@ -52,22 +52,23 @@
 <main id="main">
   <section class="page-head">
     <div class="wrap">
-      <p class="eyebrow page-kicker" data-reveal>作品 / 模组</p>
+      <nav class="crumbs" aria-label="面包屑"><a href="/">首页</a><span>/</span><a href="/works/">作品</a><span>/</span><a href="/work/mcmod/">Minecraft 模组</a><span>/</span><em>Enchantment Remover</em></nav>
       <h1 class="page-title" data-reveal>Enchantment Remover</h1>
       <p class="page-lead mono" data-reveal>NeoForge 1.21.1 · 1.0.0</p>
       <p class="page-lead" data-reveal>删掉不想要的附魔。附魔台里刷不出来，战利品和交易里也不会出现，装备上已经有的直接失效。</p>
     </div>
   </section>
   <section class="section">
-    <div class="wrap">
-      <article class="doc article-body" data-reveal>
+    <div class="wrap article-with-toc">
+      <div class="article-col">
+        <article class="doc article-body" data-reveal>
 <blockquote>
 <p>删掉不想要的附魔。</p>
 </blockquote>
-<h2>为什么做它</h2>
+<h2 id="_1">为什么做它</h2>
 <p>附魔是原版里最容易"失控"的系统之一。一个整合包装了几十个模组之后，附魔表会被各种兼容条目撑爆，某些过于强势的附魔（或者和模组机制冲突的附魔）会变成事实上的必选。</p>
 <p>通常的做法是改战利品表、改附魔台权重，但那些改动分散在很多地方，维护起来很麻烦。Enchantment Remover 提供的是一个集中开关：把不想要的附魔 ID 写进配置，它就从所有来源里消失。</p>
-<h2>它是怎么运作的</h2>
+<h2 id="_2">它是怎么运作的</h2>
 <p>在 <code>config/enchantremover-common.toml</code> 里列出要禁用的附魔 ID（带命名空间），例如：</p>
 <pre><code class="language-toml">disabledEnchantments = [&quot;minecraft:mending&quot;, &quot;somemod:overpowered&quot;]
 </code></pre>
@@ -78,7 +79,7 @@
 <li><strong>已有物品</strong>：玩家身上已经带了这个附魔的装备，名称仍然显示，但效果完全失效</li>
 </ul>
 <p>第三点是刻意的：不移除附魔本身（那会导致物品 NBT 变化、可能触发其他模组的异常），只是让它在结算时不产生任何作用。</p>
-<h2>怎么用</h2>
+<h2 id="_3">怎么用</h2>
 <p>装服务端即可，客户端不装也能生效（客户端装了只是提示更直观）。改配置后 <code>/reload</code> 或重启。</p>
 <p>注意事项：</p>
 <ul>
@@ -86,27 +87,30 @@
 <li>某些模组的"伪附魔"（自定义组件实现的）不受这个模组管辖</li>
 <li>如果服务器允许玩家自带附魔书，注意已存在的附魔书仍然存在，只是附上去之后无效</li>
 </ul>
-<h2>取舍与边界</h2>
+<h2 id="_4">取舍与边界</h2>
 <p><strong>不做替换</strong>。没有"把 A 附魔替换成 B"的功能，只有删除。替换会让平衡表变得难以推理。</p>
 <p><strong>不做等级限制</strong>。不能只删"5 级锋利"而保留"1 级锋利"——要删就整条删掉。这是为了避免出现"看似删了实际还能用"的漏洞。</p>
 <p><strong>保留名称显示</strong>。已有装备上的附魔名字还在，只是没效果。这在视觉上有点怪，但比静默改 NBT 安全。</p>
-<h2>版本与依赖</h2>
+<h2 id="_5">版本与依赖</h2>
 <p>当前 1.0.0。NeoForge 1.21.1 / Java 21，无前置，MIT 协议。配置为 TOML，支持 <code>/reload</code>；卸载后已失效的附魔不会自动恢复，需要重新附魔。</p>
-<h2>与附魔类模组的配合</h2>
+<h2 id="_6">与附魔类模组的配合</h2>
 <p>附魔扩展模组通常有三种实现方式：注册新附魔、改附魔台逻辑、用数据组件做"伪附魔"。Enchantment Remover 只处理第一种——真正注册进 <code>Enchantment</code> 注册表的附魔。后两种不受影响：</p>
 <ul>
 <li>改附魔台权重的模组：被禁附魔不再出现在候选里，但权重逻辑本身还在</li>
 <li>数据组件实现的"伪附魔"：不走注册表，禁用列表管不到，需要看该模组自己的配置</li>
 </ul>
 <p>如果服务器同时装了村民交易扩展，注意交易里生成的附魔书也会被过滤；但已经生成的交易项不会立刻刷新，需要等村民刷新交易或重新加载。</p>
-<h2>配置维护</h2>
+<h2 id="_7">配置维护</h2>
 <p><code>disabledEnchantments</code> 是一个数组，写的是完整 ID。常见错误是漏了命名空间（比如只写 <code>mending</code>），这样匹配不到任何东西，也不会报错。建议维护时保留注释，写清楚每条为什么禁，方便下一个管理员接手。</p>
 <p>改完配置后建议先 <code>/reload</code>，再开一个测试存档附魔一次验证。部分版本的 <code>/reload</code> 对附魔表的缓存不一定彻底，最保险的还是重启服务器。</p>
-<h2>版本升级时注意什么</h2>
+<h2 id="_8">版本升级时注意什么</h2>
 <p>升级游戏或模组版本后，附魔 ID 有可能变化（尤其是社区模组改名）。升级前建议导出当前的禁用列表，升级后逐条核对是否还能匹配上。</p>
 <p>如果某条 ID 在日志里被报告"未找到"，说明它已经不存在了，留着也无害，但会让配置看起来混乱，建议清理掉。</p>
-      </article>
-      <p class="back-link" data-reveal><a class="text-link" href="/work/mcmod/">← 返回模组列表</a></p>
+        </article>
+        <p class="back-link" data-reveal><a class="text-link" href="/work/mcmod/">← 返回模组列表</a></p>
+        <div class="related" data-reveal><div class="related-title">同类的其他模组</div><div class="items"><a class="item" href="/work/mcmod/memorymaster/"><span class="item-num">相关</span><h3 class="item-title">MemoryMaster</h3><p class="item-text">NeoForge 1.21.1 服务端 · 1.0.0</p></a><a class="item" href="/work/mcmod/banitemblock/"><span class="item-num">相关</span><h3 class="item-title">BanItemBlock</h3><p class="item-text">NeoForge 1.21.1 服务端 · 1.0.0</p></a><a class="item" href="/work/mcmod/perdimrespawn/"><span class="item-num">相关</span><h3 class="item-title">Per-Dimension Respawn</h3><p class="item-text">NeoForge 1.21.1 服务端 · 1.0.0</p></a><a class="item" href="/work/mcmod/loginmod/"><span class="item-num">相关</span><h3 class="item-title">Login Mod</h3><p class="item-text">NeoForge 1.21.1 服务端 · 1.0.0</p></a></div></div>
+      </div>
+      <aside class="toc-col"><nav class="toc" aria-label="目录"><div class="toc-title">目录</div><a class="toc-item lvl2" href="#_1">为什么做它</a><a class="toc-item lvl2" href="#_2">它是怎么运作的</a><a class="toc-item lvl2" href="#_3">怎么用</a><a class="toc-item lvl2" href="#_4">取舍与边界</a><a class="toc-item lvl2" href="#_5">版本与依赖</a><a class="toc-item lvl2" href="#_6">与附魔类模组的配合</a><a class="toc-item lvl2" href="#_7">配置维护</a><a class="toc-item lvl2" href="#_8">版本升级时注意什么</a></nav></aside>
     </div>
   </section>
 </main>

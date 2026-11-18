@@ -52,21 +52,22 @@
 <main id="main">
   <section class="page-head">
     <div class="wrap">
-      <p class="eyebrow page-kicker" data-reveal>作品 / 模组</p>
+      <nav class="crumbs" aria-label="面包屑"><a href="/">首页</a><span>/</span><a href="/works/">作品</a><span>/</span><a href="/work/mcmod/">Minecraft 模组</a><span>/</span><em>Forge of Ascension</em></nav>
       <h1 class="page-title" data-reveal>Forge of Ascension</h1>
       <p class="page-lead mono" data-reveal>NeoForge 1.21.1 · 1.0.0</p>
       <p class="page-lead" data-reveal>两件同等级的装备丢进强化台，合成一件更强的。等级越高越容易碎，失败就什么都不剩——赌的就是这一下。</p>
     </div>
   </section>
   <section class="section">
-    <div class="wrap">
-      <article class="doc article-body" data-reveal>
+    <div class="wrap article-with-toc">
+      <div class="article-col">
+        <article class="doc article-body" data-reveal>
 <blockquote>
 <p>两件同等级的装备丢进强化台，合成一件更强的——赌的就是这一下。</p>
 </blockquote>
-<h2>为什么做它</h2>
+<h2 id="_1">为什么做它</h2>
 <p>装备成长系统最怕两件事：一是没有风险，强化永远成功，玩家只是在走流程；二是风险失控，失败直接把玩家劝退。Forge of Ascension 想在两者之间找一个位置：让强化成为一次真正的决定，而不是一次点击。</p>
-<h2>它是怎么运作的</h2>
+<h2 id="_2">它是怎么运作的</h2>
 <p>规则很直接：</p>
 <ul>
 <li>两件<strong>同类型、同强化等级</strong>的装备放进强化台</li>
@@ -76,7 +77,7 @@
 </ul>
 <p>这套规则带来的连锁反应是：玩家在强化前会反复权衡——是用两件还不错的装备去赌一次突破，还是稳妥地把它们分开用。高等级装备的获取难度让这个决定有重量。</p>
 <p>成功率是分档配置的，服务器可以按自己的经济节奏调整；强化台的合成表也走数据驱动，方便整合包改配方。</p>
-<h2>怎么用</h2>
+<h2 id="_3">怎么用</h2>
 <p>无前置。合成强化台后即可使用：</p>
 <ol>
 <li>把两件同类型、同等级的装备放入</li>
@@ -88,24 +89,27 @@
 <li>把高等级的成功率调低，但给一个"保底"的替代路线（比如用材料而非装备做保险）</li>
 <li>配合经济系统时，注意强化台的产物不要直接进商店，否则会形成通胀</li>
 </ul>
-<h2>取舍与边界</h2>
+<h2 id="_4">取舍与边界</h2>
 <p><strong>不做保护道具</strong>。当前版本没有"祝福卷轴"这类东西——加了之后风险就消失了，整个系统会退化成资源转换。</p>
 <p><strong>不做随机词条</strong>。强化只提升固定属性，不 roll 词条。这样玩家可以规划，不会出现"强化到 9 级词条全废"的挫败。</p>
 <p><strong>失败全损是刻意的</strong>。如果失败只掉一级，玩家会一直点，风险就变成了时间成本。全损让每一次点击都有意义。</p>
-<h2>版本与依赖</h2>
+<h2 id="_5">版本与依赖</h2>
 <p>当前 1.0.0。NeoForge 1.21.1 / Java 21，无前置，MIT 协议。合成表与成功率均为数据驱动，整合包可以直接改 JSON，不需要重编译。</p>
-<h2>经济与风险的设计</h2>
+<h2 id="_6">经济与风险的设计</h2>
 <p>强化系统的核心不是成功率，而是<strong>失败成本</strong>。当前版本失败全损，这会让每一次强化都变成一次真实决策：是继续堆一件，还是把材料拆开做两件中档装备。</p>
 <p>成功率随等级递减，具体曲线在配置里。服务器可以按自己的经济节奏调整：如果材料获取容易，就把高等级成功率压低；如果材料稀缺，就适当放宽，否则玩家永远停在中间等级。</p>
 <p>需要避免的是"强化产物进商店"。一旦高级装备可以直接卖钱，强化就从风险行为变成了套利行为，市场价格会被迅速拉平。比较稳的做法是只允许原材料交易，成品绑定或限时。</p>
-<h2>防刷与异常处理</h2>
+<h2 id="_7">防刷与异常处理</h2>
 <p>强化台本身不消耗额外资源，所以理论上可以反复尝试——但每次失败都会销毁材料，这天然限制了频率。如果服务器装了自动合成/自动化模组，建议把强化台排除在自动化之外，避免出现"无限尝试直到成功"的机器。</p>
 <p>异常情况主要是配方冲突：如果其他模组也注册了同名强化台或者改了合成表，会出现"放进去没反应"。排查顺序是先看日志里的注册冲突，再确认合成表是否被覆盖。</p>
-<h2>强化台与自动化的边界</h2>
+<h2 id="_8">强化台与自动化的边界</h2>
 <p>强化台是手动交互界面，不提供漏斗或管道接口。这是刻意的：一旦可以自动化，强化就会变成"挂机等成功"的刷子机器，风险设计完全失效。</p>
 <p>如果服务器装了允许模拟玩家点击的模组，建议把强化台加入其黑名单。判断方式不是看它能不能自动点，而是看它能不能在你离线时持续尝试。</p>
-      </article>
-      <p class="back-link" data-reveal><a class="text-link" href="/work/mcmod/">← 返回模组列表</a></p>
+        </article>
+        <p class="back-link" data-reveal><a class="text-link" href="/work/mcmod/">← 返回模组列表</a></p>
+        <div class="related" data-reveal><div class="related-title">同类的其他模组</div><div class="items"><a class="item" href="/work/mcmod/achievements/"><span class="item-num">相关</span><h3 class="item-title">Mornfrost Achievements</h3><p class="item-text">NeoForge 1.21.1 · Fabric 1.21.1 / 1.21.11 · Forge 1.20.1 · 5.1.0</p></a><a class="item" href="/work/mcmod/soulglyph/"><span class="item-num">相关</span><h3 class="item-title">SoulGlyph 灵铭</h3><p class="item-text">NeoForge 1.21.1 · 前置 Curios · 1.0.0</p></a><a class="item" href="/work/mcmod/soulbound/"><span class="item-num">相关</span><h3 class="item-title">Soulbound Blades 缚魂之刃</h3><p class="item-text">NeoForge 1.21.1 · 1.1.0</p></a><a class="item" href="/work/mcmod/arsenal/"><span class="item-num">相关</span><h3 class="item-title">Arsenal</h3><p class="item-text">NeoForge 1.21.1 · 1.0.0</p></a></div></div>
+      </div>
+      <aside class="toc-col"><nav class="toc" aria-label="目录"><div class="toc-title">目录</div><a class="toc-item lvl2" href="#_1">为什么做它</a><a class="toc-item lvl2" href="#_2">它是怎么运作的</a><a class="toc-item lvl2" href="#_3">怎么用</a><a class="toc-item lvl2" href="#_4">取舍与边界</a><a class="toc-item lvl2" href="#_5">版本与依赖</a><a class="toc-item lvl2" href="#_6">经济与风险的设计</a><a class="toc-item lvl2" href="#_7">防刷与异常处理</a><a class="toc-item lvl2" href="#_8">强化台与自动化的边界</a></nav></aside>
     </div>
   </section>
 </main>

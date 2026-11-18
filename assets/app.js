@@ -416,4 +416,117 @@
     setInterval(tick, 30000);
   })();
 
+
+
+  /* ---------- 逐字浮现 / 数字滚动 / 交错 / 视差 / 快捷键 ---------- */
+  (function () {
+    /* 1. 首屏标题逐字浮现 */
+    var title = document.querySelector(".hero-title");
+    if (title && !reduce) {
+      var walk = function (node) {
+        Array.prototype.slice.call(node.childNodes).forEach(function (child) {
+          if (child.nodeType === 3) {
+            var frag = document.createDocumentFragment();
+            child.textContent.split("").forEach(function (ch) {
+              if (ch === " ") { frag.appendChild(document.createTextNode(" ")); return; }
+              var s = document.createElement("span");
+              s.className = "ch";
+              s.textContent = ch;
+              s.style.animationDelay = (frag.childNodes.length * 0.028) + "s";
+              frag.appendChild(s);
+            });
+            node.replaceChild(frag, child);
+          } else if (child.nodeType === 1 && child.tagName !== "BR") {
+            walk(child);
+          }
+        });
+      };
+      walk(title);
+    }
+
+    /* 2. 数字滚动 */
+    var nums = document.querySelectorAll(".fact-num");
+    Array.prototype.forEach.call(nums, function (el) {
+      var v = parseInt(el.textContent.trim(), 10);
+      if (!v || String(v) !== el.textContent.trim() || reduce) return;
+      var start = 0, dur = 900, t0 = 0;
+      var step = function (ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur);
+        el.textContent = Math.round(start + (v - start) * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+
+    /* 3. 列表交错入场 */
+    Array.prototype.forEach.call(document.querySelectorAll(".items, .caps, .feat-grid"), function (box) {
+      Array.prototype.forEach.call(box.children, function (child, i) {
+        child.style.setProperty("--d", (i * 0.06).toFixed(2) + "s");
+      });
+    });
+
+    /* 4. 更新日志逐条展开 */
+    var rows = document.querySelectorAll(".update-row");
+    if (rows.length && "IntersectionObserver" in window) {
+      var io2 = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          Array.prototype.forEach.call(rows, function (r, i) {
+            setTimeout(function () { r.classList.add("in"); }, i * 70);
+          });
+          io2.disconnect();
+        });
+      }, { threshold: 0.2 });
+      io2.observe(rows[0]);
+    } else {
+      Array.prototype.forEach.call(rows, function (r) { r.classList.add("in"); });
+    }
+
+    /* 5. 背景视差 */
+    if (!reduce) {
+      var raf = 0;
+      var para = function () {
+        if (raf) return;
+        raf = requestAnimationFrame(function () {
+          document.documentElement.style.setProperty("--sy", String(window.scrollY));
+          raf = 0;
+        });
+      };
+      window.addEventListener("scroll", para, { passive: true });
+      para();
+    }
+
+    /* 6. 快捷键面板 */
+    var panel = document.createElement("div");
+    panel.id = "mgShortcuts";
+    panel.innerHTML = '<div class="shortcuts-box"><div class="shortcuts-title">键盘快捷键</div>' +
+      '<div class="shortcut"><span>打开命令面板 / 搜索</span><b>Ctrl + K</b></div>' +
+      '<div class="shortcut"><span>打开搜索</span><b>/</b></div>' +
+      '<div class="shortcut"><span>面板内上下选择</span><b>↑ ↓</b></div>' +
+      '<div class="shortcut"><span>面板内打开 / 关闭</span><b>Enter / Esc</b></div>' +
+      '<div class="shortcut"><span>随机打开一个小游戏</span><b>G</b></div>' +
+      '<div class="shortcut"><span>显示本面板</span><b>?</b></div>' +
+      '<div class="shortcut"><span>回到顶部</span><b>Home</b></div></div>';
+    document.body.appendChild(panel);
+    function toggle(open) { panel.classList.toggle("open", open); }
+    panel.addEventListener("click", function (e) { if (e.target === panel) toggle(false); });
+    var GAMES = ["minesweeper", "g2048", "snake", "tetris", "breakout", "memory", "slidepuzzle", "clicker",
+      "gomoku", "tictactoe", "rps", "twentyfour", "sudoku", "klotski", "sokoban", "maze", "typing",
+      "rhythm", "reaction", "guessnumber", "guessmod", "guessrecipe", "trivia", "dodger", "voidjump",
+      "lianliankan", "match3", "reversi", "checkers", "nonogram", "slitherlink", "mazeseed", "hexmine",
+      "g2048x5", "twosnake", "typedefense", "rhythmclick", "simon", "wordle", "idiom", "elements",
+      "homophone", "cubetimer", "picpuzzle", "pinball", "whack", "racer", "platformer", "towerdefense", "solitaire"];
+    document.addEventListener("keydown", function (e) {
+      var tag = (document.activeElement && document.activeElement.tagName) || "";
+      var typing = /INPUT|TEXTAREA|SELECT/.test(tag);
+      if (e.key === "?" && !typing) { e.preventDefault(); toggle(!panel.classList.contains("open")); }
+      if (e.key === "Escape") toggle(false);
+      if ((e.key === "g" || e.key === "G") && !typing && !e.ctrlKey && !e.metaKey) {
+        location.href = "/more/games/" + GAMES[Math.floor(Math.random() * GAMES.length)] + "/";
+      }
+      if (e.key === "Home") { window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); }
+    });
+  })();
+
 })();

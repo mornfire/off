@@ -52,40 +52,41 @@
 <main id="main">
   <section class="page-head">
     <div class="wrap">
-      <p class="eyebrow page-kicker" data-reveal>作品 / 模组</p>
+      <nav class="crumbs" aria-label="面包屑"><a href="/">首页</a><span>/</span><a href="/works/">作品</a><span>/</span><a href="/work/mcmod/">Minecraft 模组</a><span>/</span><em>OreGuard</em></nav>
       <h1 class="page-title" data-reveal>OreGuard</h1>
       <p class="page-lead mono" data-reveal>NeoForge 1.21.1 服务端 · 1.0.0</p>
       <p class="page-lead" data-reveal>反矿透，纯服务端，客户端什么都不用装。除了藏矿，还会看挖掘行为有没有不对劲。</p>
     </div>
   </section>
   <section class="section">
-    <div class="wrap">
-      <article class="doc article-body" data-reveal>
+    <div class="wrap article-with-toc">
+      <div class="article-col">
+        <article class="doc article-body" data-reveal>
 <blockquote>
 <p>反矿透，纯服务端，客户端什么都不用装。</p>
 </blockquote>
-<h2>为什么做它</h2>
+<h2 id="_1">为什么做它</h2>
 <p>矿透（X-Ray）是服务器上最常见也最难根治的作弊：客户端装个材质包或模组，把石头变透明，矿物一览无余。传统反矿透靠"伪装方块"——把远处的矿物发给客户端时替换成石头，等玩家靠近再还原。</p>
 <p>OreGuard 做的就是这件事，但加了一层：除了藏矿，还看挖掘行为。</p>
-<h2>它是怎么运作的</h2>
+<h2 id="_2">它是怎么运作的</h2>
 <p><strong>纯服务端</strong>：不添加任何方块、物品、数据包或注册表条目，客户端不需要安装，也不会因为装了模组而被服务器拒绝。</p>
 <p><strong>反矿透层</strong>：按玩家视野与距离，动态决定哪些矿物方块对客户端"看起来是石头"。玩家挖到近处时才还原成真实矿物，避免"挖到一半变回来"的突兀感。</p>
 <p><strong>行为检测层</strong>：统计玩家的挖掘模式——比如垂直往下挖的直线比例、挖到矿的命中率、单位时间内的矿物获取量。异常值会被记录，供管理员判断。</p>
 <p>两层是独立的：藏矿解决"看见"，行为检测解决"已经挖了"。</p>
-<h2>怎么用</h2>
+<h2 id="_3">怎么用</h2>
 <p>只装服务端。默认配置即可工作，建议：</p>
 <ul>
 <li>先在测试服跑几天，看误报率（有些玩家就是喜欢直着挖）</li>
 <li>行为检测的阈值可以在配置里调，别一上来就设得太敏感</li>
 <li>如果服务器有"矿工"玩法（比如挖矿比赛），记得给对应维度关掉反矿透</li>
 </ul>
-<h2>取舍与边界</h2>
+<h2 id="_4">取舍与边界</h2>
 <p><strong>不做自动封禁</strong>。检测只记录、不处罚，封禁交给管理员。自动封禁的误杀成本太高。</p>
 <p><strong>不做客户端校验</strong>。不检查客户端模组列表，那是客户端的事，服务端做不了也不该做。</p>
 <p><strong>对性能有轻微影响</strong>。每个玩家的视野都要计算一次替换逻辑，玩家数很多时需要注意；当前版本按区块批量处理，开销可控。</p>
-<h2>版本与依赖</h2>
+<h2 id="_5">版本与依赖</h2>
 <p>当前 1.0.0。NeoForge 1.21.1 服务端 / Java 21，无前置，MIT 协议。不修改世界数据，卸载后已替换的方块会自动恢复为真实状态。</p>
-<h2>误报与调优</h2>
+<h2 id="_6">误报与调优</h2>
 <p>行为检测最容易误伤的是"正常但看起来像作弊"的玩法：</p>
 <ul>
 <li>直井挖矿（玩家就是喜欢垂直往下挖）</li>
@@ -93,17 +94,20 @@
 <li>用爆炸物快速清矿</li>
 </ul>
 <p>上线初期建议只记录、不处罚，观察一周的分布，再决定阈值。不同维度的矿石密度不一样，按维度分别设置比全局统一更合理。</p>
-<h2>性能与部署</h2>
+<h2 id="_7">性能与部署</h2>
 <p>反矿透的计算发生在区块发送给玩家之前，玩家数量多时是主要开销。当前实现按区块批量处理，单人大约在可忽略的量级；几十人同时在线的服务器建议观察 TPS，必要时只对特定维度开启。</p>
 <p>部署时注意：反矿透会让客户端看到的方块与真实世界不一致，某些依赖客户端方块数据的模组（小地图、区块扫描类）可能显示异常。这是预期行为，不是 bug。</p>
-<h2>和客户端反作弊的关系</h2>
+<h2 id="_8">和客户端反作弊的关系</h2>
 <p>客户端反作弊（如各种反矿透材质包检测）防的是"装了作弊的客户端"，服务端反矿透防的是"作弊客户端能看到什么"。两者角度不同，不能互相替代。</p>
 <p>这个模组不检查客户端，也不发送额外探测包，所以不会和客户端反作弊冲突；但它也挡不住"玩家用另一台设备看地图"这类场外作弊。</p>
-<h2>什么时候该关掉</h2>
+<h2 id="_9">什么时候该关掉</h2>
 <p>如果服务器主打"挖矿竞速"或"资源采集"玩法，反矿透会直接和玩法冲突——玩家本来就该看到矿物。这种情况下按维度关掉是最省事的做法。</p>
 <p>另外，开发测试阶段建议关掉，否则调试世界生成时会看到被替换的假方块，容易误判。</p>
-      </article>
-      <p class="back-link" data-reveal><a class="text-link" href="/work/mcmod/">← 返回模组列表</a></p>
+        </article>
+        <p class="back-link" data-reveal><a class="text-link" href="/work/mcmod/">← 返回模组列表</a></p>
+        <div class="related" data-reveal><div class="related-title">同类的其他模组</div><div class="items"><a class="item" href="/work/mcmod/memorymaster/"><span class="item-num">相关</span><h3 class="item-title">MemoryMaster</h3><p class="item-text">NeoForge 1.21.1 服务端 · 1.0.0</p></a><a class="item" href="/work/mcmod/banitemblock/"><span class="item-num">相关</span><h3 class="item-title">BanItemBlock</h3><p class="item-text">NeoForge 1.21.1 服务端 · 1.0.0</p></a><a class="item" href="/work/mcmod/enchantremover/"><span class="item-num">相关</span><h3 class="item-title">Enchantment Remover</h3><p class="item-text">NeoForge 1.21.1 · 1.0.0</p></a><a class="item" href="/work/mcmod/perdimrespawn/"><span class="item-num">相关</span><h3 class="item-title">Per-Dimension Respawn</h3><p class="item-text">NeoForge 1.21.1 服务端 · 1.0.0</p></a></div></div>
+      </div>
+      <aside class="toc-col"><nav class="toc" aria-label="目录"><div class="toc-title">目录</div><a class="toc-item lvl2" href="#_1">为什么做它</a><a class="toc-item lvl2" href="#_2">它是怎么运作的</a><a class="toc-item lvl2" href="#_3">怎么用</a><a class="toc-item lvl2" href="#_4">取舍与边界</a><a class="toc-item lvl2" href="#_5">版本与依赖</a><a class="toc-item lvl2" href="#_6">误报与调优</a><a class="toc-item lvl2" href="#_7">性能与部署</a><a class="toc-item lvl2" href="#_8">和客户端反作弊的关系</a><a class="toc-item lvl2" href="#_9">什么时候该关掉</a></nav></aside>
     </div>
   </section>
 </main>
