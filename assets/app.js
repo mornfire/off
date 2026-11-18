@@ -230,25 +230,25 @@
 
   /* ---------- 更多菜单 ---------- */
   (function () {
-    var more = document.getElementById("navMore");
-    if (!more) return;
-    var tgl = more.querySelector(".nav-more-toggle");
-    if (!tgl) return;
-    tgl.addEventListener("click", function (e) {
+    var toggle = document.getElementById("moreToggle");
+    var panel = document.getElementById("moreMenu");
+    if (!toggle || !panel) return;
+
+    function setOpen(open) {
+      panel.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      panel.setAttribute("aria-hidden", open ? "false" : "true");
+    }
+    toggle.addEventListener("click", function (e) {
       e.stopPropagation();
-      var open = more.classList.toggle("is-open");
-      tgl.setAttribute("aria-expanded", open ? "true" : "false");
+      setOpen(!panel.classList.contains("is-open"));
     });
-    document.addEventListener("click", function (e) {
-      if (more.contains(e.target)) return;
-      more.classList.remove("is-open");
-      tgl.setAttribute("aria-expanded", "false");
-    });
+    panel.addEventListener("click", function (e) { e.stopPropagation(); });
+    document.addEventListener("click", function () { setOpen(false); });
     document.addEventListener("keydown", function (e) {
-      if (e.key !== "Escape") return;
-      more.classList.remove("is-open");
-      tgl.setAttribute("aria-expanded", "false");
+      if (e.key === "Escape") setOpen(false);
     });
+    window.addEventListener("resize", function () { setOpen(false); });
   })();
 
 })();
