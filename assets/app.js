@@ -3,15 +3,16 @@
   "use strict";
 
   var doc = document;
+  var root = doc.documentElement;
   var header = doc.getElementById("siteHeader");
   var nav = doc.getElementById("nav");
   var toggle = doc.getElementById("navToggle");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
   /* sticky header state */
   var onScroll = function () {
-    if (!header) return;
-    if (window.scrollY > 8) header.classList.add("is-scrolled");
-    else header.classList.remove("is-scrolled");
+    if (header) header.classList.toggle("is-scrolled", window.scrollY > 8);
   };
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
@@ -97,54 +98,74 @@
   /* footer year */
   var year = doc.getElementById("year");
   if (year) year.textContent = String(new Date().getFullYear());
-})();
 
-/* v2: 光标环境光 + 卡片倾斜（尊重 reduced-motion） */
-(function () {
-  "use strict";
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-  if (reduce) return;
+  /* 跟随光标的环境光：放在玻璃后面，被模糊成流动的光 */
+  if (!reduce) {
+    doc.addEventListener("pointermove", function (e) {
+      root.style.setProperty("--mx", e.clientX + "px");
+      root.style.setProperty("--my", e.clientY + "px");
+    }, { passive: true });
+  }
 
-  document.addEventListener("pointermove", function (e) {
-    document.documentElement.style.setProperty("--mx", e.clientX + "px");
-    document.documentElement.style.setProperty("--my", e.clientY + "px");
-  }, { passive: true });
+  /* 玻璃材质：光标跟手高光 + 卡片轻微倾斜 */
+  if (fine && !reduce) {
+    var SURF = ".glass, .header-inner, .hero > .wrap, .page-head .wrap, .cta > .wrap," +
+               ".item, .works-block, .caps, .about-teaser, .filters, .member, .hiring," +
+               ".services, .contact-center, .article-narrow, .doc, .error .wrap, .btn, .chip";
+    var active = null;
 
-  if (!fine) return;
-  var cards = document.querySelectorAll(".item, .works-block, .member, .hiring, .btn");
-  Array.prototype.forEach.call(cards, function (el) {
-    el.addEventListener("pointermove", function (e) {
-      var r = el.getBoundingClientRect();
-      var x = (e.clientX - r.left) / r.width;
-      var y = (e.clientY - r.top) / r.height;
-      el.style.setProperty("--rx", ((0.5 - y) * 3.2).toFixed(2) + "deg");
-      el.style.setProperty("--ry", ((x - 0.5) * 3.2).toFixed(2) + "deg");
-      el.style.setProperty("--px", (x * 100).toFixed(1) + "%");
-      el.style.setProperty("--py", (y * 100).toFixed(1) + "%");
-    });
-    el.addEventListener("pointerleave", function () {
+    var reset = function (el) {
+      if (!el) return;
+      el.style.setProperty("--px", "140%");
+      el.style.setProperty("--py", "-30%");
       el.style.setProperty("--rx", "0deg");
       el.style.setProperty("--ry", "0deg");
-      el.style.setProperty("--px", "50%");
-      el.style.setProperty("--py", "0%");
-    });
-  });
-})();
+    };
 
-/* v3: 背景随滚动视差 */
-(function () {
-  "use strict";
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  var root = document.documentElement;
-  var raf = 0;
-  var onScroll = function () {
-    if (raf) return;
-    raf = window.requestAnimationFrame(function () {
-      root.style.setProperty("--sy", String(window.scrollY));
-      raf = 0;
-    });
-  };
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
+    doc.addEventListener("pointermove", function (e) {
+      var el = e.target.closest ? e.target.closest(SURF) : null;
+      if (el !== active) {
+        reset(active);
+        active = el;
+      }
+      if (!el) return;
+      var r = el.getBoundingClientRect();
+      var x = (e.clientX - r.left) / Math.max(r.width, 1);
+      var y = (e.clientY - r.top) / Math.max(r.height, 1);
+      el.style.setProperty("--px", (x * 100).toFixed(1) + "%");
+      el.style.setProperty("--py", (y * 100).toFixed(1) + "%");
+      if (el.classList.contains("item") || el.classList.contains("works-block") ||
+          el.classList.contains("member") || el.classList.contains("hiring")) {
+        el.style.setProperty("--rx", ((0.5 - y) * 2.2).toFixed(2) + "deg");
+        el.style.setProperty("--ry", ((x - 0.5) * 2.2).toFixed(2) + "deg");
+      }
+    }, { passive: true });
+
+    doc.addEventListener("pointerleave", function () {
+      reset(active);
+      active = null;
+    }, { passive: true });
+
+    /* 视觉验收用：?hoverdemo 把所有玻璃的高光定位到固定点 */
+    if (/(\?|&)hoverdemo/.test(window.location.search)) {
+      Array.prototype.forEach.call(doc.querySelectorAll(SURF), function (el, i) {
+        el.style.setProperty("--px", (56 + (i % 4) * 6) + "%");
+        el.style.setProperty("--py", "24%");
+      });
+    }
+  }
+
+  /* 背景随滚动轻微视差 */
+  if (!reduce) {
+    var raf = 0;
+    var onScrollBg = function () {
+      if (raf) return;
+      raf = window.requestAnimationFrame(function () {
+        root.style.setProperty("--sy", String(window.scrollY));
+        raf = 0;
+      });
+    };
+    window.addEventListener("scroll", onScrollBg, { passive: true });
+    onScrollBg();
+  }
 })();
