@@ -167,6 +167,20 @@
     function apply() {
       try {
         if (localStorage.getItem(KEY_T) === "day") document.documentElement.setAttribute("data-theme", "day");
+        var acc = localStorage.getItem("mg-accent");
+        if (acc) document.documentElement.setAttribute("data-accent", acc);
+        var fs = localStorage.getItem("mg-fs");
+        if (fs) document.documentElement.setAttribute("data-fs", fs);
+        var dn = localStorage.getItem("mg-density");
+        if (dn) document.documentElement.setAttribute("data-density", dn);
+        if (localStorage.getItem("mg-motion") === "off") document.documentElement.setAttribute("data-motion", "off");
+        if (localStorage.getItem("mg-lang") === "en") {
+          var map = { "作品": "Works", "关于": "About", "服务": "Services", "团队": "Team", "联系": "Contact", "更多": "More" };
+          document.querySelectorAll(".nav-link, .nav-more-toggle").forEach(function (el) {
+            var t = el.textContent.trim();
+            if (map[t]) el.textContent = map[t];
+          });
+        }
         if (localStorage.getItem(KEY_TRAIL) === "1") startTrail();
       } catch (e) {}
     }
@@ -267,6 +281,139 @@
       if (e.key === "Escape") setOpen(false);
     });
     window.addEventListener("resize", function () { setOpen(false); });
+  })();
+
+
+
+  /* ---------- 阅读进度 + 回到顶部 ---------- */
+  (function () {
+    var bar = document.createElement("div");
+    bar.id = "mgProgress";
+    document.body.appendChild(bar);
+    var top = document.createElement("button");
+    top.id = "mgTop"; top.type = "button"; top.title = "回到顶部"; top.textContent = "↑";
+    document.body.appendChild(top);
+    function upd() {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      var p = h > 0 ? window.scrollY / h : 0;
+      bar.style.width = (p * 100).toFixed(2) + "%";
+      top.classList.toggle("show", window.scrollY > 600);
+    }
+    window.addEventListener("scroll", upd, { passive: true });
+    window.addEventListener("resize", upd);
+    upd();
+    top.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+    });
+  })();
+
+  /* ---------- 命令面板（Ctrl+K 或 /） ---------- */
+  (function () {
+    var box = document.createElement("div");
+    box.id = "mgPalette";
+    box.innerHTML = '<div class="palette-box"><input class="palette-input" placeholder="搜索模组、页面、小游戏…（Ctrl+K）"><div class="palette-list"></div><div class="palette-hint">↑↓ 选择 · Enter 打开 · Esc 关闭</div></div>';
+    document.body.appendChild(box);
+    var input = box.querySelector(".palette-input");
+    var list = box.querySelector(".palette-list");
+    var data = window.__SEARCH || [];
+    var idx = 0;
+    function render(q) {
+      var items = data.filter(function (it) {
+        return !q || (it.t + it.d).toLowerCase().indexOf(q) !== -1;
+      }).slice(0, 40);
+      list.innerHTML = items.map(function (it, i) {
+        return '<a class="palette-item' + (i === 0 ? " on" : "") + '" href="' + it.u + '"><b>' + it.t + "</b>" +
+          (it.d ? "<span>" + it.d + "</span>" : "") + "</a>";
+      }).join("");
+      idx = 0;
+    }
+    function open() { box.classList.add("open"); input.value = ""; render(""); input.focus(); }
+    function close() { box.classList.remove("open"); }
+    function move(d) {
+      var els = list.querySelectorAll(".palette-item");
+      if (!els.length) return;
+      if (els[idx]) els[idx].classList.remove("on");
+      idx = (idx + d + els.length) % els.length;
+      els[idx].classList.add("on");
+      els[idx].scrollIntoView({ block: "nearest" });
+    }
+    input.addEventListener("input", function () { render(input.value.trim().toLowerCase()); });
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowDown") { e.preventDefault(); move(1); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); move(-1); }
+      else if (e.key === "Enter") {
+        var els = list.querySelectorAll(".palette-item");
+        if (els[idx]) location.href = els[idx].getAttribute("href");
+      } else if (e.key === "Escape") close();
+    });
+    box.addEventListener("click", function (e) { if (e.target === box) close(); });
+    document.addEventListener("keydown", function (e) {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") { e.preventDefault(); open(); return; }
+      var tag = (document.activeElement && document.activeElement.tagName) || "";
+      if (e.key === "/" && !/INPUT|TEXTAREA/.test(tag)) { e.preventDefault(); open(); }
+    });
+  })();
+
+  /* ---------- 代码块复制 ---------- */
+  (function () {
+    var pres = document.querySelectorAll(".article-body pre");
+    Array.prototype.forEach.call(pres, function (p) {
+      var b = document.createElement("button");
+      b.className = "copy-code"; b.type = "button"; b.textContent = "复制";
+      b.addEventListener("click", function () {
+        var code = p.querySelector("code");
+        var text = code ? code.textContent : p.textContent;
+        try {
+          navigator.clipboard.writeText(text);
+          b.textContent = "已复制";
+          setTimeout(function () { b.textContent = "复制"; }, 1200);
+        } catch (err) {}
+      });
+      p.appendChild(b);
+    });
+  })();
+
+  /* ---------- Toast + 复制邮箱 ---------- */
+  (function () {
+    var t = document.createElement("div");
+    t.id = "mgToast";
+    document.body.appendChild(t);
+    var timer = 0;
+    window.mgToast = function (msg) {
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(timer);
+      timer = setTimeout(function () { t.classList.remove("show"); }, 1700);
+    };
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest ? e.target.closest('a[href^="mailto:"]') : null;
+      if (!a) return;
+      var mail = a.getAttribute("href").replace("mailto:", "").split("?")[0];
+      try {
+        navigator.clipboard.writeText(mail);
+        window.mgToast("邮箱已复制：" + mail);
+      } catch (err) {}
+    });
+  })();
+
+  /* ---------- 页脚：时间与停留时长 ---------- */
+  (function () {
+    var foot = document.querySelector(".footer-bottom");
+    if (!foot) return;
+    var el = document.createElement("span");
+    el.className = "footer-stats";
+    el.style.marginLeft = "12px";
+    foot.appendChild(el);
+    var start = Date.now();
+    function tick() {
+      var d = new Date();
+      var hh = ("0" + d.getHours()).slice(-2);
+      var mm = ("0" + d.getMinutes()).slice(-2);
+      var mins = Math.floor((Date.now() - start) / 60000);
+      el.textContent = hh + ":" + mm + " · 本次已停留 " + mins + " 分钟";
+    }
+    tick();
+    setInterval(tick, 30000);
   })();
 
 })();

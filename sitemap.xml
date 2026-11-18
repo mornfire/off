@@ -55,9 +55,36 @@
   <url><loc>https://www.mornfrost.cn/more/games/trivia/</loc></url>
   <url><loc>https://www.mornfrost.cn/more/games/dodger/</loc></url>
   <url><loc>https://www.mornfrost.cn/more/games/voidjump/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/lianliankan/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/match3/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/reversi/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/checkers/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/nonogram/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/slitherlink/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/mazeseed/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/hexmine/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/g2048x5/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/twosnake/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/typedefense/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/rhythmclick/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/simon/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/wordle/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/idiom/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/elements/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/homophone/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/cubetimer/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/picpuzzle/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/pinball/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/whack/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/racer/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/platformer/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/towerdefense/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/games/solitaire/</loc></url>
   <url><loc>https://www.mornfrost.cn/more/tools/</loc></url>
   <url><loc>https://www.mornfrost.cn/more/tools/jvm/</loc></url>
   <url><loc>https://www.mornfrost.cn/more/tools/serverstatus/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/tools/recipe/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/tools/crashreader/</loc></url>
   <url><loc>https://www.mornfrost.cn/more/library/</loc></url>
   <url><loc>https://www.mornfrost.cn/more/library/notes/</loc></url>
   <url><loc>https://www.mornfrost.cn/more/library/glossary/</loc></url>
@@ -76,14 +103,30 @@
   <url><loc>https://www.mornfrost.cn/more/community/feedback/</loc></url>
   <url><loc>https://www.mornfrost.cn/more/community/recruiting/</loc></url>
   <url><loc>https://www.mornfrost.cn/more/community/subscribe/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/community/rss/</loc></url>
   <url><loc>https://www.mornfrost.cn/more/showcase/</loc></url>
   <url><loc>https://www.mornfrost.cn/more/showcase/effects/</loc></url>
   <url><loc>https://www.mornfrost.cn/more/showcase/design/</loc></url>
   <url><loc>https://www.mornfrost.cn/more/showcase/typography/</loc></url>
   <url><loc>https://www.mornfrost.cn/more/showcase/icons/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/showcase/motion/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/showcase/glasscompare/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/showcase/typography2/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/showcase/icons2/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/showcase/palette/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/showcase/states/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/showcase/emptyerror/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/showcase/themes/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/showcase/mobile/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/showcase/decisions/</loc></url>
   <url><loc>https://www.mornfrost.cn/more/personal/</loc></url>
   <url><loc>https://www.mornfrost.cn/more/personal/trail/</loc></url>
   <url><loc>https://www.mornfrost.cn/more/personal/randommod/</loc></url>
   <url><loc>https://www.mornfrost.cn/more/personal/daynight/</loc></url>
   <url><loc>https://www.mornfrost.cn/more/personal/whattoplay/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/personal/theme/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/personal/a11y/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/personal/motion/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/personal/lang/</loc></url>
+  <url><loc>https://www.mornfrost.cn/more/personal/density/</loc></url>
 </urlset>
