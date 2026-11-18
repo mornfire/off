@@ -1223,27 +1223,70 @@ html[data-theme="day"] .nav-link.is-active{color:#16232a;background:rgba(20,40,5
 html[data-theme="day"] .nav-more-menu{background:#f6f9fa;border-color:rgba(20,40,50,.14)}
 html[data-theme="day"] .more-links a{color:#4d5d65}
 
+html[data-festival="chuxi"] body::before,
 html[data-festival="spring"] body::before{
   background-image:
-    radial-gradient(70vw 60vw at 6% 0%,rgba(214,60,60,.30),transparent 70%),
-    radial-gradient(64vw 56vw at 96% 4%,rgba(230,160,60,.26),transparent 70%),
-    radial-gradient(70vw 56vw at 50% 48%,rgba(200,60,80,.14),transparent 76%);
+    radial-gradient(70vw 60vw at 8% 0%,rgba(214,52,52,.34),transparent 70%),
+    radial-gradient(64vw 56vw at 94% 6%,rgba(232,176,64,.30),transparent 70%),
+    radial-gradient(70vw 56vw at 50% 50%,rgba(200,40,60,.16),transparent 76%) !important;
+}
+html[data-festival="lantern"] body::before{
+  background-image:
+    radial-gradient(70vw 60vw at 10% 4%,rgba(230,120,60,.30),transparent 70%),
+    radial-gradient(64vw 56vw at 92% 10%,rgba(214,60,60,.26),transparent 70%),
+    radial-gradient(70vw 56vw at 50% 50%,rgba(232,180,80,.14),transparent 76%) !important;
+}
+html[data-festival="qingming"] body::before{
+  background-image:
+    radial-gradient(70vw 60vw at 8% 0%,rgba(60,150,110,.26),transparent 70%),
+    radial-gradient(64vw 56vw at 94% 6%,rgba(120,160,180,.22),transparent 70%),
+    radial-gradient(70vw 56vw at 50% 50%,rgba(80,120,110,.12),transparent 76%) !important;
+}
+html[data-festival="duanwu"] body::before{
+  background-image:
+    radial-gradient(70vw 60vw at 8% 0%,rgba(40,150,120,.30),transparent 70%),
+    radial-gradient(64vw 56vw at 94% 6%,rgba(60,120,90,.24),transparent 70%),
+    radial-gradient(70vw 56vw at 50% 50%,rgba(30,90,80,.14),transparent 76%) !important;
+}
+html[data-festival="qixi"] body::before{
+  background-image:
+    radial-gradient(70vw 60vw at 8% 0%,rgba(220,90,150,.30),transparent 70%),
+    radial-gradient(64vw 56vw at 94% 6%,rgba(140,90,220,.28),transparent 70%),
+    radial-gradient(70vw 56vw at 50% 50%,rgba(200,100,180,.14),transparent 76%) !important;
+}
+html[data-festival="midautumn"] body::before{
+  background-image:
+    radial-gradient(70vw 60vw at 8% 0%,rgba(230,180,90,.30),transparent 70%),
+    radial-gradient(64vw 56vw at 94% 6%,rgba(80,110,200,.26),transparent 70%),
+    radial-gradient(70vw 56vw at 50% 50%,rgba(200,150,70,.14),transparent 76%) !important;
+}
+html[data-festival="chongyang"] body::before{
+  background-image:
+    radial-gradient(70vw 60vw at 8% 0%,rgba(230,140,60,.28),transparent 70%),
+    radial-gradient(64vw 56vw at 94% 6%,rgba(150,90,50,.24),transparent 70%),
+    radial-gradient(70vw 56vw at 50% 50%,rgba(180,110,60,.12),transparent 76%) !important;
+}
+html[data-festival="laba"] body::before{
+  background-image:
+    radial-gradient(70vw 60vw at 8% 0%,rgba(200,120,60,.26),transparent 70%),
+    radial-gradient(64vw 56vw at 94% 6%,rgba(170,70,50,.24),transparent 70%),
+    radial-gradient(70vw 56vw at 50% 50%,rgba(150,90,50,.12),transparent 76%) !important;
 }
 html[data-festival="halloween"] body::before{
   background-image:
     radial-gradient(70vw 60vw at 8% 0%,rgba(230,130,40,.32),transparent 70%),
     radial-gradient(64vw 56vw at 96% 6%,rgba(120,60,180,.30),transparent 70%),
-    radial-gradient(70vw 56vw at 50% 48%,rgba(60,20,80,.18),transparent 76%);
+    radial-gradient(70vw 56vw at 50% 48%,rgba(60,20,80,.18),transparent 76%) !important;
 }
 html[data-festival="christmas"] body::before{
   background-image:
     radial-gradient(70vw 60vw at 6% 0%,rgba(200,40,50,.28),transparent 70%),
     radial-gradient(64vw 56vw at 96% 6%,rgba(40,140,90,.28),transparent 70%),
-    radial-gradient(70vw 56vw at 50% 48%,rgba(220,230,240,.10),transparent 76%);
+    radial-gradient(70vw 56vw at 50% 48%,rgba(220,230,240,.10),transparent 76%) !important;
 }
-
-@keyframes mgSnow{
-  0%{transform:translate3d(0,0,0);opacity:.8}
-  100%{transform:translate3d(24px,105vh,0);opacity:0}
+html[data-festival="newyear"] body::before{
+  background-image:
+    radial-gradient(70vw 60vw at 8% 0%,rgba(230,190,80,.30),transparent 70%),
+    radial-gradient(64vw 56vw at 94% 6%,rgba(70,110,200,.28),transparent 70%),
+    radial-gradient(70vw 56vw at 50% 50%,rgba(200,170,90,.12),transparent 76%) !important;
 }
-.mg-trail #mgTrail{display:block}

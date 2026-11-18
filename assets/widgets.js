@@ -297,19 +297,6 @@
     host.appendChild(note("这些参数只是演示，不会保存到站点。"));
   };
 
-  /* ---------- 91 Konami ---------- */
-  MG.konami = function (host) {
-    var bar = top("在任意页面输入这个序列");
-    host.appendChild(bar);
-    var seq = el("p", "play-score", "↑ ↑ ↓ ↓ ← → ← → B A");
-    seq.style.cssText = "font-size:18px;letter-spacing:.3em;margin:18px 0;text-align:center";
-    host.appendChild(seq);
-    host.appendChild(note("输入正确会在当前页面触发一场雪。手机上不好按方向键，这个彩蛋主要是给键盘用的。"));
-    var st = el("p", "play-score", "当前状态：等待输入");
-    host.appendChild(st);
-    window.addEventListener("konami", function () { st.textContent = "当前状态：触发过了"; });
-  };
-
   /* ---------- 93 鼠标轨迹 ---------- */
   MG.trail = function (host) {
     var on = store("mg-trail") === "1";
@@ -400,22 +387,6 @@
       else document.documentElement.removeAttribute("data-theme");
       store("mg-theme", v === "day" ? "day" : null);
     }
-  };
-
-  /* ---------- 97 节日主题 ---------- */
-  MG.festival = function (host) {
-    var bar = top("节日配色");
-    host.appendChild(bar);
-    var r = row();
-    [["", "无"], ["spring", "春节"], ["halloween", "万圣节"], ["christmas", "圣诞"]].forEach(function (f) {
-      r.appendChild(btn(f[1], function () {
-        if (f[0]) document.documentElement.setAttribute("data-festival", f[0]);
-        else document.documentElement.removeAttribute("data-festival");
-        store("mg-festival", f[0] || null);
-      }));
-    });
-    host.appendChild(r);
-    host.appendChild(note("只改强调色与背景倾向，不动布局。设置保存在本地。"));
   };
 
   /* ---------- 100 我该玩什么 ---------- */

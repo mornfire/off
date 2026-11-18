@@ -167,8 +167,6 @@
     function apply() {
       try {
         if (localStorage.getItem(KEY_T) === "day") document.documentElement.setAttribute("data-theme", "day");
-        var f = localStorage.getItem(KEY_F);
-        if (f) document.documentElement.setAttribute("data-festival", f);
         if (localStorage.getItem(KEY_TRAIL) === "1") startTrail();
       } catch (e) {}
     }
@@ -199,33 +197,22 @@
     apply();
   })();
 
-  /* ---------- Konami ---------- */
+
+
+  /* ---------- 节日：按系统时间自动 ---------- */
   (function () {
-    var seq = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
-    var pos = 0;
-    document.addEventListener("keydown", function (e) {
-      var k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
-      if (k === seq[pos]) {
-        pos++;
-        if (pos === seq.length) { pos = 0; snow(); window.dispatchEvent(new Event("konami")); }
-      } else {
-        pos = k === seq[0] ? 1 : 0;
+    var data = window.__FESTIVALS || [];
+    var m = /(?:\?|&)fest=([a-z]+)/.exec(location.search);
+    var key = m ? m[1] : null;
+    if (!key) {
+      var d = new Date();
+      var today = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+      for (var i = 0; i < data.length; i++) {
+        if (today >= data[i][0] && today <= data[i][1]) { key = data[i][2]; break; }
       }
-    });
-    function snow() {
-      var layer = document.createElement("div");
-      layer.style.cssText = "position:fixed;inset:0;pointer-events:none;z-index:80;overflow:hidden";
-      document.body.appendChild(layer);
-      for (var i = 0; i < 70; i++) {
-        var s = document.createElement("span");
-        var size = 2 + Math.random() * 4;
-        s.style.cssText = "position:absolute;top:-12px;left:" + (Math.random() * 100) + "%;width:" + size + "px;height:" + size +
-          "px;border-radius:50%;background:#dff6fb;opacity:" + (0.3 + Math.random() * 0.6) + ";" +
-          "animation:mgSnow " + (4 + Math.random() * 5) + "s linear " + (Math.random() * 3) + "s forwards";
-        layer.appendChild(s);
-      }
-      setTimeout(function () { layer.remove(); }, 9000);
     }
+    if (key) document.documentElement.setAttribute("data-festival", key);
+    window.__festApplied = key;
   })();
 
   /* ---------- 更多菜单 ---------- */
