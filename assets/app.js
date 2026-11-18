@@ -215,6 +215,37 @@
     window.__festApplied = key;
   })();
 
+  /* ---------- 隐藏彩蛋（不对外说明） ---------- */
+  (function () {
+    if (window.__konami) return;
+    window.__konami = true;
+    var seq = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
+    var pos = 0;
+    document.addEventListener("keydown", function (e) {
+      var k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+      if (k === seq[pos]) {
+        pos++;
+        if (pos === seq.length) { pos = 0; snow(); }
+      } else {
+        pos = k === seq[0] ? 1 : 0;
+      }
+    });
+    function snow() {
+      var layer = document.createElement("div");
+      layer.style.cssText = "position:fixed;inset:0;pointer-events:none;z-index:80;overflow:hidden";
+      document.body.appendChild(layer);
+      for (var i = 0; i < 70; i++) {
+        var s = document.createElement("span");
+        var size = 2 + Math.random() * 4;
+        s.style.cssText = "position:absolute;top:-12px;left:" + (Math.random() * 100) + "%;width:" + size + "px;height:" + size +
+          "px;border-radius:50%;background:#dff6fb;opacity:" + (0.3 + Math.random() * 0.6) + ";" +
+          "animation:mgSnow " + (4 + Math.random() * 5) + "s linear " + (Math.random() * 3) + "s forwards";
+        layer.appendChild(s);
+      }
+      setTimeout(function () { layer.remove(); }, 9000);
+    }
+  })();
+
   /* ---------- 更多菜单 ---------- */
   (function () {
     var toggle = document.getElementById("moreToggle");
