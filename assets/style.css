@@ -1116,3 +1116,134 @@ html::after{display:none}
   .update-row{flex-direction:column;gap:4px}
   .update-date{width:auto}
 }
+
+
+/* ==========================================================================
+   v13 — 更多菜单 / 游戏容器
+   ========================================================================== */
+.nav-more{position:relative}
+.nav-more-toggle{cursor:pointer;background:none;border:0}
+.nav-more-menu{
+  position:absolute;top:calc(100% + 12px);right:-110px;width:min(980px,calc(100vw - 48px));
+  padding:22px 24px;border-radius:20px;
+  background:linear-gradient(150deg,rgba(20,28,34,.98),rgba(10,14,18,.98));
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 26px 60px rgba(0,0,0,.5);
+  opacity:0;visibility:hidden;transform:translateY(-6px);
+  transition:opacity .2s var(--ease),transform .2s var(--ease),visibility .2s;
+  z-index:60;
+}
+.nav-more.is-open .nav-more-menu{opacity:1;visibility:visible;transform:none}
+.more-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px 34px}
+.more-col-title{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:#7fe9e0;margin-bottom:8px}
+.more-col-title a{color:inherit}
+.more-col-title span{color:var(--dim)}
+.more-links{display:flex;flex-direction:column;gap:2px}
+.more-col:first-child .more-links{display:block;columns:2;column-gap:22px}
+.more-links a{font-size:12px;color:var(--muted);padding:3px 0;line-height:1.6;display:block}
+.more-links a:hover{color:#a8f0ea}
+
+.play-wrap{max-width:900px}
+.play-card{
+  position:relative;padding:22px;border-radius:20px;min-height:200px;
+  background:linear-gradient(142deg,rgba(255,255,255,.10),rgba(255,255,255,.028) 46%,rgba(255,255,255,.055));
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 16px 38px -14px rgba(2,7,10,.55);
+  isolation:isolate;
+}
+.play-hint{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.1em;margin:0}
+.play-top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px;flex-wrap:wrap}
+.play-score{font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.08em}
+.play-score b{color:#a8f0ea;font-weight:400}
+.play-btn{
+  font-family:var(--mono);font-size:11px;letter-spacing:.08em;padding:8px 14px;border-radius:8px;cursor:pointer;
+  background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);color:var(--text);
+}
+.play-btn:hover{background:rgba(255,255,255,.18)}
+.play-note{font-size:12.5px;color:var(--dim);margin-top:12px;line-height:1.8}
+.board{display:grid;gap:3px;justify-content:center;margin:0 auto}
+.cell{
+  width:30px;height:30px;display:grid;place-items:center;cursor:pointer;user-select:none;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10);border-radius:4px;
+  font-family:var(--mono);font-size:12px;color:var(--text);
+}
+.cell:hover{background:rgba(255,255,255,.13)}
+.cell.on{background:rgba(255,255,255,.22)}
+.cell.hit{background:rgba(255,110,110,.45)}
+.cell.flag{background:rgba(127,233,224,.25);color:#7fe9e0}
+canvas.game-canvas{display:block;margin:0 auto;background:rgba(0,0,0,.25);border-radius:10px;max-width:100%}
+input.play-input,select.play-select{
+  font-family:var(--mono);font-size:12px;padding:8px 12px;border-radius:8px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);color:var(--text);outline:none;
+}
+input.play-input:focus,select.play-select:focus{border-color:#7fe9e0}
+@media (max-width:900px){
+  .nav-more-menu{right:0;width:calc(100vw - 48px);max-height:70vh;overflow:auto}
+  .more-grid{grid-template-columns:1fr}
+  .more-col:first-child .more-links{columns:2}
+}
+
+
+/* ==========================================================================
+   v14 — 主题与节日 / 雪花
+   ========================================================================== */
+html[data-theme="day"]{
+  --text:#161d21; --muted:#4d5d65; --dim:#7b8d95;
+}
+html[data-theme="day"] body{background:#e9eef0;color:var(--text)}
+html[data-theme="day"] body::before{opacity:.55;filter:blur(24px)}
+html[data-theme="day"] body::after{opacity:.25}
+html[data-theme="day"] .play-card,
+html[data-theme="day"] .doc,
+html[data-theme="day"] .item,
+html[data-theme="day"] .member,
+html[data-theme="day"] .hiring,
+html[data-theme="day"] .services,
+html[data-theme="day"] .filters,
+html[data-theme="day"] .contact-center,
+html[data-theme="day"] .article-narrow,
+html[data-theme="day"] .updates,
+html[data-theme="day"] .hero > .wrap,
+html[data-theme="day"] .page-head .wrap,
+html-theme-day .cta > .wrap{
+  background:rgba(255,255,255,.72);
+  border-color:rgba(16,32,40,.14);
+  box-shadow:0 14px 34px rgba(20,44,56,.10);
+}
+html[data-theme="day"] .article-body p,
+html[data-theme="day"] .item-text,
+html[data-theme="day"] .card-desc{color:#42525a}
+html[data-theme="day"] .cell{background:rgba(20,40,50,.06);border-color:rgba(20,40,50,.12);color:#16232a}
+html[data-theme="day"] .play-btn{background:rgba(20,40,50,.08);border-color:rgba(20,40,50,.18);color:#16232a}
+html[data-theme="day"] .play-input,html[data-theme="day"] .play-select{background:#fff;border-color:rgba(20,40,50,.18);color:#16232a}
+html[data-theme="day"] .site-header .header-inner{background:linear-gradient(145deg,rgba(255,255,255,.75),rgba(255,255,255,.55));border-color:rgba(20,40,50,.14)}
+html[data-theme="day"] .nav-link{color:#3c4c54}
+html[data-theme="day"] .nav-link.is-active{color:#16232a;background:rgba(20,40,50,.08)}
+html[data-theme="day"] .nav-more-menu{background:#f6f9fa;border-color:rgba(20,40,50,.14)}
+html[data-theme="day"] .more-links a{color:#4d5d65}
+
+html[data-festival="spring"] body::before{
+  background-image:
+    radial-gradient(70vw 60vw at 6% 0%,rgba(214,60,60,.30),transparent 70%),
+    radial-gradient(64vw 56vw at 96% 4%,rgba(230,160,60,.26),transparent 70%),
+    radial-gradient(70vw 56vw at 50% 48%,rgba(200,60,80,.14),transparent 76%);
+}
+html[data-festival="halloween"] body::before{
+  background-image:
+    radial-gradient(70vw 60vw at 8% 0%,rgba(230,130,40,.32),transparent 70%),
+    radial-gradient(64vw 56vw at 96% 6%,rgba(120,60,180,.30),transparent 70%),
+    radial-gradient(70vw 56vw at 50% 48%,rgba(60,20,80,.18),transparent 76%);
+}
+html[data-festival="christmas"] body::before{
+  background-image:
+    radial-gradient(70vw 60vw at 6% 0%,rgba(200,40,50,.28),transparent 70%),
+    radial-gradient(64vw 56vw at 96% 6%,rgba(40,140,90,.28),transparent 70%),
+    radial-gradient(70vw 56vw at 50% 48%,rgba(220,230,240,.10),transparent 76%);
+}
+
+@keyframes mgSnow{
+  0%{transform:translate3d(0,0,0);opacity:.8}
+  100%{transform:translate3d(24px,105vh,0);opacity:0}
+}
+.mg-trail #mgTrail{display:block}

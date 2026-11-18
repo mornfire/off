@@ -159,4 +159,96 @@
       el.style.setProperty("--ry", "0deg");
     }, { passive: true });
   }
+
+
+  /* ---------- 全局个性化 ---------- */
+  (function () {
+    var KEY_T = "mg-theme", KEY_F = "mg-festival", KEY_TRAIL = "mg-trail";
+    function apply() {
+      try {
+        if (localStorage.getItem(KEY_T) === "day") document.documentElement.setAttribute("data-theme", "day");
+        var f = localStorage.getItem(KEY_F);
+        if (f) document.documentElement.setAttribute("data-festival", f);
+        if (localStorage.getItem(KEY_TRAIL) === "1") startTrail();
+      } catch (e) {}
+    }
+    function startTrail() {
+      document.documentElement.classList.add("mg-trail");
+      var layer = document.getElementById("mgTrail");
+      if (!layer) {
+        layer = document.createElement("div");
+        layer.id = "mgTrail";
+        layer.style.cssText = "position:fixed;inset:0;pointer-events:none;z-index:70";
+        document.body.appendChild(layer);
+        var last = 0;
+        document.addEventListener("pointermove", function (e) {
+          if (!document.documentElement.classList.contains("mg-trail")) return;
+          var now = Date.now();
+          if (now - last < 30) return;
+          last = now;
+          var d = document.createElement("span");
+          d.style.cssText = "position:absolute;left:" + (e.clientX - 2) + "px;top:" + (e.clientY - 2) +
+            "px;width:4px;height:4px;border-radius:50%;background:#a9cfdd;opacity:.55;transition:opacity .5s,transform .5s";
+          layer.appendChild(d);
+          requestAnimationFrame(function () { d.style.opacity = "0"; d.style.transform = "scale(.35)"; });
+          setTimeout(function () { d.remove(); }, 540);
+        }, { passive: true });
+      }
+    }
+    window.__mgPrefs = { apply: apply, startTrail: startTrail };
+    apply();
+  })();
+
+  /* ---------- Konami ---------- */
+  (function () {
+    var seq = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
+    var pos = 0;
+    document.addEventListener("keydown", function (e) {
+      var k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+      if (k === seq[pos]) {
+        pos++;
+        if (pos === seq.length) { pos = 0; snow(); window.dispatchEvent(new Event("konami")); }
+      } else {
+        pos = k === seq[0] ? 1 : 0;
+      }
+    });
+    function snow() {
+      var layer = document.createElement("div");
+      layer.style.cssText = "position:fixed;inset:0;pointer-events:none;z-index:80;overflow:hidden";
+      document.body.appendChild(layer);
+      for (var i = 0; i < 70; i++) {
+        var s = document.createElement("span");
+        var size = 2 + Math.random() * 4;
+        s.style.cssText = "position:absolute;top:-12px;left:" + (Math.random() * 100) + "%;width:" + size + "px;height:" + size +
+          "px;border-radius:50%;background:#dff6fb;opacity:" + (0.3 + Math.random() * 0.6) + ";" +
+          "animation:mgSnow " + (4 + Math.random() * 5) + "s linear " + (Math.random() * 3) + "s forwards";
+        layer.appendChild(s);
+      }
+      setTimeout(function () { layer.remove(); }, 9000);
+    }
+  })();
+
+  /* ---------- 更多菜单 ---------- */
+  (function () {
+    var more = document.getElementById("navMore");
+    if (!more) return;
+    var tgl = more.querySelector(".nav-more-toggle");
+    if (!tgl) return;
+    tgl.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var open = more.classList.toggle("is-open");
+      tgl.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    document.addEventListener("click", function (e) {
+      if (more.contains(e.target)) return;
+      more.classList.remove("is-open");
+      tgl.setAttribute("aria-expanded", "false");
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Escape") return;
+      more.classList.remove("is-open");
+      tgl.setAttribute("aria-expanded", "false");
+    });
+  })();
+
 })();
