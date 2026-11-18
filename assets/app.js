@@ -115,6 +115,13 @@
   /* 当前悬停的玻璃面 */
   var surf = { el: null, tx: 0.5, ty: 0.16, cx: 0.5, cy: 0.16, releasing: false, releaseAt: 0 };
 
+  /* 拖尾：三层递减残影 */
+  var trail = [
+    { x: 0.5, y: 0.16, k: 0.100 },
+    { x: 0.5, y: 0.16, k: 0.062 },
+    { x: 0.5, y: 0.16, k: 0.038 }
+  ];
+
   var isTilt = function (el) {
     for (var k in TILT) if (el.matches(k)) return true;
     return false;
@@ -132,12 +139,19 @@
       if (surf.el) {
         surf.el.style.removeProperty("--px");
         surf.el.style.removeProperty("--py");
+        surf.el.style.removeProperty("--px2");
+        surf.el.style.removeProperty("--py2");
+        surf.el.style.removeProperty("--px3");
+        surf.el.style.removeProperty("--py3");
+        surf.el.style.removeProperty("--px4");
+        surf.el.style.removeProperty("--py4");
         surf.el.style.removeProperty("--rx");
         surf.el.style.removeProperty("--ry");
       }
       surf.el = el;
       surf.cx = 0.5;
       surf.cy = 0.16;
+      trail.forEach(function (p) { p.x = surf.cx; p.y = surf.cy; });
     }
     surf.releasing = false;
 
@@ -160,8 +174,15 @@
   /* 静态演示：?hoverdemo 把高光固定在玻璃左上区域，便于截图检查 */
   if (hoverDemo) {
     Array.prototype.forEach.call(doc.querySelectorAll(SURF), function (el, i) {
-      el.style.setProperty("--px", (38 + (i % 5) * 6) + "%");
+      var bx = 38 + (i % 5) * 6;
+      el.style.setProperty("--px", bx + "%");
       el.style.setProperty("--py", "22%");
+      el.style.setProperty("--px2", (bx - 7) + "%");
+      el.style.setProperty("--py2", "26%");
+      el.style.setProperty("--px3", (bx - 13) + "%");
+      el.style.setProperty("--py3", "30%");
+      el.style.setProperty("--px4", (bx - 18) + "%");
+      el.style.setProperty("--py4", "34%");
     });
   }
 
@@ -182,6 +203,12 @@
         if (now - surf.releaseAt > 560) {
           surf.el.style.removeProperty("--px");
           surf.el.style.removeProperty("--py");
+          surf.el.style.removeProperty("--px2");
+          surf.el.style.removeProperty("--py2");
+          surf.el.style.removeProperty("--px3");
+          surf.el.style.removeProperty("--py3");
+          surf.el.style.removeProperty("--px4");
+          surf.el.style.removeProperty("--py4");
           surf.el.style.removeProperty("--rx");
           surf.el.style.removeProperty("--ry");
           surf.el = null;
@@ -192,10 +219,24 @@
         surf.cy += (surf.ty - surf.cy) * 0.18;
       }
       if (surf.el) {
+        /* 残影逐级追赶核心位置 */
+        var lead = { x: surf.cx, y: surf.cy };
+        trail.forEach(function (p) {
+          p.x += (lead.x - p.x) * p.k;
+          p.y += (lead.y - p.y) * p.k;
+          lead = { x: p.x, y: p.y };
+        });
+
         var wobX = Math.sin(t * 1.15) * 0.012 + Math.sin(t * 0.47) * 0.007;
         var wobY = Math.cos(t * 0.85) * 0.009 + Math.cos(t * 0.39) * 0.005;
         surf.el.style.setProperty("--px", ((surf.cx + wobX) * 100).toFixed(2) + "%");
         surf.el.style.setProperty("--py", ((surf.cy + wobY) * 100).toFixed(2) + "%");
+        surf.el.style.setProperty("--px2", ((trail[0].x + wobX * 0.7) * 100).toFixed(2) + "%");
+        surf.el.style.setProperty("--py2", ((trail[0].y + wobY * 0.7) * 100).toFixed(2) + "%");
+        surf.el.style.setProperty("--px3", ((trail[1].x + wobX * 0.5) * 100).toFixed(2) + "%");
+        surf.el.style.setProperty("--py3", ((trail[1].y + wobY * 0.5) * 100).toFixed(2) + "%");
+        surf.el.style.setProperty("--px4", ((trail[2].x + wobX * 0.35) * 100).toFixed(2) + "%");
+        surf.el.style.setProperty("--py4", ((trail[2].y + wobY * 0.35) * 100).toFixed(2) + "%");
       }
     }
 

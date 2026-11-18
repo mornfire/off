@@ -911,3 +911,51 @@ body::after{
     radial-gradient(56px 38px ellipse at var(--px,50%) var(--py,0%),rgba(255,255,255,.22),transparent 56%),
     linear-gradient(160deg,rgba(255,255,255,.12),rgba(255,255,255,.04));
 }
+
+
+/* ==========================================================================
+   v8 — 高光拖尾：核心 + 三级残影，移动时像光在玻璃上拖过
+   ========================================================================== */
+.glass, .header-inner, .hero > .wrap, .page-head .wrap, .cta > .wrap,
+.item, .works-block, .caps, .about-teaser, .filters, .member, .hiring,
+.services, .contact-center, .article-narrow, .doc, .error .wrap{
+  background-image:
+    /* 核心 */
+    radial-gradient(64px 44px ellipse at var(--px,50%) var(--py,0%),
+      rgba(255,255,255,.62), rgba(255,255,255,.22) 34%, transparent 48%),
+    /* 残影 1 */
+    radial-gradient(104px 72px ellipse at var(--px2,50%) var(--py2,0%),
+      rgba(255,255,255,.26), transparent 56%),
+    /* 残影 2 */
+    radial-gradient(84px 58px ellipse at var(--px3,50%) var(--py3,0%),
+      rgba(255,255,255,.15), transparent 60%),
+    /* 残影 3 */
+    radial-gradient(66px 46px ellipse at var(--px4,50%) var(--py4,0%),
+      rgba(255,255,255,.08), transparent 64%),
+    /* 短晕 */
+    radial-gradient(150px 96px ellipse at var(--px,50%) var(--py,0%),
+      rgba(255,255,255,.12), transparent 52%),
+    /* 色散 */
+    radial-gradient(96px 64px ellipse at calc(var(--px,50%) + 1.4%) calc(var(--py,0%) + 1%),
+      rgba(150,240,255,.15), transparent 50%),
+    radial-gradient(96px 64px ellipse at calc(var(--px,50%) - 1.4%) calc(var(--py,0%) - 1%),
+      rgba(214,168,255,.11), transparent 52%),
+    /* 基底 */
+    linear-gradient(142deg,rgba(255,255,255,.10),rgba(255,255,255,.028) 46%,rgba(255,255,255,.055));
+}
+
+/* 按钮：小一号的拖尾 */
+.btn{
+  background-image:
+    radial-gradient(56px 38px ellipse at var(--px,50%) var(--py,0%),
+      rgba(255,255,255,.60), rgba(255,255,255,.18) 40%, transparent 58%),
+    radial-gradient(80px 54px ellipse at var(--px2,50%) var(--py2,0%), rgba(255,255,255,.22), transparent 60%),
+    radial-gradient(66px 44px ellipse at var(--px3,50%) var(--py3,0%), rgba(255,255,255,.12), transparent 64%),
+    linear-gradient(160deg,rgba(250,253,254,.88),rgba(226,240,244,.68));
+}
+.btn-ghost{
+  background-image:
+    radial-gradient(56px 38px ellipse at var(--px,50%) var(--py,0%),rgba(255,255,255,.22),transparent 56%),
+    radial-gradient(80px 54px ellipse at var(--px2,50%) var(--py2,0%), rgba(255,255,255,.10), transparent 62%),
+    linear-gradient(160deg,rgba(255,255,255,.12),rgba(255,255,255,.04));
+}
