@@ -784,3 +784,130 @@ body::after{
 /* 筛选按钮不吃玻璃底，保持轻盈 */
 .chip{background-image:none;background-color:transparent;box-shadow:none;border-color:transparent}
 .chip.is-active{background-image:none;background-color:rgba(255,255,255,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.30);border-color:rgba(255,255,255,.20)}
+
+
+/* ==========================================================================
+   v5 — 镜面高光 + 边缘光 + 水纹（替代 v4 的大光斑）
+   ========================================================================== */
+.glass, .header-inner, .hero > .wrap, .page-head .wrap, .cta > .wrap,
+.item, .works-block, .caps, .about-teaser, .filters, .member, .hiring,
+.services, .contact-center, .article-narrow, .doc, .error .wrap{
+  background-image:
+    /* 镜面核心：小、偏亮、边缘收得快 */
+    radial-gradient(190px 128px ellipse at var(--px,50%) var(--py,0%),
+      rgba(255,255,255,.40), rgba(255,255,255,.10) 34%, transparent 62%),
+    /* 色散：冷色偏一点 */
+    radial-gradient(150px 104px ellipse at calc(var(--px,50%) + 1.6%) calc(var(--py,0%) + 1.2%),
+      rgba(140,240,255,.16), transparent 58%),
+    /* 色散：暖紫偏一点 */
+    radial-gradient(150px 104px ellipse at calc(var(--px,50%) - 1.8%) calc(var(--py,0%) - 1.6%),
+      rgba(214,168,255,.12), transparent 60%),
+    linear-gradient(142deg,rgba(255,255,255,.10),rgba(255,255,255,.028) 46%,rgba(255,255,255,.055));
+}
+
+/* 边缘光：光标靠近哪条边，哪条边被点亮（遮罩只剩 1px 边框） */
+.glass::before, .hero > .wrap::before, .page-head .wrap::before, .cta > .wrap::before,
+.item::before, .works-block::before, .caps::before, .about-teaser::before, .filters::before,
+.member::before, .hiring::before, .services::before, .contact-center::before,
+.article-narrow::before, .doc::before{
+  background:
+    radial-gradient(240px circle at var(--px,50%) var(--py,0%),
+      rgba(255,255,255,.95) 0%, rgba(255,255,255,.35) 38%, transparent 74%),
+    linear-gradient(150deg,
+      rgba(255,255,255,.55) 0%,
+      rgba(190,245,255,.18) 16%,
+      rgba(255,255,255,.04) 34%,
+      rgba(255,255,255,0) 58%,
+      rgba(210,170,255,.14) 82%,
+      rgba(255,255,255,.30) 100%);
+}
+
+/* 内部反光改成缓慢流动的水纹（不跟随鼠标，保持"活"） */
+.hero > .wrap::after, .page-head .wrap::after, .cta > .wrap::after,
+.works-block::after, .caps::after, .about-teaser::after, .filters::after,
+.member::after, .hiring::after, .services::after, .contact-center::after,
+.article-narrow::after, .doc::after, .error .wrap::after{
+  background-image:
+    radial-gradient(120% 70% at 26% -16%,rgba(255,255,255,.14),transparent 58%),
+    radial-gradient(70% 50% at 78% 12%,rgba(160,235,255,.07),transparent 62%),
+    radial-gradient(60% 40% at 40% 70%,rgba(214,168,255,.05),transparent 66%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.26'/%3E%3C/svg%3E");
+  background-size:auto,auto,auto,120px 120px;
+  animation:caustic 18s ease-in-out infinite alternate;
+  mix-blend-mode:screen;opacity:.42;
+}
+@keyframes caustic{
+  0%{background-position:0 0,0 0,0 0,0 0}
+  50%{background-position:14px -10px,-18px 12px,10px 8px,0 0}
+  100%{background-position:-10px 14px,16px -12px,-12px -8px,0 0}
+}
+
+/* 按钮：小高光，别整块发白 */
+.btn{
+  background-image:
+    radial-gradient(120px 84px ellipse at var(--px,50%) var(--py,0%),rgba(255,255,255,.55),rgba(255,255,255,.15) 40%,transparent 68%),
+    linear-gradient(160deg,rgba(250,253,254,.88),rgba(226,240,244,.68));
+}
+.btn-ghost{
+  background-image:
+    radial-gradient(120px 84px ellipse at var(--px,50%) var(--py,0%),rgba(255,255,255,.20),transparent 62%),
+    linear-gradient(160deg,rgba(255,255,255,.12),rgba(255,255,255,.04));
+}
+
+@media (prefers-reduced-motion:reduce){
+  .hero > .wrap::after, .page-head .wrap::after, .cta > .wrap::after,
+  .works-block::after, .caps::after, .about-teaser::after, .filters::after,
+  .member::after, .hiring::after, .services::after, .contact-center::after,
+  .article-narrow::after, .doc::after, .error .wrap::after{animation:none}
+}
+
+
+/* ==========================================================================
+   v6 — 锐化镜面：小核 + 收得更快的衰减 + 边缘亮弧
+   ========================================================================== */
+.glass, .header-inner, .hero > .wrap, .page-head .wrap, .cta > .wrap,
+.item, .works-block, .caps, .about-teaser, .filters, .member, .hiring,
+.services, .contact-center, .article-narrow, .doc, .error .wrap{
+  background-image:
+    /* 锐核 */
+    radial-gradient(64px 44px ellipse at var(--px,50%) var(--py,0%),
+      rgba(255,255,255,.62), rgba(255,255,255,.22) 34%, transparent 48%),
+    /* 内晕（很短） */
+    radial-gradient(150px 96px ellipse at var(--px,50%) var(--py,0%),
+      rgba(255,255,255,.14), transparent 52%),
+    /* 色散 */
+    radial-gradient(96px 64px ellipse at calc(var(--px,50%) + 1.4%) calc(var(--py,0%) + 1%),
+      rgba(150,240,255,.16), transparent 50%),
+    radial-gradient(96px 64px ellipse at calc(var(--px,50%) - 1.4%) calc(var(--py,0%) - 1%),
+      rgba(214,168,255,.12), transparent 52%),
+    linear-gradient(142deg,rgba(255,255,255,.10),rgba(255,255,255,.028) 46%,rgba(255,255,255,.055));
+}
+
+/* 边缘亮弧：光点到哪，附近的那圈边就亮 */
+.glass::before, .hero > .wrap::before, .page-head .wrap::before, .cta > .wrap::before,
+.item::before, .works-block::before, .caps::before, .about-teaser::before, .filters::before,
+.member::before, .hiring::before, .services::before, .contact-center::before,
+.article-narrow::before, .doc::before{
+  background:
+    radial-gradient(320px circle at var(--px,50%) var(--py,0%),
+      rgba(255,255,255,.85) 0%, rgba(255,255,255,.30) 34%, rgba(255,255,255,0) 66%),
+    linear-gradient(150deg,
+      rgba(255,255,255,.42) 0%,
+      rgba(190,245,255,.14) 16%,
+      rgba(255,255,255,.03) 34%,
+      rgba(255,255,255,0) 58%,
+      rgba(210,170,255,.10) 82%,
+      rgba(255,255,255,.24) 100%);
+}
+
+/* 按钮：核更小，避免整块发亮 */
+.btn{
+  background-image:
+    radial-gradient(56px 38px ellipse at var(--px,50%) var(--py,0%),rgba(255,255,255,.60),rgba(255,255,255,.18) 40%,transparent 58%),
+    linear-gradient(160deg,rgba(250,253,254,.88),rgba(226,240,244,.68));
+}
+.btn-ghost{
+  background-image:
+    radial-gradient(56px 38px ellipse at var(--px,50%) var(--py,0%),rgba(255,255,255,.22),transparent 56%),
+    linear-gradient(160deg,rgba(255,255,255,.12),rgba(255,255,255,.04));
+}

@@ -9,15 +9,16 @@
   var toggle = doc.getElementById("navToggle");
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var hoverDemo = /(\?|&)hoverdemo/.test(window.location.search);
 
-  /* sticky header state */
+  /* ---------- sticky header ---------- */
   var onScroll = function () {
     if (header) header.classList.toggle("is-scrolled", window.scrollY > 8);
   };
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
-  /* mobile nav */
+  /* ---------- mobile nav ---------- */
   if (toggle && nav) {
     toggle.addEventListener("click", function () {
       var open = nav.classList.toggle("is-open");
@@ -32,7 +33,7 @@
     });
   }
 
-  /* reveal on scroll */
+  /* ---------- reveal on scroll ---------- */
   var items = doc.querySelectorAll("[data-reveal]");
   var staticMode = /(\?|&)static(=|&|$)/.test(window.location.search);
   if (staticMode) {
@@ -54,7 +55,7 @@
     items.forEach(function (el) { el.classList.add("is-visible"); });
   }
 
-  /* mod filters + search */
+  /* ---------- mod filters + search ---------- */
   var grid = doc.getElementById("modsGrid");
   if (grid) {
     var cards = Array.prototype.slice.call(grid.querySelectorAll(".item"));
@@ -95,77 +96,122 @@
     apply();
   }
 
-  /* footer year */
+  /* ---------- footer year ---------- */
   var year = doc.getElementById("year");
   if (year) year.textContent = String(new Date().getFullYear());
 
-  /* 跟随光标的环境光：放在玻璃后面，被模糊成流动的光 */
-  if (!reduce) {
-    doc.addEventListener("pointermove", function (e) {
-      root.style.setProperty("--mx", e.clientX + "px");
-      root.style.setProperty("--my", e.clientY + "px");
-    }, { passive: true });
-  }
+  /* ---------- 光：全局缓动 + 玻璃面上的跟手镜面高光 ---------- */
+  if (reduce) return;
 
-  /* 玻璃材质：光标跟手高光 + 卡片轻微倾斜 */
-  if (fine && !reduce) {
-    var SURF = ".glass, .header-inner, .hero > .wrap, .page-head .wrap, .cta > .wrap," +
-               ".item, .works-block, .caps, .about-teaser, .filters, .member, .hiring," +
-               ".services, .contact-center, .article-narrow, .doc, .error .wrap, .btn, .chip";
-    var active = null;
+  var SURF = ".glass, .header-inner, .hero > .wrap, .page-head .wrap, .cta > .wrap," +
+             ".item, .works-block, .caps, .about-teaser, .filters, .member, .hiring," +
+             ".services, .contact-center, .article-narrow, .doc, .error .wrap, .btn";
+  var TILT = { ".item": 1, ".works-block": 1, ".member": 1, ".hiring": 1 };
 
-    var reset = function (el) {
-      if (!el) return;
-      el.style.setProperty("--px", "140%");
-      el.style.setProperty("--py", "-30%");
-      el.style.setProperty("--rx", "0deg");
-      el.style.setProperty("--ry", "0deg");
-    };
+  /* 全局光（html::after 用） */
+  var light = { x: window.innerWidth * 0.5, y: window.innerHeight * 0.18 };
+  var lightTarget = { x: light.x, y: light.y };
 
-    doc.addEventListener("pointermove", function (e) {
-      var el = e.target.closest ? e.target.closest(SURF) : null;
-      if (el !== active) {
-        reset(active);
-        active = el;
+  /* 当前悬停的玻璃面 */
+  var surf = { el: null, tx: 0.5, ty: 0.16, cx: 0.5, cy: 0.16, releasing: false, releaseAt: 0 };
+
+  var isTilt = function (el) {
+    for (var k in TILT) if (el.matches(k)) return true;
+    return false;
+  };
+
+  doc.addEventListener("pointermove", function (e) {
+    lightTarget.x = e.clientX;
+    lightTarget.y = e.clientY;
+    if (!fine) return;
+
+    var el = e.target.closest ? e.target.closest(SURF) : null;
+    if (!el) return;
+
+    if (surf.el !== el) {
+      if (surf.el) {
+        surf.el.style.removeProperty("--px");
+        surf.el.style.removeProperty("--py");
+        surf.el.style.removeProperty("--rx");
+        surf.el.style.removeProperty("--ry");
       }
-      if (!el) return;
-      var r = el.getBoundingClientRect();
-      var x = (e.clientX - r.left) / Math.max(r.width, 1);
-      var y = (e.clientY - r.top) / Math.max(r.height, 1);
-      el.style.setProperty("--px", (x * 100).toFixed(1) + "%");
-      el.style.setProperty("--py", (y * 100).toFixed(1) + "%");
-      if (el.classList.contains("item") || el.classList.contains("works-block") ||
-          el.classList.contains("member") || el.classList.contains("hiring")) {
-        el.style.setProperty("--rx", ((0.5 - y) * 2.2).toFixed(2) + "deg");
-        el.style.setProperty("--ry", ((x - 0.5) * 2.2).toFixed(2) + "deg");
-      }
-    }, { passive: true });
-
-    doc.addEventListener("pointerleave", function () {
-      reset(active);
-      active = null;
-    }, { passive: true });
-
-    /* 视觉验收用：?hoverdemo 把所有玻璃的高光定位到固定点 */
-    if (/(\?|&)hoverdemo/.test(window.location.search)) {
-      Array.prototype.forEach.call(doc.querySelectorAll(SURF), function (el, i) {
-        el.style.setProperty("--px", (56 + (i % 4) * 6) + "%");
-        el.style.setProperty("--py", "24%");
-      });
+      surf.el = el;
+      surf.cx = 0.5;
+      surf.cy = 0.16;
     }
+    surf.releasing = false;
+
+    var r = el.getBoundingClientRect();
+    surf.tx = Math.min(1, Math.max(0, (e.clientX - r.left) / Math.max(r.width, 1)));
+    surf.ty = Math.min(1, Math.max(0, (e.clientY - r.top) / Math.max(r.height, 1)));
+
+    if (isTilt(el)) {
+      el.style.setProperty("--rx", ((0.5 - surf.ty) * 1.6).toFixed(2) + "deg");
+      el.style.setProperty("--ry", ((surf.tx - 0.5) * 1.6).toFixed(2) + "deg");
+    }
+  }, { passive: true });
+
+  doc.addEventListener("pointerleave", function () {
+    if (!surf.el) return;
+    surf.releasing = true;
+    surf.releaseAt = performance.now();
+  }, { passive: true });
+
+  /* 静态演示：?hoverdemo 把高光固定在玻璃左上区域，便于截图检查 */
+  if (hoverDemo) {
+    Array.prototype.forEach.call(doc.querySelectorAll(SURF), function (el, i) {
+      el.style.setProperty("--px", (38 + (i % 5) * 6) + "%");
+      el.style.setProperty("--py", "22%");
+    });
   }
 
-  /* 背景随滚动轻微视差 */
-  if (!reduce) {
-    var raf = 0;
-    var onScrollBg = function () {
-      if (raf) return;
-      raf = window.requestAnimationFrame(function () {
-        root.style.setProperty("--sy", String(window.scrollY));
-        raf = 0;
-      });
-    };
-    window.addEventListener("scroll", onScrollBg, { passive: true });
-    onScrollBg();
-  }
+  var loop = function (now) {
+    var t = now / 1000;
+
+    /* 全局光缓动（拖动时有一点黏性） */
+    light.x += (lightTarget.x - light.x) * 0.12;
+    light.y += (lightTarget.y - light.y) * 0.12;
+    root.style.setProperty("--mx", light.x.toFixed(0) + "px");
+    root.style.setProperty("--my", light.y.toFixed(0) + "px");
+
+    /* 玻璃面：缓动 + 呼吸式微位移，鼠标停住时光也不会死 */
+    if (surf.el) {
+      if (surf.releasing) {
+        surf.cx += (0.5 - surf.cx) * 0.08;
+        surf.cy += (0.02 - surf.cy) * 0.08;
+        if (now - surf.releaseAt > 560) {
+          surf.el.style.removeProperty("--px");
+          surf.el.style.removeProperty("--py");
+          surf.el.style.removeProperty("--rx");
+          surf.el.style.removeProperty("--ry");
+          surf.el = null;
+          surf.releasing = false;
+        }
+      } else {
+        surf.cx += (surf.tx - surf.cx) * 0.18;
+        surf.cy += (surf.ty - surf.cy) * 0.18;
+      }
+      if (surf.el) {
+        var wobX = Math.sin(t * 1.15) * 0.012 + Math.sin(t * 0.47) * 0.007;
+        var wobY = Math.cos(t * 0.85) * 0.009 + Math.cos(t * 0.39) * 0.005;
+        surf.el.style.setProperty("--px", ((surf.cx + wobX) * 100).toFixed(2) + "%");
+        surf.el.style.setProperty("--py", ((surf.cy + wobY) * 100).toFixed(2) + "%");
+      }
+    }
+
+    window.requestAnimationFrame(loop);
+  };
+  window.requestAnimationFrame(loop);
+
+  /* ---------- 背景滚动视差 ---------- */
+  var raf = 0;
+  var onScrollBg = function () {
+    if (raf) return;
+    raf = window.requestAnimationFrame(function () {
+      root.style.setProperty("--sy", String(window.scrollY));
+      raf = 0;
+    });
+  };
+  window.addEventListener("scroll", onScrollBg, { passive: true });
+  onScrollBg();
 })();
