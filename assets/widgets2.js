@@ -254,6 +254,38 @@
     }
   };
 
+  /* ---------- 效果开关 ---------- */
+  MG.fx = function (host) {
+    var bar = top("开或关，随时生效");
+    host.appendChild(bar);
+    var items = [
+      ["mg-fx-fluid", "流体背景", "WebGL 实时噪声，页面背后缓慢流动", true],
+      ["mg-fx-particles", "粒子与烟花", "飘落的细尘；点击空白处放一簇", true],
+      ["mg-fx-cursor", "自定义光标", "细点 + 跟随的圆环", true],
+      ["mg-fx-sound", "音效", "点击时的轻微提示音", false],
+      ["mg-fx-transition", "像素转场", "跳转页面时用像素块过渡", true]
+    ];
+    items.forEach(function (it) {
+      var key = it[0];
+      var on = store(key) === null ? it[3] : store(key) === "1";
+      var r = row();
+      var label = el("div", "play-score", it[1] + " — " + it[2]);
+      label.style.flex = "1";
+      r.appendChild(label);
+      var b = btn(on ? "开" : "关", function () {
+        on = !on;
+        store(key, on ? "1" : "0");
+        b.textContent = on ? "开" : "关";
+        b.style.background = on ? "rgba(127,233,224,.3)" : "";
+        if (window.mgFX) window.mgFX.apply(key.replace("mg-fx-", ""));
+      });
+      b.style.background = on ? "rgba(127,233,224,.3)" : "";
+      r.appendChild(b);
+      host.appendChild(r);
+    });
+    host.appendChild(note("全部存在浏览器本地。流体背景在窄屏默认关闭；系统开启「减少动态效果」时，流动与转场会自动停用。"));
+  };
+
   /* ---------- 分发 ---------- */
   var slug = root.getAttribute("data-widget");
   if (slug && MG[slug]) {
