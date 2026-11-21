@@ -1431,3 +1431,30 @@ html.mg-cursor input, html.mg-cursor textarea, html.mg-cursor select{cursor:text
 @media (prefers-reduced-motion:reduce){
   #mgCursorDot,#mgCursorRing{display:none}
 }
+
+
+/* ==========================================================================
+   v18 — 研究板块 / 数据表
+   ========================================================================== */
+.research-feature{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:start;
+  padding:clamp(26px,3.6vw,44px);border-radius:26px;
+  background:linear-gradient(150deg,rgba(255,255,255,.13),rgba(255,255,255,.035));
+  border:1px solid rgba(255,255,255,.17);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 18px 42px -16px rgba(2,7,10,.6)}
+.research-copy h3{font-family:var(--serif);font-weight:400;font-size:clamp(22px,2.8vw,32px);line-height:1.45;margin:12px 0 16px}
+.research-copy p{color:var(--muted);font-size:14.5px;line-height:2;max-width:560px}
+.research-stats{border-top:1px solid rgba(255,255,255,.14)}
+.research-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:56px;align-items:start}
+.research-grid .doc h2{font-family:var(--serif);font-weight:400;font-size:21px;margin:28px 0 12px;letter-spacing:.02em}
+.research-grid .doc h2:first-child{margin-top:0}
+.research-grid .doc p{color:var(--muted);font-size:14.5px;line-height:2;margin-bottom:12px}
+.research-grid .doc a{color:#a8f0ea;border-bottom:1px solid rgba(168,240,234,.35)}
+.table-wrap{overflow:auto;border:1px solid rgba(255,255,255,.12);border-radius:12px;margin:6px 0 4px}
+.data-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:11.5px}
+.data-table th{text-align:left;padding:10px 12px;color:#a8f0ea;background:rgba(255,255,255,.05);white-space:nowrap}
+.data-table td{padding:9px 12px;color:var(--muted);border-top:1px solid rgba(255,255,255,.07);white-space:nowrap}
+.data-table tr:hover td{background:rgba(255,255,255,.03)}
+@media (max-width:1080px){
+  .research-feature{grid-template-columns:1fr;gap:26px}
+  .research-grid{grid-template-columns:1fr;gap:36px}
+}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>if(location.protocol==="http:"&&!/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)){location.replace("https://"+location.host+location.pathname+location.search+location.hash);}</script>
+<title>为什么不是内核 fork · Stellex — Mornfrost Office</title>
+<meta name="description" content="Stellex 为什么不是内核 fork。">
+<link rel="canonical" href="https://www.mornfrost.cn/research/docs/fork/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mornfrost Office">
+<meta property="og:title" content="为什么不是内核 fork · Stellex — Mornfrost Office">
+<meta property="og:description" content="Stellex 为什么不是内核 fork。">
+<meta property="og:url" content="https://www.mornfrost.cn/research/docs/fork/">
+<meta name="theme-color" content="#0f171b">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<script>document.documentElement.className += " js";</script>
+<link rel="stylesheet" href="/assets/style.css">
+<script defer src="/assets/festivals.js"></script>
+<script defer src="/assets/search-index.js"></script>
+<script defer src="/assets/app.js"></script>
+<script defer src="/assets/fx.js"></script>
+
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header" id="siteHeader">
+  <div class="wrap header-inner">
+    <a class="brand" href="/" aria-label="Mornfrost Office 首页">
+      <span class="brand-name">Mornfrost</span>
+      <span class="brand-sub">Office</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="主导航">
+      <a class="nav-link" href="/works/">作品</a>
+      <a class="nav-link is-active" href="/research/">研究</a>
+      <a class="nav-link" href="/about/">关于</a>
+      <a class="nav-link" href="/services/">服务</a>
+      <a class="nav-link" href="/team/">团队</a>
+      <a class="nav-link" href="/contact/">联系</a>
+      <button class="nav-link nav-more-toggle" id="moreToggle" type="button" aria-expanded="false" aria-controls="moreMenu">更多</button>
+    </nav>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="more-panel" id="moreMenu" role="menu" aria-hidden="true"><div class="more-grid">      <div class="more-col"><div class="more-col-title"><a href="/more/games/">小游戏</a><span>50</span></div><div class="more-links"><a href="/more/games/minesweeper/">扫雷</a><a href="/more/games/g2048/">2048</a><a href="/more/games/snake/">贪吃蛇</a><a href="/more/games/tetris/">俄罗斯方块</a><a href="/more/games/breakout/">打砖块</a><a href="/more/games/memory/">记忆翻牌</a><a href="/more/games/slidepuzzle/">拼图</a><a href="/more/games/clicker/">挖矿点击器</a><a href="/more/games/gomoku/">五子棋</a><a href="/more/games/tictactoe/">井字棋</a><a href="/more/games/rps/">石头剪刀布</a><a href="/more/games/twentyfour/">24 点</a><a href="/more/games/sudoku/">数独</a><a href="/more/games/klotski/">华容道</a><a href="/more/games/sokoban/">推箱子</a><a href="/more/games/maze/">迷宫</a><a href="/more/games/typing/">打字游戏</a><a href="/more/games/rhythm/">音游</a><a href="/more/games/reaction/">反应测试</a><a href="/more/games/guessnumber/">猜数字</a><a href="/more/games/guessmod/">猜模组</a><a href="/more/games/guessrecipe/">猜合成表</a><a href="/more/games/trivia/">冷知识问答</a><a href="/more/games/dodger/">弹幕躲避</a><a href="/more/games/voidjump/">虚空跳跃</a><a href="/more/games/lianliankan/">连连看</a><a href="/more/games/match3/">三消</a><a href="/more/games/reversi/">黑白棋</a><a href="/more/games/checkers/">跳棋</a><a href="/more/games/nonogram/">数织</a><a href="/more/games/slitherlink/">数回</a><a href="/more/games/mazeseed/">种子迷宫</a><a href="/more/games/hexmine/">六边形扫雷</a><a href="/more/games/g2048x5/">2048 · 5×5</a><a href="/more/games/twosnake/">双人贪吃蛇</a><a href="/more/games/typedefense/">打字防御</a><a href="/more/games/rhythmclick/">节奏点击</a><a href="/more/games/simon/">记忆序列</a><a href="/more/games/wordle/">猜词</a><a href="/more/games/idiom/">成语接龙</a><a href="/more/games/elements/">元素配对</a><a href="/more/games/homophone/">谐音梗猜词</a><a href="/more/games/cubetimer/">魔方计时器</a><a href="/more/games/picpuzzle/">图片拼图</a><a href="/more/games/pinball/">弹球</a><a href="/more/games/whack/">打地鼠</a><a href="/more/games/racer/">赛车躲避</a><a href="/more/games/platformer/">平台跳跃</a><a href="/more/games/towerdefense/">极简塔防</a><a href="/more/games/solitaire/">纸牌接龙</a></div></div>
+      <div class="more-col"><div class="more-col-title"><a href="/more/tools/">工具</a><span>4</span></div><div class="more-links"><a href="/more/tools/jvm/">JVM 参数生成器</a><a href="/more/tools/serverstatus/">服务器状态</a><a href="/more/tools/recipe/">KubeJS 配方生成器</a><a href="/more/tools/crashreader/">崩溃报告解读器</a></div></div>
+      <div class="more-col"><div class="more-col-title"><a href="/more/library/">资料库</a><span>7</span></div><div class="more-links"><a href="/more/library/notes/">技术笔记</a><a href="/more/library/glossary/">术语表</a><a href="/more/library/roadmap/">路线图</a><a href="/more/library/wallpapers/">壁纸下载</a><a href="/more/library/install/">安装教程</a><a href="/more/library/serverhandbook/">服主手册</a><a href="/more/library/errors/">报错对照表</a></div></div>
+      <div class="more-col"><div class="more-col-title"><a href="/more/community/">互动</a><span>10</span></div><div class="more-links"><a href="/more/community/guestbook/">留言板</a><a href="/more/community/visitorpanel/">访客看板</a><a href="/more/community/friends/">友链</a><a href="/more/community/contributors/">贡献者</a><a href="/more/community/gallery/">作品墙</a><a href="/more/community/survey/">问卷</a><a href="/more/community/feedback/">反馈</a><a href="/more/community/recruiting/">招募</a><a href="/more/community/subscribe/">邮件订阅</a><a href="/more/community/rss/">RSS 订阅</a></div></div>
+      <div class="more-col"><div class="more-col-title"><a href="/more/showcase/">展示</a><span>14</span></div><div class="more-links"><a href="/more/showcase/effects/">动效实验室</a><a href="/more/showcase/design/">设计系统</a><a href="/more/showcase/typography/">排字样张</a><a href="/more/showcase/icons/">图标集</a><a href="/more/showcase/motion/">动效演示</a><a href="/more/showcase/glasscompare/">玻璃对比</a><a href="/more/showcase/typography2/">排印细节</a><a href="/more/showcase/icons2/">图标示例</a><a href="/more/showcase/palette/">配色生成器</a><a href="/more/showcase/states/">组件状态</a><a href="/more/showcase/emptyerror/">空与错误状态</a><a href="/more/showcase/themes/">深浅对照</a><a href="/more/showcase/mobile/">移动端设计稿</a><a href="/more/showcase/decisions/">设计决策记录</a></div></div>
+      <div class="more-col"><div class="more-col-title"><a href="/more/personal/">个性化</a><span>10</span></div><div class="more-links"><a href="/more/personal/trail/">鼠标轨迹</a><a href="/more/personal/randommod/">随机模组</a><a href="/more/personal/daynight/">昼夜主题</a><a href="/more/personal/whattoplay/">我该玩什么</a><a href="/more/personal/fx/">效果开关</a><a href="/more/personal/theme/">主题编辑器</a><a href="/more/personal/a11y/">字体与密度</a><a href="/more/personal/motion/">减少动效</a><a href="/more/personal/lang/">界面语言</a><a href="/more/personal/density/">布局密度</a></div></div></div></div>
+
+<main id="main">
+  <section class="page-head">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="面包屑"><a href="/">首页</a><span>/</span><a href="/research/">研究</a><span>/</span><em>为什么不是内核 fork</em></nav>
+      <h1 class="page-title" data-reveal>为什么不是内核 fork</h1>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap article-with-toc">
+      <div class="article-col">
+        <article class="doc article-body" data-reveal>
+<h1>Stellex 内核形态与兼容性分析</h1>
+<p>审计日期：2026-11-21
+审计对象：Stellex 的形态选择（NeoForge 核心模组 vs. 自建内核 / 自建发行版）
+参考源：<code>work/mcsrc</code>（NeoForge 21.1.248 patched Minecraft 源码）、Gradle 缓存中的 21.1.248 与 21.1.250 userdev jar
+作者：Mornfrost Office</p>
+<h2>1. 要回答的问题</h2>
+<p>本文回答三件事：为什么"照搬 NeoForge 源码另写内核"与"完整兼容 NeoForge 模组 + Sinytra Connector 转译的 Fabric 模组"在工程上互斥；为什么把 Stellex 做成 NeoForge 上的核心模组是同时满足全部功能与兼容要求的唯一现实形态；以及如果确实需要"发行版"，正确的打包方式应该是什么。</p>
+<h2>2. 兼容性的定义权不在 Stellex 手里</h2>
+<p>判断一个模组能不能在某个平台上跑，依据不是平台自己的声明，而是第三方字节码里写死的东西：mixin 配置里的类名、方法名与描述符，AT 引用到的成员，Fabric 模组在 Connector 下的映射目标，FML 的事件时序，<code>mods.toml</code> 里的 loader 依赖。这些目标集合构成了事实上的 ABI。</p>
+<p>由此可以写出互斥的证明式：完全兼容意味着第三方字节码的全部目标在运行时仍然存在且语义不变；另写内核意味着这些目标中至少有一类会被替换或移动。两者不能同时为真。要让"另写内核"也完全兼容，唯一办法是让重写后的类、包、方法描述符、AT 结果与事件时序与 NeoForge 逐项一致，而做到这一点在工程上就等于没有重写。因此真正的选择只有"保留 NeoForge 并加行为"或"接受兼容性下降"，中间态不存在。</p>
+<h2>3. 六条具体机制</h2>
+<h3>3.1 mixin 目标偏移</h3>
+<p>NeoForge 21.1.248 的 patched 源码有 6317 个 java 文件，NeoForge 自身携带 764 个 patch 文件，其中 186 个文件里有 323 处 <code>// Neo:</code> 补丁标记。这些补丁会改变方法体、局部变量索引与调用序列，而模组的 mixin 往往依赖这些细节。</p>
+<p>以 <code>LevelRenderer</code> 为例，NeoForge 的 patch 有 23 个 hunk，向 <code>renderLevel</code> 及各渲染阶段插入了 <code>dispatchRenderStage</code>、<code>isBlockEntityRendererVisible</code>、自定义描边等逻辑。模组常用的 <code>@Inject(at = @At("INVOKE"), target = ...)</code> 多半还能按描述符命中，但 <code>@At("STORE")</code>、<code>@At("TAIL")</code>、<code>@ModifyVariable</code> 的索引与序号、<code>@Redirect</code> 的 <code>ordinal</code>、<code>@Slice</code> 都会随补丁偏移。更直接的失败是调用点数量变化：多一个或少一个目标调用，<code>require = 1</code> 当场报注入错误。</p>
+<p>Stellex 自己就是这条规则的例子。<code>LevelRendererMixin</code> 的 <code>@Redirect</code> 依赖 <code>renderLevel</code> 内恰好两处 <code>BlockEntityRenderDispatcher#render</code> 调用（mcsrc 第 1075、1090 行）。内核若增删方块实体渲染路径，这个重定向就会失效或漂移。</p>
+<h3>3.2 访问转换器（AT）管道</h3>
+<p>NeoForge 的 <code>META-INF/accesstransformer.cfg</code> 共 545 行（含注释与空行），把原本不可见的成员开放给模组。随手可举的例子：<code>LevelRenderer#shouldShowEntityOutlines()</code> 在第 41 行被改为 public，<code>MinecraftServer.nextTickTimeNanos</code> 在第 169 行被改为 protected，<code>ChunkMap#getVisibleChunkIfPresent(J)</code> 在第 172 行、<code>ServerChunkCache.level</code> 在第 173 行被开放。</p>
+<p>模组直接编译到这些开放后的成员上。自建内核若少复刻其中任何一条，依赖它的模组会在运行时抛 <code>NoSuchMethodError</code> 或 <code>IllegalAccessError</code>；若复刻了但作用对象不同，则表现为更隐蔽的行为差异。AT 还决定了 mixin 能访问哪些成员，等于改变了整个可注入面。</p>
+<h3>3.3 Connector 对 NeoForge 内部的依赖</h3>
+<p>Sinytra Connector 不是独立运行时，它长在 NeoForge 之上：把 Fabric 模组的字节码映射到 NeoForge/Minecraft 的官方名，转译 Fabric 的 mixin 配置，补齐 Fabric API，并依赖 FML 的事件时序与 mod 元数据。它对 NeoForge 内部的假设一旦被改写，失效的不是"部分功能"，而是整条转译链。</p>
+<p>具体到 Stellex：governor 只用了 <code>addRegionTicket</code>/<code>removeRegionTicket</code>/<code>getChunkFuture</code> 这类公开 API，没有碰 <code>ChunkMap</code> 内部；客户端两个 mixin 只打 vanilla 方法。这是 Connector 兼容性能够成立的直接原因——Stellex 没有出现在 Connector 需要重映射或绕过的任何一条路径上。反过来，如果 Stellex 改成自建内核，它就必须同时承担 Connector 的映射目标，而这份目标清单会随 Connector 版本变化，维护成本不可控。</p>
+<h3>3.4 运行时映射</h3>
+<p>NeoForge 21.x 的运行时使用 Mojang 官方名，mixin 配置因此可以不带 refmap，模组的 <code>@Inject</code>/<code>@Redirect</code> 直接按描述符匹配运行时类。Stellex 的两个 mixin 都没有 refmap，等于把自己绑在"运行时名等于官方名"这一契约上。自建内核若引入自己的映射层或重命名类，所有不带 refmap 的 mixin 会整体失配，包括 Stellex 自己的两个；若保留官方名，则又与"重写内核"的动机矛盾。</p>
+<h3>3.5 模组元数据与加载器事件时序</h3>
+<p>NeoForge 的 <code>MinecraftServer</code> patch 有 26 个 hunk，里面能看到整套时序契约：<code>EventHooks.fireServerTickPre/Post</code> 包住整个 tick、<code>getWorldArray</code> 为世界列表做并发修改保护、<code>handleServerStarted</code>/<code>handleServerStopping</code> 控制生命周期、<code>ServerStatus</code> 里的 modded 标记、以及 <code>synchronizeTime</code> 对 <code>ClientboundCustomSetTimePayload</code> 的 <code>hasChannel</code> 回落。模组在这些时间点上做事，例如在 <code>ServerTickEvent.Post</code> 里做 IO、在 <code>ServerStartedEvent</code> 里初始化。</p>
+<p>自建内核一旦改动 tick 边界或事件触发位置，依赖时序的模组行为就会漂移，而且极难归因。Stellex 的做法是只订阅、不拦截：<code>StellexCore.java</code> 第 33-47 行注册的五个监听器全是公开事件，没有替换任何加载器行为。</p>
+<p>元数据同理。<code>mods.toml</code> 里 <code>neoforge</code> 依赖 <code>[21.1,21.2)</code> 让所有模组把当前内核当作基座；自建内核若改版本号或 <code>modId</code>，依赖解析会失败，若伪造则 loader 的版本检查与用户升级路径失真。</p>
+<h3>3.6 维护成本与生态分裂</h3>
+<p>764 个 patch、953 个加载器 java 文件、545 行 AT，这些是每次 Minecraft 或 NeoForge 升级都要重放的工作量。Connector 与优化模组会持续跟随 NeoForge 内部实现，自建内核永远落后一个版本。用户面对"要兼容就用官方内核、要 Stellex 就不能用某个模组"的二选一时，实际会放弃自建内核。</p>
+<h2>4. 为什么核心模组形态是唯一解</h2>
+<p>把 Stellex 做成普通 <code>mods/</code> 下的 jar，依赖 <code>neoforge</code>，用 <code>@Mod</code> 构造注入加事件总线，不加通道，客户端 mixin 只登记在 <code>client</code> 数组，不改加载器——这套形态满足三件事：</p>
+<ul>
+<li>需求 1 的双向 join：协议层没有 Stellex 的必装项，加载器层没有语义改动（细节见 <code>COMPATIBILITY.md</code> 第 2、3 节）。</li>
+<li>需求 2 的模组兼容：所有模组、AT、Connector 面对的内核仍然是官方 NeoForge，Stellex 只在其上追加行为。</li>
+<li>需求 3 的"可选安装"：服务端不装 Stellex 时客户端功能照常，客户端不装时服务端功能照常，双端独立生效。</li>
+</ul>
+<p>代价是能力边界清楚：不能修改 Minecraft 内部语义，服务端只能通过公开区块 API 与事件调度，客户端只能改渲染调用点。这恰好覆盖需求需要的范围，而需求没有要求 Stellex 去改变游戏机制。反过来说，如果把 Stellex 的功能做进内核，它就变成"不可选"的，用户无法只装客户端或只装服务端，需求 1 与需求 3 同时被破坏。</p>
+<h2>5. 如果确实要做发行版</h2>
+<p>发行版应该发行"组合"，而不是发行"新内核"。可行的做法：</p>
+<ul>
+<li>基座使用 NeoForge 官方安装器产出的服务端与客户端，<code>mods/</code> 里放 Stellex jar 与用户自选模组，Stellex 通过 <code>neoforge.mods.toml</code> 的依赖声明挂到 21.1.x 上。</li>
+<li>服务端提供启动脚本，把调参放进 JVM 参数而不是改代码：<code>-Dstellex.cpu.enabled=true</code>、<code>-Dstellex.cpu.target=60</code>、<code>-Dstellex.cpu.threads=N</code>、<code>-Dstellex.pregen.radius=16</code>、<code>-Dstellex.tps.guard.ms=45</code>、<code>-Dstellex.cpu.integrated=false</code>，以及可选的 <code>-Dstellex.pregen.anchor=&lt;chunkX,chunkZ&gt;</code>（开服前铺出生点，无人时也工作）。JVM 层面可用 <code>-XX:ActiveProcessorCount</code> 控制可用核数，它会同时影响 <code>GovernorSettings.defaultWorkers()</code> 与 vanilla 线程池规模，属于"通过 JVM 参数限制 CPU"的正确落点。</li>
+<li>客户端提供 <code>config/stellex-client.properties</code> 模板，默认把方块实体剔除距离设得保守（或按整合包类型给出两套预设），并写明与 EntityCulling 的二选一建议。</li>
+<li>分发渠道用 Prism/MultiMC 实例包或 Modrinth/CurseForge 整合包，清单里只列 NeoForge、Stellex 与明确验证过的可选模组；服务端提供压缩包与启动脚本。</li>
+<li>明确禁止项：不替换 NeoForge 内核、不改 NeoForge 版本号、不打包改过的 Minecraft 类、不预置 AT、不覆盖 loader 配置、不在未获许可时内置他人的模组 jar。</li>
+</ul>
+<p>发布前的检查清单：四种安装组合（普通客户端 + Stellex 服务端、Stellex 客户端 + 普通服务端、双端、双端都不装）各做一次进服冒烟；Connector 环境用一个 Fabric 模组做冒烟；与 Sodium、EntityCulling 各做一次客户端进入世界测试；跑一遍 21.1.x 的版本矩阵；崩溃报告模板里带上 Stellex 版本与 governor 状态行，方便定位。</p>
+<p>版本策略上，当前 <code>neoforge.mods.toml</code> 已经把 <code>neoforge</code> 依赖收敛为 <code>[21.1,21.2)</code>，与 <code>minecraft</code> 依赖 <code>[1.21.1,1.21.2)</code> 对齐，这是正确的做法。发布时保持这个范围，不要放宽成 <code>[21.1,)</code>：1.21.2 是渲染与区块 API 发生变化的小版本，放宽会让 loader 允许本模组加载到一个没有验证过的内核上。</p>
+<h2>6. 结论</h2>
+<p>互斥性可以写成一句话：完全兼容要求第三方字节码的目标集合不变，另写内核必然改变这个集合，二者不能同时成立。因此"照搬 NeoForge 源码另写内核"不是一条能保住兼容性的路线，它最多能做出一个与 NeoForge 行为相近的新平台，而平台一旦不同，Connector、AT、mixin、事件时序四层里至少有一层会断。</p>
+<p>Stellex 的现形态（NeoForge 上的核心模组）是唯一同时满足双向 join、模组兼容、可选安装与新增功能的形态。发行版应在此基础上做"组合分发 + JVM 参数 + 配置模板"，而不是替换内核。</p>
+<h2>7. 未验证声明</h2>
+<p>本文引用的是 mcsrc 与 userdev jar 中的源码与 patch 文本，属于离线证据。以下没有验证：Connector 具体版本依赖的内部类清单；Sodium、Iris、Embeddium、ModernFix 等的实际注入点；21.1.251 及以后版本的补丁差异；真实环境下"纯原版客户端连入 NeoForge 服务端"的行为；以及自建内核方案在真实模组集上的失败率（本文只做机制论证，没有做对照实验）。</p>
+        </article>
+        <p class="back-link" data-reveal><a class="text-link" href="/research/">← 返回研究主页</a></p>
+      </div>
+      <aside class="toc-col"></aside>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col footer-about">
+        <div class="footer-brand">Mornfrost Office</div>
+        <p>做 Minecraft 模组、应用工具和网站。作品都在站里，想聊就发邮件。</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-label">站点</div>
+        <a href="/works/">作品</a>
+        <a href="/about/">关于</a>
+        <a href="/services/">服务</a>
+        <a href="/team/">团队</a>
+        <a href="/contact/">联系</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-label">联系</div>
+        <a href="mailto:admin@mfoc-server.top">admin@mfoc-server.top</a>
+        <a href="https://github.com/mornfire" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> Mornfrost Office. All rights reserved.</span>
+      <span class="footer-stats">访问 <span id="busuanzi_value_site_pv">--</span> 次 · 访客 <span id="busuanzi_value_site_uv">--</span> 人</span>
+    </div>
+  </div>
+</footer>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>
