@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>if(location.protocol==="http:"&&!/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)){location.replace("https://"+location.host+location.pathname+location.search+location.hash);}</script>
 <title>研究 · Stellex — Mornfrost Office</title>
-<meta name="description" content="Stellex：基于 NeoForge 21.1.251 源码的加载器分支，内核集成 CPU 调度、内存治理与客户端渲染剔除。论文、实验数据与技术文档。">
+<meta name="description" content="Stellex：独立加载器，基于 NeoForge 21.1.251 源码，内核集成 CPU 调度、内存治理与客户端渲染剔除。论文、实验数据与技术文档。">
 <link rel="canonical" href="https://www.mornfrost.cn/research/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Mornfrost Office">
 <meta property="og:title" content="研究 · Stellex — Mornfrost Office">
-<meta property="og:description" content="Stellex：基于 NeoForge 21.1.251 源码的加载器分支，内核集成 CPU 调度、内存治理与客户端渲染剔除。论文、实验数据与技术文档。">
+<meta property="og:description" content="Stellex：独立加载器，基于 NeoForge 21.1.251 源码，内核集成 CPU 调度、内存治理与客户端渲染剔除。论文、实验数据与技术文档。">
 <meta property="og:url" content="https://www.mornfrost.cn/research/">
 <meta name="theme-color" content="#0f171b">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -56,7 +56,7 @@
   <div class="wrap">
     <p class="eyebrow page-kicker" data-reveal>研究</p>
     <h1 class="page-title" data-reveal>Stellex</h1>
-    <p class="page-lead" data-reveal>以 NeoForge 21.1.251 源码为基座的加载器分支：保留包名与二进制接口，内核加入 CPU 调度、内存泄漏治理与客户端渲染剔除。附带论文、发行物与实测数据。</p>
+    <p class="page-lead" data-reveal>独立加载器：以 NeoForge 21.1.251 源码为基座，保留包名与二进制接口，内核加入 CPU 调度、内存泄漏治理与客户端渲染剔除。附带论文、发行物与实测数据。</p>
   </div>
 </section>
   <section class="section">
@@ -64,7 +64,7 @@
       <div class="research-grid">
         <div class="doc" data-reveal>
           <h2>它做什么</h2>
-          <p>Stellex 以 NeoForge 21.1.251 源码为基座做加载器分支：<code>net.neoforged</code>、<code>net.minecraft</code> 等包名，以及 Mixin 目标、访问转换与事件时序全部保留，只在源码树里新增 <code>net.neoforged.neoforge.stellex</code> 模块。内核因此多出三样东西：按 JVM 参数设定目标占用、随 tick 压力退让的 CPU 调度器；按堆压力分级清理、检测 GC 后持续增长的内存治理子系统；客户端渲染剔除。发行侧提供品牌化安装器、独立下载器与服务端包。</p>
+          <p>Stellex 是独立加载器，以 NeoForge 21.1.251 源码为基座：<code>net.neoforged</code>、<code>net.minecraft</code> 等包名，以及 Mixin 目标、访问转换与事件时序全部保留，只在源码树里新增 <code>net.neoforged.neoforge.stellex</code> 模块。内核因此多出三样东西：按 JVM 参数设定目标占用、随 tick 压力退让的 CPU 调度器；按堆压力分级清理、检测 GC 后持续增长的内存治理子系统；客户端渲染剔除。发行侧提供品牌化安装器、独立下载器与服务端包。</p>
           <h2>论文</h2>
           <p>《Stellex：基于 NeoForge 21.1.251 源码的可控加载器内核与运行时治理》，正文约 1.5 万汉字，包含形态论证、构建与发行流水线、三个内核子系统、兼容性验证与实验数据。</p>
           <p><a href="/research/paper/">阅读论文全文 →</a></p>
@@ -77,10 +77,10 @@
           </ul>
           <h2>发行形态</h2>
           <ul class="list">
-            <li><strong>Stellex Loader</strong>（NeoForge 21.1.x fork，Minecraft 1.21.1 / JDK 21）：图形安装器 <code>stellex-loader-installer.jar</code> + 服务端包 <code>stellex-loader-1.0.0-server.zip</code>，安装器负责下载并解包服务端</li>
+            <li><strong>Stellex Loader</strong>（独立加载器，基于 NeoForge 21.1.251 源码，Minecraft 1.21.1 / JDK 21）：图形安装器 <code>stellex-loader-installer.jar</code> + 服务端包 <code>stellex-loader-1.0.0-server.zip</code>，安装器负责下载并解包服务端</li>
             <li><strong>模组形态</strong>（NeoForge 21.1.x 与 Forge 1.20.1 两个分支）：<code>stellex-neoforge-21.1.251-1.0.0-&lt;构建号&gt;.jar</code>、<code>stellex-forge-47.4.29-1.0.0-&lt;构建号&gt;.jar</code></li>
           </ul>
-          <p>模组形态验证了调度器与客户端剔除；加载器形态在此基础上加入内存治理、内核内集成与免手动配置的安装与服务端分发，同时保留全部包名与二进制接口。</p>
+          <p>早前的模组形态验证了调度器与客户端剔除；独立加载器在此基础上加入内存治理、内核内集成与免手动配置的安装与服务端分发，同时保留全部包名与二进制接口。</p>
         </div>
         <aside class="aside" data-reveal>
           <div class="aside-block">
@@ -121,7 +121,7 @@
   <section class="section">
     <div class="wrap">
       <div class="sec-head" data-reveal><span class="sec-num">文档</span><h2 class="sec-title">技术文档</h2></div>
-      <p class="play-note" style="margin-bottom:18px">以下文档写于模组形态阶段：调度器与客户端剔除的设计细节仍可参考，构建、发行与兼容性结论以论文为准。</p>
+      <p class="play-note" style="margin-bottom:18px">以下文档写于模组形态阶段：调度器与客户端剔除的设计细节仍可参考；其中 fork 分析与旧发行步骤已被现在的独立加载器取代，构建、发行与兼容性以论文为准。</p>
       <div class="items">
 <a class="item" href="/research/docs/architecture/"><span class="item-num">文档</span><h3 class="item-title">架构说明</h3><p class="item-text">Stellex Core 架构说明</p></a><a class="item" href="/research/docs/client/"><span class="item-num">文档</span><h3 class="item-title">客户端渲染优化</h3><p class="item-text">客户端渲染优化说明</p></a><a class="item" href="/research/docs/compatibility/"><span class="item-num">文档</span><h3 class="item-title">兼容性审计</h3><p class="item-text">Stellex 兼容性审计报告</p></a><a class="item" href="/research/docs/fork/"><span class="item-num">文档</span><h3 class="item-title">为什么不是内核 fork</h3><p class="item-text">Stellex 内核形态与兼容性分析</p></a><a class="item" href="/research/docs/mixin/"><span class="item-num">文档</span><h3 class="item-title">Mixin 目标核对</h3><p class="item-text">Stellex Mixin 目标核对报告</p></a><a class="item" href="/research/docs/tuning/"><span class="item-num">文档</span><h3 class="item-title">调度器调优</h3><p class="item-text">服务端 CPU 调度器调优指南</p></a><a class="item" href="/research/docs/versioning/"><span class="item-num">文档</span><h3 class="item-title">版本与构建号</h3><p class="item-text">Stellex 版本与构建号规范</p></a><a class="item" href="/research/docs/distribution/"><span class="item-num">文档</span><h3 class="item-title">发行方式</h3><p class="item-text">组装 Stellex 服务端与客户端</p></a>
       </div>
