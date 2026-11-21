@@ -56,7 +56,7 @@
   <div class="wrap">
     <p class="eyebrow page-kicker" data-reveal>研究</p>
     <h1 class="page-title" data-reveal>Stellex</h1>
-    <p class="page-lead" data-reveal>一个运行在 NeoForge 21.1.x 上的优化模组（不替换加载器）：按可调比例驱动服务端后台计算，并在客户端做两路渲染剔除。附带论文与三组实测数据。</p>
+    <p class="page-lead" data-reveal>基于 NeoForge 21.1.x 的加载器发行版（fork + 安装器 + 服务端包）：内置可调 CPU 调度与客户端渲染剔除。附带论文与三组实测数据。</p>
   </div>
 </section>
   <section class="section">
@@ -64,7 +64,7 @@
       <div class="research-grid">
         <div class="doc" data-reveal>
           <h2>它做什么</h2>
-          <p>Stellex 不替换 NeoForge 内核。它只做两件事：在服务端按配置的 CPU 百分比驱动真实的后台工作（默认是玩家周围的区块异步预生成），以及在客户端剔除明显不该渲染的实体与方块实体。加载器、模组元数据、Access Transformer 管线与 Connector 转译链路全部保持原样。</p>
+          <p>Stellex Loader 以 NeoForge 21.1.x 源码为基线构建：加载器内集成 CPU 调度器（按配置百分比驱动真实后台工作，默认是玩家周围的区块异步预生成）与客户端两路渲染剔除（实体、方块实体），并提供图形安装器与服务端包。核心实现最初以模组形态验证，现已并入加载器。</p>
           <h2>论文</h2>
           <p>《Stellex：NeoForge 21.1.x 生态下的可调 CPU 调度核心与客户端渲染剔除》，正文约 1.5 万汉字，包含形态论证、系统设计、实现细节、兼容性验证与三组实测数据。</p>
           <p><a href="/research/paper/">阅读论文全文 →</a></p>
@@ -74,14 +74,19 @@
             <li>进程 CPU 占用稳定在 34%–62%，并不会无限逼近设定的 80/90 目标——上限由原版区块生成执行器的并行度决定。</li>
             <li>因此论文把"目标百分比"表述为<strong>闭环上限</strong>，而不是硬性承诺。</li>
           </ul>
-          <h2>两个加载器分支</h2>
+          <h2>发行形态</h2>
           <ul class="list">
-            <li>NeoForge 21.1.x（Minecraft 1.21.1 / JDK 21），产物 <code>stellex-neoforge-21.1.251-1.0.0-&lt;构建号&gt;.jar</code></li>
-            <li>Forge 1.20.1（JDK 17 / Forge 47.4.29），产物 <code>stellex-forge-47.4.29-1.0.0-&lt;构建号&gt;.jar</code></li>
+            <li><strong>Stellex Loader</strong>（NeoForge 21.1.x fork，Minecraft 1.21.1 / JDK 21）：图形安装器 <code>stellex-loader-installer.jar</code> + 服务端包 <code>stellex-loader-1.0.0-server.zip</code>，安装器负责下载并解包服务端</li>
+            <li><strong>模组形态</strong>（NeoForge 21.1.x 与 Forge 1.20.1 两个分支）：<code>stellex-neoforge-21.1.251-1.0.0-&lt;构建号&gt;.jar</code>、<code>stellex-forge-47.4.29-1.0.0-&lt;构建号&gt;.jar</code></li>
           </ul>
-          <p>功能目标一致：可调 CPU 调度器、客户端两路渲染剔除、不注册自定义网络通道、客户端 Mixin 只在客户端加载。</p>
+          <p>两种形态共享同一套调度器与剔除实现：可调 CPU 调度器、客户端两路渲染剔除、不注册自定义网络通道、客户端 Mixin 只在客户端加载。加载器形态在此基础上提供了免手动配置的安装与服务端分发。</p>
         </div>
         <aside class="aside" data-reveal>
+          <div class="aside-block">
+            <span class="aside-label">发行物</span>
+            <a href="https://github.com/mornfire/stellex/releases/latest" target="_blank" rel="noopener">加载器安装器 ↗</a>
+            <a href="https://github.com/mornfire/stellex/releases/latest" target="_blank" rel="noopener">服务端包 ↗</a>
+          </div>
           <div class="aside-block">
             <span class="aside-label">论文与数据</span>
             <a href="/research/paper/">论文全文</a>
@@ -95,7 +100,9 @@
             <div class="stat"><span>论文</span><span>1.5 万字</span></div>
             <div class="stat"><span>实验</span><span>3 组</span></div>
             <div class="stat"><span>源码</span><span>11 文件 / 1415 行</span></div>
-            <div class="stat"><span>构建产物</span><span>29,742 字节</span></div>
+            <div class="stat"><span>模组构建产物</span><span>29,742 字节</span></div>
+            <div class="stat"><span>加载器安装器</span><span>10.2 MB</span></div>
+            <div class="stat"><span>服务端包</span><span>159 MB</span></div>
           </div>
         </aside>
       </div>
