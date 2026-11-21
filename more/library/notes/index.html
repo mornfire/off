@@ -60,21 +60,21 @@
   </div>
 </section>
   <section class="section"><div class="wrap"><div class="play-wrap">
-<article class="doc article-body" data-reveal><h2>关于这些笔记</h2>
+<article class="doc article-body" data-reveal><h2 id="关于这些笔记">关于这些笔记</h2>
 <p>模组开发里真正花时间的往往不是写功能，而是搞清楚"为什么它不生效"。这里记的是踩过的坑和验证方法，按主题归档，不保证普适，但至少是实测过的。</p>
-<h3>Mixin 注入</h3>
+<h3 id="mixin-注入">Mixin 注入</h3>
 <ul>
 <li>目标类被别的模组改过时，注入会静默失败。用 <code>MixinConfigPlugin</code> 在注入前校验目标成员是否存在，失败就跳过，别让服务器起不来。</li>
 <li><code>require = 0</code> 是服务端模组的基本礼貌：目标不存在时不要炸。</li>
 <li>注入点尽量选稳定方法。构造函数和 <code>init</code> 阶段最容易受加载顺序影响。</li>
 </ul>
-<h3>数据组件与存档</h3>
+<h3 id="数据组件与存档">数据组件与存档</h3>
 <ul>
 <li>1.21.1 的物品数据走 <code>DataComponent</code>，别再用裸 NBT 字符串。</li>
 <li>组件注册要早于任何物品创建，否则读档时会丢字段。</li>
 <li>存档迁移要写"缺字段补默认值"，不要假设旧档一定有新字段。</li>
 </ul>
-<h3>资源与语言</h3>
+<h3 id="资源与语言">资源与语言</h3>
 <ul>
 <li><code>zh_cn.json</code> 里的键必须和代码里的 translation key 完全一致，大小写敏感。</li>
 <li>语言文件缺失不会崩，只会显示原始 key——这反而是排查的好线索。</li>

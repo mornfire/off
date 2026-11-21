@@ -62,28 +62,28 @@
     <div class="wrap article-with-toc">
       <div class="article-col">
         <article class="doc article-body" data-reveal>
-<h1>服务端 CPU 调度器调优指南</h1>
+<h1 id="服务端-cpu-调度器调优指南">服务端 CPU 调度器调优指南</h1>
 <p>这一篇写给要真正把 Stellex 跑在多人服上的管理员。核心结论先说：目标百分比不是硬限制，而是一个闭环目标，调度器会朝它逼近，但真正决定"能不能用满"的是 tick 保护、区块系统的并行度和你给的半径。</p>
-<h2>目标百分比怎么理解</h2>
+<h2 id="目标百分比怎么理解">目标百分比怎么理解</h2>
 <p><code>-Dstellex.cpu.target=50</code> 表示调度器希望整个 Minecraft 服务端 JVM 进程的 CPU 占用维持在 50% 左右。采样来自 JVM 自身的进程 CPU 统计（<code>getProcessCpuLoad</code>），每 500 毫秒一次，随后按差值调整在途任务上限：低于目标就加，高于目标就减，接近目标就维持。所以它天然是"填谷"而不是"抢峰"：服务器空闲时把空出来的核心用起来，服务器自己忙起来时主动让路。</p>
 <p>给 100 不会真的锁到 100%，原因有三点：一是有 <code>-Dstellex.tps.guard.ms</code> 在主线程上兜底；二是区块生成本身有调度开销，在途任务太多反而互相拖慢；三是其他模组、GC、网络线程的占用你无法替它们让路，只能减少自己的投喂。</p>
-<h2>线程数与在途上限</h2>
+<h2 id="线程数与在途上限">线程数与在途上限</h2>
 <p><code>-Dstellex.cpu.threads</code> 只控制 Stellex 自己的驱动线程数，不是区块生成线程数。区块生成跑在 Minecraft 的异步执行器上，Stellex 的线程绝大部分时间在等待 future 完成，真正吃 CPU 的是区块系统。所以不要把这条参数当成"分配多少核"的开关，它更接近"多少条流水线同时在推"。</p>
 <p><code>-Dstellex.pregen.inflight</code> 才是在途任务上限，调度器会在这个上限和目标百分比之间自动收缩。8 核及以下的机器建议保持默认；16 核以上可以试着把它调到工作线程数的三到四倍，观察 <code>/stellex status</code> 里的 <code>avgChunk</code> 是否变长、<code>tick</code> 是否升高，再决定去留。</p>
-<h2>tick 保护</h2>
+<h2 id="tick-保护">tick 保护</h2>
 <p><code>/stellex status</code> 输出里的 <code>tick=..ms (~..tps)</code> 是最近若干 tick 的滑动平均值。默认 45 毫秒的保护线意味着：一旦平均 tick 逼近 45 毫秒，调度器立刻停止登记新区块，只让已经开始的区块收尾，等 tick 回落到 0.7 倍保护线以下才恢复。这个机制的存在是为了让"榨干 CPU"永远不会变成"把服务器卡死"。</p>
 <p>如果服务器本来就在 40 毫秒上下挣扎，先把保护线调到 35 再开启调度器，或者干脆用 <code>/stellex pause</code> 让它在高峰时段停手。</p>
-<h2>半径与磁盘</h2>
+<h2 id="半径与磁盘">半径与磁盘</h2>
 <p><code>-Dstellex.pregen.radius=32</code> 是以每个玩家为中心的方形半径。半径 32 意味着单个玩家周围最多 65×65 个区块；多个玩家重叠时按距离合并。首次开启会在磁盘上生成大量区块文件，单人服通常几百 MB 量级，大型整合包配合地形模组会更高。半径翻倍，面积是四倍，这一点在规划磁盘时必须算进去。</p>
 <p>已经生成过的区块会记在内存里的已完成集合中，不会重复生成；服务器重启后集合清空，但磁盘上已有的区块在加载时不需要重新生成，所以重复成本主要是读取而不是计算。</p>
-<h2>测量方法</h2>
+<h2 id="测量方法">测量方法</h2>
 <p>开启前记录一次基线，跑满一圈后再对比：</p>
 <ul>
 <li><code>/stellex status</code> 看 <code>generated</code>、<code>avgChunk</code>、<code>tick</code>、<code>cpu</code>。</li>
 <li>用系统级监控（任务管理器、<code>Get-Counter</code>、<code>pidstat</code>）确认进程 CPU 真的落在目标附近。</li>
 <li>玩家实际体验上，重点看跨区块移动时的卡顿是否减少，而不是只看平均帧率或平均 TPS。</li>
 </ul>
-<h2>实测数据与能力上限</h2>
+<h2 id="实测数据与能力上限">实测数据与能力上限</h2>
 <p>在一台 4 核测试机上用固定锚点（避免玩家活动干扰）对空白区域做预生成，得到两组对照数据：</p>
 <ul>
 <li>目标 80%、在途上限 4：CPU 在 34% 到 52% 之间波动，tick 8 到 36 毫秒，40 秒生成 36 个区块。</li>
@@ -91,13 +91,13 @@
 </ul>
 <p>这两组数据说明了调度器的真实边界：提高在途上限能把吞吐翻倍以上，而且 tick 依然很健康；但 CPU 占用并没有继续逼近目标百分比。原因是原版区块生成的并行度由 Minecraft 自己的后台执行器决定，当它被跑满之后，调度器再加多少在途任务也无法让 CPU 更忙，只会让排队时间变长。</p>
 <p>所以"目标百分比"要理解成一个上限而不是承诺值：调度器会朝它加码，直到达成、或者直到工作源本身没有更多可并行的部分。想提高实际占用，优先提高 <code>pregen.inflight</code> 与半径，观察 <code>avgChunk</code> 是否继续下降；当 <code>avgChunk</code> 开始上升而 <code>cpu</code> 不涨时，说明已经撞到工作源的并行上限，再加在途没有意义。这也是"不白占"的另一种体现：调度器不会为了凑数字去制造无用计算。</p>
-<h2>常见误区</h2>
+<h2 id="常见误区">常见误区</h2>
 <p>把 <code>target</code> 设成 100 然后期待服务器"变快"是反的：调度器占用的是空余算力，它不会让已经很忙的服务器更快，只会在空闲时提前把地形生成好。真正想降低玩家卡顿，应该优先调小 <code>pregen.radius</code> 让预生成更贴近玩家活动区域，再视 tick 余量缓慢放大。</p>
 <p>如果服务器没有任何玩家在线，调度器不会工作，这是设计使然：没有人探索，预生成没有收益，空转就是浪费。唯一的例外是显式配置了固定锚点 <code>-Dstellex.pregen.anchor=&lt;chunkX,chunkZ&gt;</code>，此时即使无人在线也会以该区块为中心预生成，适合开服前铺出生点；不配置锚点就不会有任何后台负载。</p>
         </article>
         <p class="back-link" data-reveal><a class="text-link" href="/research/">← 返回研究主页</a></p>
       </div>
-      <aside class="toc-col"></aside>
+      <aside class="toc-col"><nav class="toc" aria-label="目录"><div class="toc-title">目录</div><a class="toc-item lvl2" href="#目标百分比怎么理解">目标百分比怎么理解</a><a class="toc-item lvl2" href="#线程数与在途上限">线程数与在途上限</a><a class="toc-item lvl2" href="#tick-保护">tick 保护</a><a class="toc-item lvl2" href="#半径与磁盘">半径与磁盘</a><a class="toc-item lvl2" href="#测量方法">测量方法</a><a class="toc-item lvl2" href="#实测数据与能力上限">实测数据与能力上限</a><a class="toc-item lvl2" href="#常见误区">常见误区</a></nav></aside>
     </div>
   </section>
 </main>

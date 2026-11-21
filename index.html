@@ -76,8 +76,8 @@
       <div class="research-feature">
         <div class="research-copy" data-reveal>
           <p class="eyebrow">论文 · Stellex</p>
-          <h3>把空闲算力用来生成地形，<br>而不是用来空转。</h3>
-          <p>Stellex Loader 基于 NeoForge 21.1.x 源码构建：fork 后把 CPU 调度器与客户端渲染剔除内置进加载器，并提供图形安装器与服务端包。配套论文约 1.5 万字，附三组实测数据。</p>
+          <h3>不替换加载器，<br>把运行时治理放进内核。</h3>
+          <p>Stellex 以 NeoForge 21.1.251 源码为基座，保留包名与二进制接口，在内核加入 CPU 调度、内存泄漏治理与客户端渲染剔除，并配了安装器与服务端包。论文约 1.5 万字，附构建、启动、运行期与兼容性数据。</p>
           <div class="hero-actions" style="margin-top:26px">
             <a class="btn" href="/research/paper/">读论文</a>
             <a class="btn btn-ghost" href="/research/">研究主页</a>
@@ -85,10 +85,10 @@
         </div>
         <div class="research-stats" data-reveal>
           <div class="stat-line"><span>论文</span><span>1.5 万汉字</span></div>
-          <div class="stat-line"><span>实验</span><span>3 组 · 9 次采样</span></div>
-          <div class="stat-line"><span>加载器</span><span>NeoForge 21.1.x / Forge 1.20.1</span></div>
-          <div class="stat-line"><span>CPU 观测</span><span>34% – 62%</span></div>
-          <div class="stat-line"><span>最坏 tick</span><span>41.6 ms（仍 20 TPS）</span></div>
+          <div class="stat-line"><span>基座</span><span>NeoForge 21.1.251</span></div>
+          <div class="stat-line"><span>内核能力</span><span>调度 / 内存 / 剔除</span></div>
+          <div class="stat-line"><span>首次构建</span><span>8 分 56 秒</span></div>
+          <div class="stat-line"><span>兼容验证</span><span>SQDCLib 3.0.1</span></div>
         </div>
       </div>
     </div>

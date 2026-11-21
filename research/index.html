@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>if(location.protocol==="http:"&&!/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)){location.replace("https://"+location.host+location.pathname+location.search+location.hash);}</script>
 <title>研究 · Stellex — Mornfrost Office</title>
-<meta name="description" content="Stellex：NeoForge 21.1.x 上的可调 CPU 调度核心与客户端渲染剔除。论文、实验数据与技术文档。">
+<meta name="description" content="Stellex：基于 NeoForge 21.1.251 源码的加载器分支，内核集成 CPU 调度、内存治理与客户端渲染剔除。论文、实验数据与技术文档。">
 <link rel="canonical" href="https://www.mornfrost.cn/research/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Mornfrost Office">
 <meta property="og:title" content="研究 · Stellex — Mornfrost Office">
-<meta property="og:description" content="Stellex：NeoForge 21.1.x 上的可调 CPU 调度核心与客户端渲染剔除。论文、实验数据与技术文档。">
+<meta property="og:description" content="Stellex：基于 NeoForge 21.1.251 源码的加载器分支，内核集成 CPU 调度、内存治理与客户端渲染剔除。论文、实验数据与技术文档。">
 <meta property="og:url" content="https://www.mornfrost.cn/research/">
 <meta name="theme-color" content="#0f171b">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -56,7 +56,7 @@
   <div class="wrap">
     <p class="eyebrow page-kicker" data-reveal>研究</p>
     <h1 class="page-title" data-reveal>Stellex</h1>
-    <p class="page-lead" data-reveal>基于 NeoForge 21.1.x 的加载器发行版（fork + 安装器 + 服务端包）：内置可调 CPU 调度与客户端渲染剔除。附带论文与三组实测数据。</p>
+    <p class="page-lead" data-reveal>以 NeoForge 21.1.251 源码为基座的加载器分支：保留包名与二进制接口，内核加入 CPU 调度、内存泄漏治理与客户端渲染剔除。附带论文、发行物与实测数据。</p>
   </div>
 </section>
   <section class="section">
@@ -64,22 +64,23 @@
       <div class="research-grid">
         <div class="doc" data-reveal>
           <h2>它做什么</h2>
-          <p>Stellex Loader 以 NeoForge 21.1.x 源码为基线构建：加载器内集成 CPU 调度器（按配置百分比驱动真实后台工作，默认是玩家周围的区块异步预生成）与客户端两路渲染剔除（实体、方块实体），并提供图形安装器与服务端包。核心实现最初以模组形态验证，现已并入加载器。</p>
+          <p>Stellex 以 NeoForge 21.1.251 源码为基座做加载器分支：<code>net.neoforged</code>、<code>net.minecraft</code> 等包名，以及 Mixin 目标、访问转换与事件时序全部保留，只在源码树里新增 <code>net.neoforged.neoforge.stellex</code> 模块。内核因此多出三样东西：按 JVM 参数设定目标占用、随 tick 压力退让的 CPU 调度器；按堆压力分级清理、检测 GC 后持续增长的内存治理子系统；客户端渲染剔除。发行侧提供品牌化安装器、独立下载器与服务端包。</p>
           <h2>论文</h2>
-          <p>《Stellex：NeoForge 21.1.x 生态下的可调 CPU 调度核心与客户端渲染剔除》，正文约 1.5 万汉字，包含形态论证、系统设计、实现细节、兼容性验证与三组实测数据。</p>
+          <p>《Stellex：基于 NeoForge 21.1.251 源码的可控加载器内核与运行时治理》，正文约 1.5 万汉字，包含形态论证、构建与发行流水线、三个内核子系统、兼容性验证与实验数据。</p>
           <p><a href="/research/paper/">阅读论文全文 →</a></p>
           <h2>实测结论摘要</h2>
           <ul class="list">
-            <li>调度器在几乎不影响 tick 的前提下稳定驱动预生成：观测区间内 tick 中位数低于 8 毫秒，最坏 41.6 毫秒，仍维持 20 TPS。</li>
-            <li>进程 CPU 占用稳定在 34%–62%，并不会无限逼近设定的 80/90 目标——上限由原版区块生成执行器的并行度决定。</li>
-            <li>因此论文把"目标百分比"表述为<strong>闭环上限</strong>，而不是硬性承诺。</li>
+            <li>构建：源码分支 3593 个文件，首次完整构建 8 分 56 秒；后续重建在 2 分 18 秒到 6 分 49 秒之间，差异主要来自增量缓存命中率。</li>
+            <li>启动：同一服务端全新世界 74.575 秒、已有世界 47.575 秒、预热后 27.087 秒；正式版 21.1.251 首次启动 52.697 秒。</li>
+            <li>运行期：空闲时调度器 <code>target=50.0% / inflight=0/4</code>，tick 1.10 毫秒维持 20 TPS；堆内存 326/2018 MB（16.2%），清理 1 次、耗时 39 微秒。</li>
+            <li>兼容：纯官方 NeoForge 21.1.251 客户端可进入 Stellex 服务端；Stellex 客户端能加载真实模组 SQDCLib 3.0.1，也能进入 Stellex 服务端。</li>
           </ul>
           <h2>发行形态</h2>
           <ul class="list">
             <li><strong>Stellex Loader</strong>（NeoForge 21.1.x fork，Minecraft 1.21.1 / JDK 21）：图形安装器 <code>stellex-loader-installer.jar</code> + 服务端包 <code>stellex-loader-1.0.0-server.zip</code>，安装器负责下载并解包服务端</li>
             <li><strong>模组形态</strong>（NeoForge 21.1.x 与 Forge 1.20.1 两个分支）：<code>stellex-neoforge-21.1.251-1.0.0-&lt;构建号&gt;.jar</code>、<code>stellex-forge-47.4.29-1.0.0-&lt;构建号&gt;.jar</code></li>
           </ul>
-          <p>两种形态共享同一套调度器与剔除实现：可调 CPU 调度器、客户端两路渲染剔除、不注册自定义网络通道、客户端 Mixin 只在客户端加载。加载器形态在此基础上提供了免手动配置的安装与服务端分发。</p>
+          <p>模组形态验证了调度器与客户端剔除；加载器形态在此基础上加入内存治理、内核内集成与免手动配置的安装与服务端分发，同时保留全部包名与二进制接口。</p>
         </div>
         <aside class="aside" data-reveal>
           <div class="aside-block">
@@ -92,17 +93,17 @@
             <a href="/research/paper/">论文全文</a>
             <a href="/research/data/">实验数据</a>
             <a href="/research/files/PAPER.docx">下载 PAPER.docx</a>
-            <a href="/research/files/experiment-data.csv">原始采样 CSV</a>
-            <a href="/research/files/experiment-summary.csv">汇总指标 CSV</a>
+            <a href="/research/files/experiment-data.csv">产物明细 CSV</a>
+            <a href="/research/files/experiment-summary.csv">实验汇总 CSV</a>
           </div>
           <div class="aside-block">
             <span class="aside-label">关键数字</span>
             <div class="stat"><span>论文</span><span>1.5 万字</span></div>
-            <div class="stat"><span>实验</span><span>3 组</span></div>
-            <div class="stat"><span>源码</span><span>11 文件 / 1415 行</span></div>
-            <div class="stat"><span>模组构建产物</span><span>29,742 字节</span></div>
-            <div class="stat"><span>加载器安装器</span><span>10.2 MB</span></div>
-            <div class="stat"><span>服务端包</span><span>159 MB</span></div>
+            <div class="stat"><span>源码分支</span><span>3593 文件</span></div>
+            <div class="stat"><span>首次构建</span><span>8 分 56 秒</span></div>
+            <div class="stat"><span>安装器</span><span>10.2 MB</span></div>
+            <div class="stat"><span>服务端包</span><span>159 MB / 102 文件</span></div>
+            <div class="stat"><span>兼容验证</span><span>SQDCLib 3.0.1</span></div>
           </div>
         </aside>
       </div>
@@ -111,15 +112,16 @@
 
   <section class="section">
     <div class="wrap">
-      <div class="sec-head" data-reveal><span class="sec-num">数据</span><h2 class="sec-title">三组调度实验（汇总）</h2></div>
-<div class="table-wrap"><table class="data-table"><thead><tr><th>series</th><th>mean_cpu_pct</th><th>throughput_chunks_per_s</th><th>max_tick_ms</th><th>failures</th><th>observation_window_s</th><th>target_pct</th><th>inflight_cap</th><th>neoforge_version</th></tr></thead><tbody><tr><td>A</td><td>41.97</td><td>0.55</td><td>36.25</td><td>0</td><td>40</td><td>80</td><td>4</td><td>21.1.250</td></tr><tr><td>B</td><td>44.20</td><td>1.07</td><td>1.76</td><td>0</td><td>45</td><td>90</td><td>16</td><td>21.1.250</td></tr><tr><td>C</td><td>57.00</td><td>1.125</td><td>41.60</td><td>0</td><td>40</td><td>90</td><td>4</td><td>21.1.251</td></tr></tbody></table></div>
-      <p class="play-note" style="margin-top:12px">A/B 组运行在 NeoForge 21.1.250，C 组为 21.1.251；三组使用不同锚点，地形复杂度不同，不能直接横向比较吞吐。完整逐次采样见<a href="/research/data/">实验数据页</a>。</p>
+      <div class="sec-head" data-reveal><span class="sec-num">数据</span><h2 class="sec-title">实验数据（汇总）</h2></div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>类别</th><th>指标</th><th>数值</th></tr></thead><tbody><tr><td>构建</td><td>源码分支文件</td><td>3593</td></tr><tr><td>构建</td><td>NeoForm 源码铺陈（缓存命中）</td><td>2 分 55 秒</td></tr><tr><td>构建</td><td>首次完整构建</td><td>8 分 56 秒</td></tr><tr><td>构建</td><td>内核集成后重建</td><td>6 分 49 秒</td></tr><tr><td>构建</td><td>内存治理后重建</td><td>2 分 18 秒</td></tr><tr><td>构建</td><td>版本固定后重建</td><td>4 分 02 秒</td></tr><tr><td>启动</td><td>全新世界首次</td><td>74.575 秒</td></tr><tr><td>启动</td><td>已有世界重启</td><td>47.575 秒</td></tr><tr><td>启动</td><td>预热世界</td><td>27.087 秒</td></tr><tr><td>启动</td><td>正式版 21.1.251 新世界</td><td>52.697 秒</td></tr><tr><td>运行期</td><td>调度器</td><td>RUNNING / target=50.0% / inflight=0/4 / queued=0</td></tr><tr><td>运行期</td><td>tick</td><td>1.10 ms（约 20.0 TPS）</td></tr><tr><td>运行期</td><td>堆内存</td><td>326/2018 MB（16.2%）</td></tr><tr><td>运行期</td><td>GC</td><td>61 次 / 1148 ms</td></tr><tr><td>运行期</td><td>内存清理</td><td>1 次 / 39 µs</td></tr><tr><td>发行</td><td>安装器</td><td>10,246,074 字节</td></tr><tr><td>发行</td><td>服务端包</td><td>159,149,595 字节 / 102 文件</td></tr><tr><td>兼容</td><td>纯 NeoForge 客户端进入 Stellex 服务端</td><td>成功</td></tr><tr><td>兼容</td><td>Stellex 客户端进入 Stellex 服务端</td><td>成功</td></tr><tr><td>兼容</td><td>Stellex 客户端加载 SQDCLib 3.0.1</td><td>成功</td></tr></tbody></table></div>
+      <p class="play-note" style="margin-top:12px">数据来自单机、单次运行，未做重复测量与置信区间估计；构建耗时受增量缓存影响，启动耗时与世界状态相关。完整说明见论文第 7.5 节与第 9 章，产物明细见<a href="/research/data/">实验数据页</a>。</p>
     </div>
   </section>
 
   <section class="section">
     <div class="wrap">
       <div class="sec-head" data-reveal><span class="sec-num">文档</span><h2 class="sec-title">技术文档</h2></div>
+      <p class="play-note" style="margin-bottom:18px">以下文档写于模组形态阶段：调度器与客户端剔除的设计细节仍可参考，构建、发行与兼容性结论以论文为准。</p>
       <div class="items">
 <a class="item" href="/research/docs/architecture/"><span class="item-num">文档</span><h3 class="item-title">架构说明</h3><p class="item-text">Stellex Core 架构说明</p></a><a class="item" href="/research/docs/client/"><span class="item-num">文档</span><h3 class="item-title">客户端渲染优化</h3><p class="item-text">客户端渲染优化说明</p></a><a class="item" href="/research/docs/compatibility/"><span class="item-num">文档</span><h3 class="item-title">兼容性审计</h3><p class="item-text">Stellex 兼容性审计报告</p></a><a class="item" href="/research/docs/fork/"><span class="item-num">文档</span><h3 class="item-title">为什么不是内核 fork</h3><p class="item-text">Stellex 内核形态与兼容性分析</p></a><a class="item" href="/research/docs/mixin/"><span class="item-num">文档</span><h3 class="item-title">Mixin 目标核对</h3><p class="item-text">Stellex Mixin 目标核对报告</p></a><a class="item" href="/research/docs/tuning/"><span class="item-num">文档</span><h3 class="item-title">调度器调优</h3><p class="item-text">服务端 CPU 调度器调优指南</p></a><a class="item" href="/research/docs/versioning/"><span class="item-num">文档</span><h3 class="item-title">版本与构建号</h3><p class="item-text">Stellex 版本与构建号规范</p></a><a class="item" href="/research/docs/distribution/"><span class="item-num">文档</span><h3 class="item-title">发行方式</h3><p class="item-text">组装 Stellex 服务端与客户端</p></a>
       </div>

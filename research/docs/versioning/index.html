@@ -62,8 +62,8 @@
     <div class="wrap article-with-toc">
       <div class="article-col">
         <article class="doc article-body" data-reveal>
-<h1>Stellex 版本与构建号规范</h1>
-<h2>版本格式</h2>
+<h1 id="stellex-版本与构建号规范">Stellex 版本与构建号规范</h1>
+<h2 id="版本格式">版本格式</h2>
 <p>所有加载器的构建产物统一使用五段式命名：</p>
 <pre><code>stellex-&lt;加载器&gt;-&lt;加载器版本&gt;-&lt;Stellex版本&gt;-&lt;构建号&gt;
 </code></pre>
@@ -73,7 +73,7 @@
 <li><code>stellex-forge-47.4.29-1.0.0-966l.jar</code></li>
 </ul>
 <p>其中加载器一栏写作 <code>neoforge</code> 或 <code>forge</code>，加载器版本取实际加载器版本号（NeoForge 为 21.1.251，Forge 1.20.1 系列为 47.4.29），Stellex 版本为人工维护的语义化版本（当前 1.0.0），构建号由构建时的本地设备时间自动计算。</p>
-<h2>构建号算法</h2>
+<h2 id="构建号算法">构建号算法</h2>
 <p>构建号由两部分拼接而成：数字部分与小时字母。</p>
 <p>数字部分取四个输入：年份后两位 <code>YY</code>、月份 <code>MM</code>、日期 <code>DD</code>、星期几 <code>DOW</code>（周一为 1，周日为 7）。计算方式为：</p>
 <pre><code>core = floor((YY + MM + DD) * 100 / DOW)
@@ -85,7 +85,7 @@
 </code></pre>
 <p>把数字部分与小时字母直接拼接即得到构建号，例如 2026 年 11 月 21 日 10 点构建为 <code>966l</code>。</p>
 <p>构建号在 Gradle 配置阶段按本地设备时间计算，因此同一个日期内不同小时构建会得到不同字母，同一小时内重复构建会得到相同构建号。若需要可审计的构建记录，应在发布流程中记录完整的产物文件名与校验和。</p>
-<h2>命名落地位置</h2>
+<h2 id="命名落地位置">命名落地位置</h2>
 <ul>
 <li>Gradle 的 <code>version</code> 属性被设置为完整五段式字符串，<code>base.archivesName</code> 继承该属性，因此 <code>build/libs/</code> 下的产物文件名就是完整版本名。</li>
 <li>模组元数据中的 <code>version</code> 字段保持 <code>1.0.0</code> 这样的语义化版本，不写入加载器与构建号，避免加载器版本解析器把构建号当作语义版本的一部分。</li>
@@ -94,7 +94,7 @@
         </article>
         <p class="back-link" data-reveal><a class="text-link" href="/research/">← 返回研究主页</a></p>
       </div>
-      <aside class="toc-col"></aside>
+      <aside class="toc-col"><nav class="toc" aria-label="目录"><div class="toc-title">目录</div><a class="toc-item lvl2" href="#版本格式">版本格式</a><a class="toc-item lvl2" href="#构建号算法">构建号算法</a><a class="toc-item lvl2" href="#命名落地位置">命名落地位置</a></nav></aside>
     </div>
   </section>
 </main>

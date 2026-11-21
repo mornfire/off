@@ -62,9 +62,9 @@
     <div class="wrap article-with-toc">
       <div class="article-col">
         <article class="doc article-body" data-reveal>
-<h1>客户端渲染优化说明</h1>
+<h1 id="客户端渲染优化说明">客户端渲染优化说明</h1>
 <p>Stellex 客户端的优化全部是可开关、可测量的两路剔除。它们不修改区块渲染管线，不替换 Sodium/Iris，也不改变任何模型的绘制结果，只在"这个对象反正看不见"时提前返回。默认值经过保守选择：宁可少剔一点，也不要出现"远处的箱子突然消失"这种事。</p>
-<h2>配置文件</h2>
+<h2 id="配置文件">配置文件</h2>
 <p>路径是 <code>config/stellex-client.properties</code>。文件第一次加载时如果不存在，会自动写出带英文注释的默认值。所有键都带 <code>stellex.client.</code> 前缀：</p>
 <ul>
 <li><code>stellex.client.enabled=true</code>：总开关。设成 <code>false</code> 后两路剔除都停止，计数也不再增加。</li>
@@ -73,7 +73,7 @@
 <li><code>stellex.client.stats_log_interval_ticks=1200</code>：统计日志间隔（客户端 tick）。1200 tick 约等于 1 分钟。负数或 0 会被修正为 1。</li>
 </ul>
 <p>配置文件在第一个客户端 tick 时加载一次。改动后需要重启客户端才会生效，没有热重载。</p>
-<h2>行为边界</h2>
+<h2 id="行为边界">行为边界</h2>
 <p>以下边界是按当前代码实现写的，不是推测：</p>
 <ul>
 <li>跨维度时 <code>Minecraft.level</code> 会切换，但剔除距离只与当前相机位置有关，因此不需要特殊处理。</li>
@@ -82,12 +82,12 @@
 <li>方块实体剔除对 <code>globalBlockEntities</code> 同样生效，也就是说某些模组注册为"全局渲染"的方块实体也在剔除范围内。如果某个模组的全局方块实体必须远处可见，把 <code>block_entity_cull_distance</code> 设成 <code>0</code>。</li>
 <li>被剔除的对象不会触发它们的渲染器，所以也不会触发渲染器内部的副作用（例如某些模组在渲染时更新缓存）。这是性能收益的来源，也是某些模组表现异常时需要优先排查的点。</li>
 </ul>
-<h2>统计日志</h2>
+<h2 id="统计日志">统计日志</h2>
 <p>客户端日志里每隔配置的 tick 数会出现一行：</p>
 <pre><code class="language-text">Client render culling: 1234 entities and 56 block entities culled in the last 1200 ticks (98765 and 4321 total)
 </code></pre>
 <p>括号外是窗口值，括号内是累计值。如果两个窗口值都长期为 0，说明当前场景下剔除没有命中，收益为零，可以关掉以免浪费一次距离计算。</p>
-<h2>A/B 实测方法</h2>
+<h2 id="ab-实测方法">A/B 实测方法</h2>
 <p>想确认帧率变化是否真的来自 Stellex，请按下面顺序做一次对照，不要凭感觉：</p>
 <ol>
 <li>固定场景：站在同一个位置，面向同一方向，保持实体与方块实体数量稳定（例如在基地中央、周围有大量箱子与生物）。</li>
@@ -97,7 +97,7 @@
 <li>对比三组数据的平均帧时间与 1% low，同时查看日志里两类剔除各自的窗口计数。计数为 0 的那一路不会带来收益。</li>
 </ol>
 <p>需要注意，帧率还会受粒子、阴影、区块加载、GC 影响，单次测量波动可能达到 10% 以上，建议每组至少测两次取中位数。</p>
-<h2>与其它优化模组的关系</h2>
+<h2 id="与其它优化模组的关系">与其它优化模组的关系</h2>
 <ul>
 <li>Sodium/Iris/Embeddium 会重写大量的区块与实体渲染路径。Stellex 的注入点是 <code>EntityRenderer#shouldRender</code> 与 <code>LevelRenderer#renderLevel</code> 内部的 <code>BlockEntityRenderDispatcher#render</code> 调用点，理论上与这些模组共存，但 Sodium 一系对 <code>renderLevel</code> 有整体改写时，<code>@Redirect</code> 可能找不到目标而报错。出现这种情况请先把本文档的 A/B 步骤走一遍确认是 Stellex 导致的，再考虑暂时关闭。</li>
 <li>EntityCulling 做的是遮挡剔除与更激进的视锥剔除，与 Stellex 的距离剔除职责有重叠。两者同时开启理论上不冲突，但如果 EntityCulling 也重定向了 <code>BlockEntityRenderDispatcher#render</code>，两个 <code>@Redirect</code> 会争用同一个调用点，表现为其中一方静默失效。这种组合属于需要实测的高风险项，建议先只开一方做对照。</li>
@@ -107,7 +107,7 @@
         </article>
         <p class="back-link" data-reveal><a class="text-link" href="/research/">← 返回研究主页</a></p>
       </div>
-      <aside class="toc-col"></aside>
+      <aside class="toc-col"><nav class="toc" aria-label="目录"><div class="toc-title">目录</div><a class="toc-item lvl2" href="#配置文件">配置文件</a><a class="toc-item lvl2" href="#行为边界">行为边界</a><a class="toc-item lvl2" href="#统计日志">统计日志</a><a class="toc-item lvl2" href="#ab-实测方法">A/B 实测方法</a><a class="toc-item lvl2" href="#与其它优化模组的关系">与其它优化模组的关系</a></nav></aside>
     </div>
   </section>
 </main>

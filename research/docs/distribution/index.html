@@ -62,9 +62,9 @@
     <div class="wrap article-with-toc">
       <div class="article-col">
         <article class="doc article-body" data-reveal>
-<h1>组装 Stellex 服务端与客户端</h1>
+<h1 id="组装-stellex-服务端与客户端">组装 Stellex 服务端与客户端</h1>
 <p>Stellex 不是一个替换 NeoForge 的加载器，所以"Stellex 服务端"就是"装了 Stellex 的 NeoForge 服务端"，"Stellex 客户端"就是"装了 Stellex 的 NeoForge 客户端"。下面给出把两者组装出来的具体步骤，避免在"发行版"上走错方向。</p>
-<h2>服务端</h2>
+<h2 id="服务端">服务端</h2>
 <ol>
 <li>在任意一张干净目录里安装 NeoForge 21.1.x 服务端（官方 installer 的 <code>--installServer</code> 流程），得到 <code>libraries/</code>、<code>user_jvm_args.txt</code> 与启动脚本。</li>
 <li>把 <code>build/libs/stellex-1.0.0.jar</code> 复制到该目录的 <code>mods/</code> 下。</li>
@@ -78,24 +78,24 @@
 <ol start="4">
 <li>首次启动会创建世界；<code>/stellex status</code> 能看到调度器状态即组装成功。</li>
 </ol>
-<h2>客户端</h2>
+<h2 id="客户端">客户端</h2>
 <ol>
 <li>用官方 NeoForge 21.1.x installer 安装客户端 profile。</li>
 <li>把同一个 <code>stellex-1.0.0.jar</code> 放进该实例的 <code>mods/</code>。</li>
 <li>客户端渲染优化的开关在 <code>config/stellex-client.properties</code>，默认值见 <code>docs/CLIENT.md</code>。</li>
 </ol>
-<h2>验证双向兼容</h2>
+<h2 id="验证双向兼容">验证双向兼容</h2>
 <ul>
 <li>普通 NeoForge 客户端连接 Stellex 服务端：客户端不需要装 Stellex，能正常进入即通过。</li>
 <li>Stellex 客户端连接普通 NeoForge 服务端：服务端不需要装 Stellex，能正常进入即通过。</li>
 <li>两端都装：功能完整，<code>/stellex status</code> 可用。</li>
 </ul>
-<h2>关于"新内核"的说明</h2>
+<h2 id="关于新内核的说明">关于"新内核"的说明</h2>
 <p>如果目标是"照搬 NeoForge 源码、改名成 Stellex 内核"，那么受影响的不是启动画面，而是每个模组依赖的类名、包名、Mixin 目标、Access Transformer 与 Connector 的映射假设。这类改动会让"完全兼容 NeoForge 模组"和"完全兼容 Connector 转译的 Fabric 模组"同时失效。本目录给出的组装方式绕开了这个问题：内核仍是 NeoForge，Stellex 以核心模组形态提供新增能力。详细论证见 <code>docs/FORK_ANALYSIS.md</code>。</p>
         </article>
         <p class="back-link" data-reveal><a class="text-link" href="/research/">← 返回研究主页</a></p>
       </div>
-      <aside class="toc-col"></aside>
+      <aside class="toc-col"><nav class="toc" aria-label="目录"><div class="toc-title">目录</div><a class="toc-item lvl2" href="#服务端">服务端</a><a class="toc-item lvl2" href="#客户端">客户端</a><a class="toc-item lvl2" href="#验证双向兼容">验证双向兼容</a><a class="toc-item lvl2" href="#关于新内核的说明">关于"新内核"的说明</a></nav></aside>
     </div>
   </section>
 </main>

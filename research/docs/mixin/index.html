@@ -62,15 +62,15 @@
     <div class="wrap article-with-toc">
       <div class="article-col">
         <article class="doc article-body" data-reveal>
-<h1>Stellex Mixin 目标核对报告</h1>
+<h1 id="stellex-mixin-目标核对报告">Stellex Mixin 目标核对报告</h1>
 <p>审计日期：2026-11-21
 审计对象：<code>com.mornfire.stellex.mixin.client</code> 下的两个客户端 mixin 与 <code>src/main/resources/stellex.mixins.json</code>
 参考源：<code>work/mcsrc</code>（NeoForge 21.1.248 patched Minecraft 源码）；项目依赖 NeoForge 21.1.250
 作者：Mornfrost Office</p>
-<h2>1. 审计基线与方法</h2>
+<h2 id="1-审计基线与方法">1. 审计基线与方法</h2>
 <p>本报告的核对方式是源码级：在 mcsrc 中定位目标类与目标方法，记录方法声明的行号、参数类型、返回类型，再按 Java 泛型擦除规则写出描述符，与 mixin 注解里写的 <code>method</code>/<code>target</code> 逐字符比对；随后检查 NeoForge 的 <code>patches/</code> 里是否改过这些方法，作为稳定性判断依据。没有做 <code>javap</code> 反汇编，也没有启动游戏，这两项列在"待复核"里。</p>
 <p>版本可比性有一条硬证据：Gradle 缓存中的 <code>neoforge-21.1.248-userdev.jar</code> 与 <code>neoforge-21.1.250-userdev.jar</code> 的 764 个 patch 文件逐字节相同。因此 mcsrc 的行号与签名可以直接用于 21.1.250。</p>
-<h2>2. 现状</h2>
+<h2 id="2-现状">2. 现状</h2>
 <p>当前仓库有且只有两个 mixin 类，都在 <code>src/main/java/com/mornfire/stellex/mixin/client/</code>：</p>
 <ul>
 <li><code>EntityRendererMixin.java</code>，<code>@Mixin(EntityRenderer.class)</code>，一个 <code>@Inject</code>。</li>
@@ -78,7 +78,7 @@
 </ul>
 <p><code>stellex.mixins.json</code> 的内容为：<code>required: true</code>、<code>package: com.mornfire.stellex.mixin</code>、<code>compatibilityLevel: JAVA_21</code>、<code>minVersion: 0.8</code>、<code>mixins: []</code>、<code>client: ["client.EntityRendererMixin", "client.LevelRendererMixin"]</code>、<code>injectors.defaultRequire: 0</code>。<code>neoforge.mods.toml</code> 第 26-27 行声明了 <code>[[mixins]] config = "stellex.mixins.json"</code>。</p>
 <p>两个 mixin 的类名只出现在 mixins.json 与各自的 package 声明里，主代码没有任何 import 或实例化。这一项检查通过。</p>
-<h2>3. 目标一：EntityRenderer#shouldRender</h2>
+<h2 id="3-目标一entityrenderershouldrender">3. 目标一：EntityRenderer#shouldRender</h2>
 <p>目标类与方法：<code>net.minecraft.client.renderer.entity.EntityRenderer#shouldRender</code>。mcsrc 证据：<code>net/minecraft/client/renderer/entity/EntityRenderer.java</code> 第 52 行，</p>
 <pre><code>public boolean shouldRender(T p_114491_, Frustum p_114492_, double p_114493_, double p_114494_, double p_114495_)
 </code></pre>
@@ -89,7 +89,7 @@
 <p>稳定性判断：<code>EntityRenderer.java</code> 确实在 NeoForge 的 patch 列表里，但补丁只改了两处，分别是 <code>render</code> 方法末尾的名牌事件（patch 中 <code>@@ -94</code> 附近）和 <code>renderNameTag</code> 的距离判断（<code>@@ -181</code> 附近），没有触及第 52 行的 <code>shouldRender</code>。同时 <code>neoforge.mods.toml</code> 的依赖下限是 <code>[21.1,21.2)</code>，且 21.1.248 与 21.1.250 的 patch 全等。结论：这是原版（vanilla）方法，在 21.1.x 内属于稳定签名。</p>
 <p>行为边界：vanilla 里覆盖 <code>shouldRender(T, Frustum, double, double, double)</code> 的渲染器有三个（<code>EndCrystalRenderer</code> 第 108 行、<code>GuardianRenderer</code> 第 36 行、<code>ShulkerRenderer</code> 第 39 行）；<code>ElytraLayer</code> 与 <code>BeaconRenderer</code> 里的同名方法参数不同，不构成覆盖。前三个都显式调用 <code>super.shouldRender(...)</code>，所以 HEAD 注入会参与判定：<code>setReturnValue(false)</code> 会让 super 返回 false，但子类仍可能通过 <code>|| getBeamTarget() != null</code> 之类的逻辑返回 true，行为是"可能少剔除，不会多剔除"。modded 渲染器若覆盖 <code>shouldRender</code> 且不调用 super，则完全绕过 Stellex 的剔除，属于安全的降级。</p>
 <p>另一处语义差异需要记录：HEAD 注入发生在 <code>entity.shouldRender(x, y, z)</code> 与视锥判断之前（mcsrc 同文件第 53 行是 <code>entity.shouldRender</code>），被剔除的实体同时跳过了这两步。对原版实体这不是问题，但若某个模组实体在 <code>Entity#shouldRender</code> 里做了副作用（例如按距离调整状态），会被跳过。当前 handler 只对超过 <code>entity_cull_distance</code>（默认 128）的实体动手，影响面有界。同样的距离判定也作用于末影龙、凋灵一类大型 BOSS 实体，它们没有 <code>noCulling</code> 标记，超过阈值时会整只消失；需要在远处看到 BOSS 的场景应调大阈值或关闭这一路。</p>
-<h2>4. 目标二：LevelRenderer#renderLevel 的 BlockEntityRenderDispatcher#render 重定向</h2>
+<h2 id="4-目标二levelrendererrenderlevel-的-blockentityrenderdispatcherrender-重定向">4. 目标二：LevelRenderer#renderLevel 的 BlockEntityRenderDispatcher#render 重定向</h2>
 <p>目标类与方法：<code>net.minecraft.client.renderer.LevelRenderer#renderLevel</code>。mcsrc 证据：<code>net/minecraft/client/renderer/LevelRenderer.java</code> 第 914-916 行，</p>
 <pre><code>public void renderLevel(DeltaTracker p_348530_, boolean p_109603_, Camera p_109604_, GameRenderer p_109605_,
         LightTexture p_109606_, Matrix4f p_254120_, Matrix4f p_323920_)
@@ -104,7 +104,7 @@
 <p>调用点核对：<code>renderLevel</code> 内共有两处 <code>this.blockEntityRenderDispatcher.render(...)</code>，分别在 mcsrc 第 1075 行与第 1090 行，对应"可见 section 遍历"和"global block entities 遍历"两个循环。两处调用之前各有一行 NeoForge 守卫 <code>ClientHooks.isBlockEntityRendererVisible(...)</code>（第 1052、1083 行），重定向位于守卫之后，这一点与 client-perf-dev 的自述一致。<code>@Redirect</code> 没有写 <code>ordinal</code> 也没有切片，作用于该方法的全部匹配调用点，正好覆盖这两处。</p>
 <p>稳定性判断：<code>LevelRenderer</code> 是 NeoForge 注入最密集的类之一，patch 有 23 个 hunk，其中 <code>@@ -1051,6 +_,9 @@</code> 与 <code>@@ -1060,9 +_,13 @@</code> 正是给这两个循环插入 <code>isBlockEntityRendererVisible</code> 守卫的位置。关键点在于：补丁只在这些调用之前插入了 <code>continue</code> 守卫，<code>INVOKE BlockEntityRenderDispatcher.render</code> 指令本身仍是原版调用，没有被包裹或替换，因此 <code>@Redirect</code> 的目标在 21.1.248 与 21.1.250 上都能命中。这个方法在 21.1.x 内属于"补丁内但调用点稳定"，升级时需要重新核对（见第 7 节）。</p>
 <p>行为边界：判定依据是方块实体的 <code>getBlockPos()</code> 中心到相机的距离（<code>LevelRendererMixin.java</code> 第 84-91 行），不是渲染包围盒。对渲染范围远大于方块本体的对象（信标光束、部分模组机器、Create 系的大范围动画）存在误剔除可能。vanilla 的 <code>BeaconRenderer</code> 光柱从方块本体向上延伸很远，玩家站在 96 格外看光柱时会被整段剔除，这是可复现的视觉差异，建议实测后决定是否豁免。</p>
-<h2>5. 配置与侧隔离核对</h2>
+<h2 id="5-配置与侧隔离核对">5. 配置与侧隔离核对</h2>
 <p><code>stellex.mixins.json</code> 的侧隔离是本次审计的重点项，结论通过：</p>
 <ul>
 <li><code>mixins</code> 数组为空，专用服务端不会应用任何 mixin。</li>
@@ -113,7 +113,7 @@
 <li>mixin 配置没有 <code>refmap</code> 字段。NeoForge 21.x 运行时使用 Mojang 官方名，config 中的字面名可直接匹配；这一点在本地没有生产环境实测，标注为待复核。</li>
 </ul>
 <p><code>required: true</code> 加 <code>injectors.defaultRequire: 0</code> 的组合是本项目采用的决定：任何一个注入点匹配失败时，Mixin 只记录警告并跳过该注入，客户端不会因此崩溃。代价是该路剔除静默失效，因此统计日志与警告都要一起看。这个决定的具体权衡见 <code>COMPATIBILITY.md</code> 第 10 节。</p>
-<h2>6. 审计发现</h2>
+<h2 id="6-审计发现">6. 审计发现</h2>
 <ul>
 <li>目标不匹配：没有发现。两个 mixin 的类、方法、描述符在源码级全部对上，泛型擦除也与 handler 参数一致。</li>
 <li>通道残留：没有发现。<code>src</code> 全文没有自定义 payload、channel 或 packet 注册，唯一与 network 相关的引用是 <code>net.minecraft.network.chat.Component</code>。</li>
@@ -122,7 +122,7 @@
 <li>服务端侧的同类问题（供交叉参考）：<code>CpuGovernor</code> 的"目标 CPU 百分比"只调节预生成并发，不是主线程限速，也不保证在无工作时维持目标占用；对外表述需要收紧，细节在 <code>COMPATIBILITY.md</code> 第 5 节。</li>
 <li>统计日志默认每 1200 tick（约一分钟）输出一行 INFO，长期挂机或接入日志聚合时，日志文件会持续增长；建议默认关掉或把间隔调大。</li>
 </ul>
-<h2>7. 待复核清单与证据要求</h2>
+<h2 id="7-待复核清单与证据要求">7. 待复核清单与证据要求</h2>
 <p>下面每一项都需要在真实的 NeoForge 21.1.250 开发环境补一次证据，任一项不通过都要回到实现层修正。</p>
 <ul>
 <li>字节码级描述符：对生产 jar 里的 <code>net/minecraft/client/renderer/entity/EntityRenderer.class</code>、<code>net/minecraft/client/renderer/LevelRenderer.class</code>、<code>net/minecraft/client/renderer/blockentity/BlockEntityRenderDispatcher.class</code> 执行 <code>javap -p -s</code>，确认 <code>shouldRender</code>、<code>renderLevel</code>、<code>render</code> 的描述符与本文一致。验收标准：描述符字符串逐字符相同。</li>
@@ -133,12 +133,12 @@
 <li>视觉回归：信标光柱、末地水晶光束、Create 系大范围渲染对象在 96 格外的可见性；确认误剔除范围后决定是否改为渲染包围盒判定。</li>
 <li>升级回归：每次升级 NeoForge 后重跑第 1 节的 patch 对比与第 7 节的 <code>javap</code> 检查。</li>
 </ul>
-<h2>8. 未验证声明</h2>
+<h2 id="8-未验证声明">8. 未验证声明</h2>
 <p>本文的"目标存在、描述符匹配、补丁未改动"都是源码级结论，依据是 mcsrc 与 userdev jar 中的 patch 文本。以下没有验证：生产运行时的字节码匹配；<code>refmap</code> 缺省在 NeoForge 21.1 生产环境的行为；两个 mixin 与 Sodium、Iris、Embeddium、EntityCulling、ModernFix 等模组的实际共存；21.1.251 及以后版本的补丁差异。</p>
         </article>
         <p class="back-link" data-reveal><a class="text-link" href="/research/">← 返回研究主页</a></p>
       </div>
-      <aside class="toc-col"></aside>
+      <aside class="toc-col"><nav class="toc" aria-label="目录"><div class="toc-title">目录</div><a class="toc-item lvl2" href="#1-审计基线与方法">1. 审计基线与方法</a><a class="toc-item lvl2" href="#2-现状">2. 现状</a><a class="toc-item lvl2" href="#3-目标一entityrenderershouldrender">3. 目标一：EntityRenderer#shouldRender</a><a class="toc-item lvl2" href="#4-目标二levelrendererrenderlevel-的-blockentityrenderdispatcherrender-重定向">4. 目标二：LevelRenderer#renderLevel 的 BlockEntityRenderDispatcher#render 重定向</a><a class="toc-item lvl2" href="#5-配置与侧隔离核对">5. 配置与侧隔离核对</a><a class="toc-item lvl2" href="#6-审计发现">6. 审计发现</a><a class="toc-item lvl2" href="#7-待复核清单与证据要求">7. 待复核清单与证据要求</a><a class="toc-item lvl2" href="#8-未验证声明">8. 未验证声明</a></nav></aside>
     </div>
   </section>
 </main>
